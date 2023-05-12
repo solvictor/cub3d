@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	set_to_zero(t_vars *vars, t_map *map)
+static void	init_map(t_vars *vars, t_map *map)
 {
 	map->path_north = NULL;
 	map->path_south = NULL;
@@ -19,8 +19,21 @@ static void	set_to_zero(t_vars *vars, t_map *map)
 	map->start_coords[1] = -1;
 	map->start_direction = '\0';
 	map->map = NULL;
-	vars->file_content = NULL;
 	vars->map = map;
+}
+
+static void	init_display(t_vars *vars, t_display *display)
+{
+	display->mlx = NULL;
+	display->win = NULL;
+	display->img = NULL;
+	display->addr = NULL;
+	display->heigth = -1;
+	display->width = -1;
+	display->bpp = -1;
+	display->size_line = -1;
+	display->endian = -1;
+	vars->display = display;
 }
 
 /*
@@ -29,13 +42,18 @@ static void	set_to_zero(t_vars *vars, t_map *map)
 
 int	main(int ac, char **av)
 {
-	t_vars	vars;
-	t_map	map;
+	t_vars		vars;
+	t_map		map;
+	t_display	display;
 
 	if (ac != 2)
 		return (error_str("Usage: ./cub3d path/to/map.cub"), EXIT_FAILURE);
-	set_to_zero(&vars, &map);
+	vars.file_content = NULL;
+	init_map(&vars, &map);
+	init_display(&vars, &display);
 	if (parsing(av[1], &vars, &map) == false)
+		return (clean_memory(&vars), EXIT_FAILURE);
+	if (start_display(&display, &vars) == false)
 		return (clean_memory(&vars), EXIT_FAILURE);
 	clean_memory(&vars);
 	return (EXIT_SUCCESS);

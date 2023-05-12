@@ -12,6 +12,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include "../minilibx-linux/mlx.h"
 
 # define RESET "\033[0m"
 # define BOLD "\033[1m"
@@ -26,6 +27,13 @@
 # define FREE "0NSEW"
 # define COLLIDE "1"
 # define MAP_CHARS "0NSEW1"
+
+# define ON_KEYDOWN 2
+# define ON_MOUSEDOWN 4
+# define ON_DESTROY 17
+# define NO_MASK 0L
+# define KEYPRESS_MASK 1L
+# define BUTTONPRESS_MASK 4L
 
 /*
 	The map contains the '\n' at the end of the lines
@@ -48,10 +56,24 @@ typedef struct s_map
 	char			**map;
 }					t_map;
 
+typedef struct s_display
+{
+	void			*mlx;
+	void			*win;
+	void			*img;
+	void			*addr;
+	int				heigth;
+	int				width;
+	int				bpp;
+	int				size_line;
+	int				endian;
+}					t_display;
+
 typedef struct s_vars
 {
 	char			**file_content;
 	t_map			*map;
+	t_display		*display;
 }					t_vars;
 
 /******************************************************************************/
@@ -72,6 +94,14 @@ bool	create_map(t_vars *vars, t_map *map);
 /******************************************************************************/
 void	error_str(char *str);
 void	clean_memory(t_vars *vars);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                  Display                                   */
+/*                                                                            */
+/******************************************************************************/
+bool	start_display(t_display *display, t_vars *vars);
+int		on_destroy(t_vars *vars);
 
 /******************************************************************************/
 /*                                                                            */

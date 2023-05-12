@@ -13,6 +13,10 @@ SRCS 			=	$(addsuffix .c,				\
 						errors					\
 						clean_memory			\
 					)							\
+					$(addprefix srcs/display/,	\
+						display					\
+						destroy					\
+					)							\
 					$(addprefix srcs/tests/,	\
 						file_info				\
 					)							\
@@ -24,6 +28,9 @@ HEADER			= ${PATH_INCLUDES}
 LIBFTDIR		= libft
 LIBFTLIB		= -lft
 CC				= cc
+MLXDIR			= minilibx-linux
+MLXLIB			= -lmlx
+XLIBS			= -lX11 -lXext
 FLAGS			= -Wall -Wextra -Werror
 OBJS			= ${SRCS:.c=.o}
 RM				= rm -rf
@@ -41,14 +48,17 @@ CYAN			= \033[1;36m
 all: ${NAME}
 	@echo "${LGREEN}Successfully created${NC}${CYAN} ${NAME}${NC}${LGREEN}!${NC}"
 
-${NAME}: ${OBJS} ${LIBFTDIR}/libft.a
-	@${CC} ${FLAGS} ${OBJS} -I${HEADER} -L${LIBFTDIR} ${LIBFTLIB} -o $@ -g3
+${NAME}: ${OBJS} ${LIBFTDIR}/libft.a ${MLXDIR}/libmlx.a
+	@${CC} ${FLAGS} ${OBJS} -I${HEADER} ${XLIBS} -L${MLXDIR} ${MLXLIB} -L${LIBFTDIR} ${LIBFTLIB} -lm -o $@ -g3
 
 sanitize: ${OBJS} ${LIBFTDIR}/libft.a
-	@${CC} ${FLAGS} ${OBJS} -I${HEADER} -L${LIBFTDIR} ${LIBFTLIB} -o cub3d -g3 -fsanitize=address
+	@${CC} ${FLAGS} ${OBJS} -I${HEADER} ${XLIBS} -L${MLXDIR} ${MLXLIB} -L${LIBFTDIR} ${LIBFTLIB} -lm -o cub3d -g3 -fsanitize=address
 
 ${LIBFTDIR}/libft.a:
 	@make -C ${LIBFTDIR}
+
+${MLXDIR}/libmlx.a:
+	@make -C ${MLXDIR}
 
 bonus: ${BONUSOBJS} ${LIBFTDIR}/libft.a
 	@${CC} ${FLAGS} ${BONUSOBJS} ${HEADER} -L${LIBFTDIR} ${LIBFTLIB} -o cub3d -g3
@@ -92,13 +102,25 @@ libft_fclean:
 libft_re:
 	@make -C ${LIBFTDIR} re
 
+#----------------------------MLX
+
+mlx_re:
+	@make -C ${MLXDIR} re
+
+mlx_clean:
+	@make -C ${MLXDIR} clean
+
+mlx_all:
+	@make -C ${MLXDIR} all
+
+
 #----------------------------ALL
 
-all_clean: clean libft_clean bonus_clean
+all_clean: clean libft_clean bonus_clean mlx_clean
 
-all_fclean: fclean libft_fclean bonus_fclean
+all_fclean: fclean libft_fclean bonus_fclean mlx_clean
 
-all_re: libft_re re
+all_re: libft_re mlx_re re
 	@echo "${CYAN}Re-ed ${NAME}${NC}"
 
 

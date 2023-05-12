@@ -13,7 +13,7 @@ static bool	is_too_short(const char **content, t_map *map)
 			++heigth;
 		++i;
 	}
-	return (heigth >= 3);
+	return (heigth <= 3);
 }
 
 static bool	is_line_empty(const char *line)
