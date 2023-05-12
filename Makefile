@@ -13,6 +13,9 @@ SRCS 			=	$(addsuffix .c,				\
 						errors					\
 						clean_memory			\
 					)							\
+					$(addprefix srcs/tests/,	\
+						file_info				\
+					)							\
 						srcs/cub3d				\
 					)
 BONUSOBJS		= ${BONUS:.c=.o}
@@ -50,7 +53,12 @@ ${LIBFTDIR}/libft.a:
 bonus: ${BONUSOBJS} ${LIBFTDIR}/libft.a
 	@${CC} ${FLAGS} ${BONUSOBJS} ${HEADER} -L${LIBFTDIR} ${LIBFTLIB} -o cub3d -g3
 
-#----------------------------PUSH_SWAP
+norm:
+	norminette srcs
+	norminette includes
+	norminette libft
+
+#----------------------------CUB3D
 
 clean:
 	@echo "${CYAN}Cleaned ${NAME}${NC}"

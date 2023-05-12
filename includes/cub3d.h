@@ -25,6 +25,7 @@
 # define CSET_END_LINES " 1\n"
 # define FREE "0NSEW"
 # define COLLIDE "1"
+# define MAP_CHARS "0NSEW1"
 
 /*
 	The map contains the '\n' at the end of the lines
@@ -71,5 +72,15 @@ bool	create_map(t_vars *vars, t_map *map);
 /******************************************************************************/
 void	error_str(char *str);
 void	clean_memory(t_vars *vars);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                   Tests                                    */
+/*                                                                            */
+/******************************************************************************/
+void	show_file(t_vars *vars);
+void	show_texture_info(t_map *map);
+void	show_map_info(t_map *map);
+void	show_map(t_map *map);
 
 #endif

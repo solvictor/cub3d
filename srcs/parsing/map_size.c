@@ -1,5 +1,21 @@
 #include "cub3d.h"
 
+static bool	is_too_short(const char **content, t_map *map)
+{
+	int	i;
+	int	heigth;
+
+	i = map->first_line;
+	heigth = 0;
+	while (content[i])
+	{
+		if (ft_cset_in_str(MAP_CHARS, (char *)content[i]))
+			++heigth;
+		++i;
+	}
+	return (heigth >= 3);
+}
+
 static bool	is_line_empty(const char *line)
 {
 	int	i;
@@ -41,8 +57,7 @@ static bool	bad_line(char *line, int line_nb, t_map *map)
 	}
 	if (i > map->length)
 		map->length = i;
-	if (i > 1)
-		map->heigth++;
+	++map->heigth;
 	return (false);
 }
 
@@ -85,8 +100,9 @@ bool	map_size(t_vars *vars, t_map *map)
 		}
 		++i;
 	}
-
-	if (map->heigth < 3 && map->length < 3)
+	if (is_too_short(content, map) || map->length < 3)
 		return (error_str("Map too small"), false);
+	if (map->start_direction == '\0')
+		return (error_str("No start position"), false);
 	return (true);
 }

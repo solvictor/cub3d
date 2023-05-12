@@ -8,7 +8,7 @@ bool	create_map(t_vars *vars, t_map *map)
 	const char	**content = (const char **)vars->file_content + map->first_line;
 
 	i = 0;
-	map->map = ft_calloc(map->heigth + 1, sizeof (char *));
+	map->map = ft_calloc(map->heigth + 2, sizeof (char *));
 	if (!map->map)
 		return (perror("malloc"), false);
 	while (content[i])

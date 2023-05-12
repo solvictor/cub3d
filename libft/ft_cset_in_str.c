@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 17:24:27 by tgernez           #+#    #+#             */
-/*   Updated: 2023/01/02 17:27:46 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/05/12 10:11:31 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ char	ft_cset_in_str(char *charset, char *str)
 		}
 		i++;
 	}
-	return ('\0');
+	return (0);
 }
