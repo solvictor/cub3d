@@ -9,10 +9,12 @@ static bool	is_too_short(const char **content, t_map *map)
 	heigth = 0;
 	while (content[i])
 	{
+		ft_printf("Content[i] %s /Content[i]\n", content[i]);
 		if (ft_cset_in_str(MAP_CHARS, (char *)content[i]))
 			++heigth;
 		++i;
 	}
+	map->heigth = heigth;
 	return (heigth <= 3);
 }
 
@@ -31,7 +33,7 @@ static bool	is_line_empty(const char *line)
 }
 
 /*
-	-1 to get rid of the \n for map->length
+	-1 to get rid of the \n for map->width
 */
 static bool	bad_line(char *line, int line_nb, t_map *map)
 {
@@ -55,8 +57,8 @@ static bool	bad_line(char *line, int line_nb, t_map *map)
 		}
 		++i;
 	}
-	if (i > map->length)
-		map->length = i;
+	if (i > map->width)
+		map->width = i;
 	++map->heigth;
 	return (false);
 }
@@ -100,7 +102,7 @@ bool	map_size(t_vars *vars, t_map *map)
 		}
 		++i;
 	}
-	if (is_too_short(content, map) || map->length < 3)
+	if (is_too_short(content, map) || map->width < 3)
 		return (error_str("Map too small"), false);
 	if (map->start_direction == '\0')
 		return (error_str("No start position"), false);

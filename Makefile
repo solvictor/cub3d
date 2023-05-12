@@ -16,9 +16,14 @@ SRCS 			=	$(addsuffix .c,				\
 					$(addprefix srcs/display/,	\
 						display					\
 						destroy					\
+						listeners				\
+					)							\
+					$(addprefix srcs/utils/,	\
+						comparaisons			\
 					)							\
 					$(addprefix srcs/tests/,	\
 						file_info				\
+						2d_map					\
 					)							\
 						srcs/cub3d				\
 					)

@@ -14,7 +14,7 @@ static void	init_map(t_vars *vars, t_map *map)
 	map->floor_color[2] = 0;
 	map->param_number = 0;
 	map->heigth = 0;
-	map->length = 0;
+	map->width = 0;
 	map->start_coords[0] = -1;
 	map->start_coords[1] = -1;
 	map->start_direction = '\0';

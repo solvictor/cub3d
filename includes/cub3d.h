@@ -23,7 +23,6 @@
 
 # define SPACES " \f\n\r\t\v"
 # define PLAYER "NSEW"
-# define CSET_END_LINES " 1\n"
 # define FREE "0NSEW"
 # define COLLIDE "1"
 # define MAP_CHARS "0NSEW1"
@@ -49,7 +48,7 @@ typedef struct s_map
 	int				param_number;
 	int				param_lines[6];
 	int				heigth;
-	int				length;
+	int				width;
 	int				first_line;
 	int				start_coords[2];
 	char			start_direction;
@@ -102,6 +101,15 @@ void	clean_memory(t_vars *vars);
 /******************************************************************************/
 bool	start_display(t_display *display, t_vars *vars);
 int		on_destroy(t_vars *vars);
+int		on_keydown(int keycode, t_vars *vars);
+void	mlx_spp(t_display *display, int x, int y, int color);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                   Utils                                    */
+/*                                                                            */
+/******************************************************************************/
+int		biggest(int a, int b);
 
 /******************************************************************************/
 /*                                                                            */
@@ -112,5 +120,6 @@ void	show_file(t_vars *vars);
 void	show_texture_info(t_map *map);
 void	show_map_info(t_map *map);
 void	show_map(t_map *map);
+void	draw_2d(t_display *display, t_map *map);
 
 #endif

@@ -15,7 +15,7 @@ bool	create_map(t_vars *vars, t_map *map)
 	{
 		j = 0;
 		len_line = ft_strlen(content[i]);
-		map->map[i] = ft_calloc(map->length + 2, sizeof (char));
+		map->map[i] = ft_calloc(map->width + 2, sizeof (char));
 		if (!map->map[i])
 			return (ft_free_strs(map->map), perror("malloc"), false);
 		while (content[i][j])
