@@ -80,8 +80,8 @@ static bool	is_line_a_texture(int line_nb, t_map *map)
 
 bool	map_size(t_vars *vars, t_map *map)
 {
-	int			i;
 	const char	**content = (const char **)vars->file_content;
+	int			i;
 	bool		found_first;
 
 	i = 0;
