@@ -7,7 +7,6 @@ static bool	clean_map(t_map *map)
 	char	**cleaned_map;
 
 	i = 0;
-	show_map(map);
 	while (map->map[i])
 		++i;
 	while (!ft_cset_in_str(MAP_CHARS, map->map[i]))

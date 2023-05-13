@@ -49,7 +49,7 @@ bool	start_display(t_display *display, t_vars *vars)
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
 	mlx_hook(display->win, ON_KEYDOWN, KEYPRESS_MASK, on_keydown, vars);
 	clear_image(display);
-	draw_2d(display, vars->map);
+	draw_2d(display, vars->map, vars->player);
 	mlx_loop(display->mlx);
 	return (true);
 }

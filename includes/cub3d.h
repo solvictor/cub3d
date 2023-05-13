@@ -37,6 +37,12 @@
 /*
 	The map contains the '\n' at the end of the lines
 */
+typedef struct s_player
+{
+	int				x;
+	int				y;
+}					t_player;
+
 typedef struct s_map
 {
 	unsigned char	ceiling_color[3];
@@ -73,6 +79,7 @@ typedef struct s_vars
 	char			**file_content;
 	t_map			*map;
 	t_display		*display;
+	t_player		*player;
 }					t_vars;
 
 /******************************************************************************/
@@ -122,6 +129,10 @@ void	show_file(t_vars *vars);
 void	show_texture_info(t_map *map);
 void	show_map_info(t_map *map);
 void	show_map(t_map *map);
-void	draw_2d(t_display *display, t_map *map);
+void	draw_2d(t_display *display, t_map *map, t_player *player);
+void	basic_up(t_vars *vars);
+void	basic_down(t_vars *vars);
+void	basic_left(t_vars *vars);
+void	basic_right(t_vars *vars);
 
 #endif

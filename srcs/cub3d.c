@@ -36,6 +36,13 @@ static void	init_display(t_vars *vars, t_display *display)
 	vars->display = display;
 }
 
+static void	init_player(t_vars *vars, t_player *player)
+{
+	player->x = -1;
+	player->y = -1;
+	vars->player = player;
+}
+
 /*
 	Check if no start direction for player
 */
@@ -45,12 +52,14 @@ int	main(int ac, char **av)
 	t_vars		vars;
 	t_map		map;
 	t_display	display;
+	t_player	player;
 
 	if (ac != 2)
 		return (error_str("Usage: ./cub3d path/to/map.cub"), EXIT_FAILURE);
 	vars.file_content = NULL;
 	init_map(&vars, &map);
 	init_display(&vars, &display);
+	init_player(&vars, &player);
 	if (parsing(av[1], &vars, &map) == false)
 		return (clean_memory(&vars), EXIT_FAILURE);
 	if (start_display(&display, &vars) == false)

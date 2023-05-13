@@ -24,6 +24,7 @@ SRCS 			=	$(addsuffix .c,				\
 					$(addprefix srcs/tests/,	\
 						file_info				\
 						2d_map					\
+						2d_movements			\
 					)							\
 						srcs/cub3d				\
 					)
