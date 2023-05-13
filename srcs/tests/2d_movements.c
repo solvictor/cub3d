@@ -15,6 +15,7 @@ void	move_player(t_display *display, t_player *player)
 
 void	basic_up(t_vars *vars)
 {
+	// ft_printf("UP Vars->player->y %d /vars->player->y\n", vars->player->y);
 	if (vars->player->y <= 1)
 		return ;
 	mlx_spp(vars->display, vars->player->x, vars->player->y, 0xFF00FF);
@@ -32,6 +33,7 @@ void	basic_up(t_vars *vars)
 
 void	basic_down(t_vars *vars)
 {
+	// ft_printf("DOWN Vars->player->y %d /vars->player->y\n", vars->player->y);
 	if (vars->player->y >= vars->display->heigth - 2)
 		return ;
 	mlx_spp(vars->display, vars->player->x, vars->player->y, 0xFF00FF);
@@ -48,6 +50,7 @@ void	basic_down(t_vars *vars)
 
 void	basic_left(t_vars *vars)
 {
+	// ft_printf("LEFT Vars->player->x %d /vars->player->x\n", vars->player->x);
 	if (vars->player->x <= 1)
 		return ;
 	mlx_spp(vars->display, vars->player->x, vars->player->y, 0xFF00FF);
@@ -64,7 +67,8 @@ void	basic_left(t_vars *vars)
 
 void	basic_right(t_vars *vars)
 {
-	if (vars->player->x >= vars->display->width - 2)
+	// ft_printf("RIGHT Vars->player->x %d /vars->player->x\n", vars->player->x);
+	if (vars->player->x <= vars->display->width - 2)
 		return ;
 	mlx_spp(vars->display, vars->player->x, vars->player->y, 0xFF00FF);
 	mlx_spp(vars->display, vars->player->x - 1, vars->player->y, 0xFF00FF);

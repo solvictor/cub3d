@@ -11,21 +11,21 @@ static bool	clean_map(t_map *map)
 		++i;
 	while (!ft_cset_in_str(MAP_CHARS, map->map[i]))
 		--i;
-	last_line = i;
+	last_line = i - (map->map[i] == NULL);
 	cleaned_map = ft_calloc(i + 2, sizeof(char *));
 	if (!cleaned_map)
 		return (false);
 	cleaned_map[i] = NULL;
-	i = 0;
-	while (i < last_line + 1)
+	i = -1;
+	while (++i < last_line + 1)
 	{
 		cleaned_map[i] = ft_strdup(map->map[i]);
 		if (!cleaned_map[i])
 			return (ft_free_strs(cleaned_map), false);
-		++i;
 	}
 	ft_free_strs(map->map);
 	map->map = cleaned_map;
+	map->heigth = last_line + 1;
 	return (true);
 }
 
