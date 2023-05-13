@@ -16,9 +16,9 @@ bool	file_opener(char *file_name, t_vars *vars)
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		return (perror("open"), false);
-	lines = 0;
+	lines = 1;
 	while (read(fd, buff, 1))
-		lines += buff[0] == '\n';
+		lines += (buff[0] == '\n' || buff[0] == '\0');
 	close(fd);
 	content = malloc(sizeof (char *) * (lines + 1));
 	if (!content)
@@ -37,7 +37,7 @@ bool	file_opener(char *file_name, t_vars *vars)
 bool	parsing(char *file_name, t_vars *vars, t_map *map)
 {
 	if (ft_strncmp(".cub", file_name + ft_strlen(file_name) - 4, 4) != 0)
-		return (error_str("Wrong file extension"), false);
+		return (error_str("Wrong file format"), false);
 	if (file_opener(file_name, vars) == false)
 		return (false);
 	show_file(vars);

@@ -30,7 +30,7 @@ bool	line_correct(const char **map_content, int i, t_map *map)
 	const size_t	len = ft_strlen(line);
 	int				j;
 
-	if (i == 0 || i == map->heigth)
+	if (i == 0 || i == map->heigth - 1)
 		if (ft_cset_in_str(FREE, (char *)line))
 			return (error_str("Map not closed"), false);
 	j = 0;

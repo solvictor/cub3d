@@ -9,13 +9,11 @@ static bool	is_too_short(const char **content, t_map *map)
 	heigth = 0;
 	while (content[i])
 	{
-		ft_printf("Content[i] %s /Content[i]\n", content[i]);
-		if (ft_cset_in_str(MAP_CHARS, (char *)content[i]))
-			++heigth;
+		++heigth;
 		++i;
 	}
 	map->heigth = heigth;
-	return (heigth <= 3);
+	return (heigth < 3);
 }
 
 static bool	is_line_empty(const char *line)
@@ -33,7 +31,7 @@ static bool	is_line_empty(const char *line)
 }
 
 /*
-	-1 to get rid of the \n for map->width
+	Coordinates start at 0:0, map size starts at 1:1
 */
 static bool	bad_line(char *line, int line_nb, t_map *map)
 {
@@ -50,8 +48,8 @@ static bool	bad_line(char *line, int line_nb, t_map *map)
 			{
 				if (map->start_coords[0] != -1)
 					return (error_str("Too many players in map"), true);
-				map->start_coords[0] = line_nb;
-				map->start_coords[1] = i;
+				map->start_coords[0] = i;
+				map->start_coords[1] = line_nb - map->first_line;
 				map->start_direction = line[i];
 			}
 		}
@@ -87,7 +85,7 @@ bool	map_size(t_vars *vars, t_map *map)
 	bool		found_first;
 
 	i = 0;
-	found_first = false;
+	found_first = false; //Might be replaced by checkingif map->first_line == -1
 	while (content[i])
 	{
 		if (!is_line_a_texture(i, map))

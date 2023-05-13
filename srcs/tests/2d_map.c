@@ -2,8 +2,8 @@
 
 void	draw_2d(t_display *display, t_map *map)
 {
-	const int	square_length = display->width
-		/ biggest(map->heigth, map->width);
+	const int	square_length = display->heigth
+		/ smallest(map->heigth, map->width);
 	int			i;
 	int			j;
 	int			x;
@@ -11,19 +11,26 @@ void	draw_2d(t_display *display, t_map *map)
 
 	i = 0;
 	y = 0;
-	while (i < display->heigth - 10)
+	ft_printf("Display Heigth %d\n", display->heigth);
+	ft_printf("Display Width %d\n", display->width);
+	ft_printf("Line %s /Line\n", map->map[map->heigth - 1]);
+	ft_printf("Square Length %d /Square Length\n", square_length);
+	ft_printf("Last char is \\%c/\n", map->map[map->heigth - 1][map->width - 1]);
+	while (i < display->heigth)
 	{
 		j = 0;
 		x = 0;
-		while (j < display->width - 10)
+		while (j < display->width)
 		{
-			if (map->map[x][y] && map->map[x][y] != '0')
+			if (!map->map[y][x])
+				break ;
+			if (ft_c_in_str(map->map[y][x], FREE))
 				mlx_spp(display, j, i, 0xFF00FF);
-			if (j > x * square_length && x < map->width)
+			if (j > x * square_length && x < map->width - 1)
 				++x;
 			++j;
 		}
-		if (i > y * square_length && y < map->heigth)
+		if (i > y * square_length && y < map->heigth - 1)
 			++y;
 		++i;
 	}

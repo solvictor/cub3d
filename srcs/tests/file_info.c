@@ -14,13 +14,13 @@ void	show_file(t_vars *vars)
 
 void	show_texture_info(t_map *map)
 {
-	ft_printf("After NO %s\n", map->path_north);
-	ft_printf("After SO %s\n", map->path_south);
-	ft_printf("After EA %s\n", map->path_east);
-	ft_printf("After WE %s\n", map->path_west);
-	ft_printf("After Floor %d %d %d\n", map->floor_color[0],
+	ft_printf("Texture NO %s\n", map->path_north);
+	ft_printf("Texture SO %s\n", map->path_south);
+	ft_printf("Texture EA %s\n", map->path_east);
+	ft_printf("Texture WE %s\n", map->path_west);
+	ft_printf("Texture Floor %d %d %d\n", map->floor_color[0],
 		map->floor_color[1], map->floor_color[2]);
-	ft_printf("After Ceiling %d %d %d\n", map->ceiling_color[0],
+	ft_printf("Texture Ceiling %d %d %d\n", map->ceiling_color[0],
 		map->ceiling_color[1], map->ceiling_color[2]);
 }
 
