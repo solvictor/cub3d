@@ -4,6 +4,8 @@ static bool	init(t_display *display)
 {
 	display->mlx = mlx_init();
 	mlx_get_screen_size(display->mlx, &display->width, &display->heigth);
+	// display->width = 1200;
+	// display->heigth = 200;
 	display->win = mlx_new_window(display->mlx, display->width,
 			display->heigth, "Cub3d ouais ouais ouaaaaais");
 	display->img = mlx_new_image(display->mlx, display->width, display->heigth);

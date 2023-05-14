@@ -27,7 +27,7 @@ void	basic_up(t_vars *vars)
 	move_player(vars->display, vars->player);
 
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
-		vars->display->img, 0, 0);
+		vars->display->img, -2, -2);
 	return ;
 }
 
@@ -44,7 +44,7 @@ void	basic_down(t_vars *vars)
 	vars->player->y += 1;
 	move_player(vars->display, vars->player);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
-		vars->display->img, 0, 0);
+		vars->display->img, -2, -2);
 	return ;
 }
 
@@ -61,15 +61,15 @@ void	basic_left(t_vars *vars)
 	vars->player->x -= 1;
 	move_player(vars->display, vars->player);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
-		vars->display->img, 0, 0);
+		vars->display->img, -2, -2);
 	return ;
 }
 
 void	basic_right(t_vars *vars)
 {
-	// ft_printf("RIGHT Vars->player->x %d /vars->player->x\n", vars->player->x);
-	if (vars->player->x <= vars->display->width - 2)
-		return ;
+	ft_printf("RIGHT Vars->player->x %d /vars->player->x\n", vars->player->x);
+	// if (vars->player->x >= vars->display->width - 2)
+	// 	return ;
 	mlx_spp(vars->display, vars->player->x, vars->player->y, 0xFF00FF);
 	mlx_spp(vars->display, vars->player->x - 1, vars->player->y, 0xFF00FF);
 	mlx_spp(vars->display, vars->player->x + 1, vars->player->y, 0xFF00FF);
@@ -78,6 +78,6 @@ void	basic_right(t_vars *vars)
 	vars->player->x += 1;
 	move_player(vars->display, vars->player);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
-		vars->display->img, 0, 0);
+		vars->display->img, -2, -2);
 	return ;
 }
