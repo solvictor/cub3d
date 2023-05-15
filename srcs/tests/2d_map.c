@@ -49,4 +49,3 @@ void	draw_2d(t_display *display, t_map *map, t_player *player)
 	mlx_put_image_to_window(display->mlx, display->win, display->img, -2, -2);
 }
 
-
