@@ -4,8 +4,6 @@ static bool	init(t_display *display)
 {
 	display->mlx = mlx_init();
 	mlx_get_screen_size(display->mlx, &display->width, &display->height);
-	// display->width = 1200;
-	// display->height = 200;
 	display->win = mlx_new_window(display->mlx, display->width,
 			display->height, "Cub3d ouais ouais ouaaaaais");
 	display->img = mlx_new_image(display->mlx, display->width, display->height);
@@ -46,7 +44,7 @@ void	clear_image(t_display *display)
 int	put_image(t_vars *vars)
 {
 	// if (vars->display->refresh == true)
-	draw_2d(vars->display, vars->map, vars->player);
+	draw_2d(vars->display, vars->map);
 	move_player(vars->display, vars->player);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
 		vars->display->img, 0, 0);

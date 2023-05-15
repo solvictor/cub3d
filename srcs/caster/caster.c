@@ -6,6 +6,6 @@
 
 bool	caster(t_vars *vars)
 {
-
+	(void)vars;
 	return (true);
 }

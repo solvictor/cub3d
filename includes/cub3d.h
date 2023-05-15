@@ -34,6 +34,7 @@
 # define NO_MASK 0L
 # define KEYPRESS_MASK 1L
 # define BUTTONPRESS_MASK 4L
+# define CURSOR_RADIUS 10
 
 /*
 	The map contains the '\n' at the end of the lines
@@ -143,7 +144,7 @@ void	show_file(t_vars *vars);
 void	show_texture_info(t_map *map);
 void	show_map_info(t_map *map);
 void	show_map(t_map *map);
-void	draw_2d(t_display *display, t_map *map, t_player *player);
+void	draw_2d(t_display *display, t_map *map);
 void	basic_up(t_vars *vars);
 void	basic_down(t_vars *vars);
 void	basic_left(t_vars *vars);
