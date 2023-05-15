@@ -15,7 +15,7 @@ int	on_destroy(t_vars *vars)
 */
 int	on_keypress(int keycode, t_vars *vars)
 {
-	if (keycode == 65307)
+	if (keycode == XK_Escape)
 		return (clean_memory(vars), exit(EXIT_SUCCESS), 1);
 	return (0);
 }

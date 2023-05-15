@@ -13,7 +13,7 @@ static void	init_map(t_vars *vars, t_map *map)
 	map->floor_color[1] = 0;
 	map->floor_color[2] = 0;
 	map->param_number = 0;
-	map->heigth = 0;
+	map->height = 0;
 	map->width = 0;
 	map->start_coords[0] = -1;
 	map->start_coords[1] = -1;
@@ -28,11 +28,12 @@ static void	init_display(t_vars *vars, t_display *display)
 	display->win = NULL;
 	display->img = NULL;
 	display->addr = NULL;
-	display->heigth = -1;
+	display->height = -1;
 	display->width = -1;
 	display->bpp = -1;
 	display->size_line = -1;
 	display->endian = -1;
+	display->refresh = false;
 	vars->display = display;
 }
 
@@ -40,6 +41,7 @@ static void	init_player(t_vars *vars, t_player *player)
 {
 	player->x = -1;
 	player->y = -1;
+	player->speed = 5;
 	vars->player = player;
 }
 

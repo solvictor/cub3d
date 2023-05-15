@@ -13,6 +13,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 
 # define RESET "\033[0m"
 # define BOLD "\033[1m"
@@ -37,10 +38,19 @@
 /*
 	The map contains the '\n' at the end of the lines
 */
+enum e_directions
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
 typedef struct s_player
 {
 	int				x;
 	int				y;
+	int				speed;
 }					t_player;
 
 typedef struct s_map
@@ -53,7 +63,7 @@ typedef struct s_map
 	char			*path_west;
 	int				param_number;
 	int				param_lines[6];
-	int				heigth;
+	int				height;
 	int				width;
 	int				first_line;
 	int				start_coords[2];
@@ -67,11 +77,13 @@ typedef struct s_display
 	void			*win;
 	void			*img;
 	void			*addr;
-	int				heigth;
+	int				height;
 	int				width;
 	int				bpp;
 	int				size_line;
 	int				endian;
+	int				square_length;
+	bool			refresh;
 }					t_display;
 
 typedef struct s_vars
@@ -92,6 +104,8 @@ bool	get_textures_info(t_vars *vars, t_map *map);
 bool	map_size(t_vars *vars, t_map *map);
 bool	map_correct(t_map *map);
 bool	create_map(t_vars *vars, t_map *map);
+void	format_map(t_map *map);
+
 
 /******************************************************************************/
 /*                                                                            */
@@ -134,5 +148,9 @@ void	basic_up(t_vars *vars);
 void	basic_down(t_vars *vars);
 void	basic_left(t_vars *vars);
 void	basic_right(t_vars *vars);
+void	init_2d(t_display *display, t_map *map, t_player *player);
+bool	colliding(int direction,
+			t_map *map, t_player *player, t_display *display);
+void	move_player(t_display *display, t_player *player);
 
 #endif

@@ -3,7 +3,7 @@
 static bool	char_mid_map_valid(const char **map_content, unsigned int i,
 	unsigned int j, t_map *map)
 {
-	if (i == 0 || (int)i == map->heigth - 1)
+	if (i == 0 || (int)i == map->height - 1)
 		return (true);
 	if (ft_strlen(map_content[i - 1]) > j)
 		if (map_content[i - 1][j] == '\0'
@@ -30,7 +30,7 @@ bool	line_correct(const char **map_content, int i, t_map *map)
 	const size_t	len = ft_strlen(line);
 	int				j;
 
-	if (i == 0 || i == map->heigth - 1)
+	if (i == 0 || i == map->height - 1)
 		if (ft_cset_in_str(FREE, (char *)line))
 			return (error_str("Map not closed"), false);
 	j = 0;

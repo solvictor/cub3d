@@ -25,7 +25,7 @@ static bool	clean_map(t_map *map)
 	}
 	ft_free_strs(map->map);
 	map->map = cleaned_map;
-	map->heigth = last_line + 1;
+	map->height = last_line + 1;
 	return (true);
 }
 
@@ -37,7 +37,7 @@ bool	create_map(t_vars *vars, t_map *map)
 	const char	**content = (const char **)vars->file_content + map->first_line;
 
 	i = 0;
-	map->map = ft_calloc(map->heigth + 2, sizeof (char *));
+	map->map = ft_calloc(map->height + 2, sizeof (char *));
 	if (!map->map)
 		return (perror("malloc"), false);
 	while (content[i])

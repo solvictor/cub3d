@@ -26,7 +26,7 @@ void	show_texture_info(t_map *map)
 
 void	show_map_info(t_map *map)
 {
-	ft_printf("Map heigth %d\n", map->heigth);
+	ft_printf("Map height %d\n", map->height);
 	ft_printf("Map width %d\n", map->width);
 	ft_printf("Start x %d\nStart y %d\n", map->start_coords[0],
 		map->start_coords[1]);

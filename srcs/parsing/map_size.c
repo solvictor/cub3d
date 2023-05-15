@@ -3,17 +3,17 @@
 static bool	is_too_short(const char **content, t_map *map)
 {
 	int	i;
-	int	heigth;
+	int	height;
 
 	i = map->first_line;
-	heigth = 0;
+	height = 0;
 	while (content[i])
 	{
-		++heigth;
+		++height;
 		++i;
 	}
-	map->heigth = heigth;
-	return (heigth < 3);
+	map->height = height;
+	return (height < 3);
 }
 
 static bool	is_line_empty(const char *line)
@@ -57,7 +57,7 @@ static bool	bad_line(char *line, int line_nb, t_map *map)
 	}
 	if (i > map->width)
 		map->width = i;
-	++map->heigth;
+	++map->height;
 	return (false);
 }
 

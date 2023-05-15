@@ -8,6 +8,7 @@ SRCS 			=	$(addsuffix .c,				\
 						map_size				\
 						map_correct				\
 						map_creation			\
+						map_formater			\
 					)							\
 					$(addprefix srcs/cleaning/,	\
 						errors					\
@@ -25,6 +26,7 @@ SRCS 			=	$(addsuffix .c,				\
 						file_info				\
 						2d_map					\
 						2d_movements			\
+						2d_collisions			\
 					)							\
 						srcs/cub3d				\
 					)
