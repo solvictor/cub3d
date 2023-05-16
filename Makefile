@@ -23,7 +23,7 @@ SRCS 			=	$(addsuffix .c,				\
 						comparaisons			\
 					)							\
 					$(addprefix srcs/tests/,	\
-						file_info				\
+						show_info				\
 						2d_map					\
 						2d_movements			\
 						2d_collisions			\

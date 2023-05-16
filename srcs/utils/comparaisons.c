@@ -9,7 +9,7 @@ int	biggest(int a, int b)
 
 int	smallest(int a, int b)
 {
-	if (a < b)
-		return (a);
-	return (b);
+	if (a > b)
+		return (b);
+	return (a);
 }

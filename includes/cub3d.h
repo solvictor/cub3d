@@ -153,5 +153,6 @@ void	init_2d(t_display *display, t_map *map, t_player *player);
 bool	colliding(int direction,
 			t_map *map, t_player *player, t_display *display);
 void	move_player(t_display *display, t_player *player);
+void	show_display_info(t_display *display, t_map *map);
 
 #endif

@@ -1,5 +1,28 @@
 #include "cub3d.h"
 
+static bool	recopying(t_map *map, char **cleaned_map,
+	int last_line)
+{
+	int			i;
+	int			j;
+
+	i = 0;
+	while (i < last_line + 1)
+	{
+		j = 0;
+		cleaned_map[i] = ft_calloc(map->width + 3, sizeof(char));
+		if (!cleaned_map[i])
+			return (ft_free_strs(cleaned_map), false);
+		while (map->map[i][j])
+		{
+			cleaned_map[i][j] = map->map[i][j];
+			++j;
+		}
+		++i;
+	}
+	return (true);
+}
+
 static bool	clean_map(t_map *map)
 {
 	int		last_line;
@@ -17,12 +40,7 @@ static bool	clean_map(t_map *map)
 		return (false);
 	cleaned_map[i] = NULL;
 	i = -1;
-	while (++i < last_line + 1)
-	{
-		cleaned_map[i] = ft_strdup(map->map[i]);
-		if (!cleaned_map[i])
-			return (ft_free_strs(cleaned_map), false);
-	}
+	recopying(map, cleaned_map, last_line);
 	ft_free_strs(map->map);
 	map->map = cleaned_map;
 	map->height = last_line + 1;

@@ -8,17 +8,22 @@ void	format_map(t_map *map)
 	i = 0;
 	if (!map)
 		return ;
+	map->width += 2;
 	while (map->map[i])
 	{
 		j = 0;
-		ft_printf("Len Line  %d /Len Line\n", ft_strlen(map->map[i]));
-		while (map->map[i][j])
+		while (j < map->width)
 		{
-			if (map->map[i][j] == ' ')
-				map->map[i][j] = 1;
+			if (map->map[i][j] == ' ' || map->map[i][j] == '\0' ||
+				map->map[i][j] == '\n')
+				map->map[i][j] = '1';
+			if (j == map->width - 2)
+				map->map[i][j] = '\n';
+			if (j == map->width - 1)
+				map->map[i][j] = '\0';
 			++j;
 		}
 		++i;
 	}
-	show_map(map);
+	map->width -= 2;
 }

@@ -63,23 +63,16 @@ void	draw_2d(t_display *display, t_map *map)
 
 void	init_2d(t_display *display, t_map *map, t_player *player)
 {
-	const int	square_length = biggest(display->height, display->width)
-		/ biggest(map->height, map->width);
+	const int	height_ratio = display->height / map->height;
+	const int	width_ratio = display->width / map->width;
 
-	show_map(map->map);
-	ft_printf("Display Heigth %d\n", display->height);
-	ft_printf("Display Width %d\n", display->width);
-	ft_printf("Line %s /Line\n", map->map[map->height - 1]);
-	ft_printf("Square Length %d /Square Length\n", square_length);
-	display->square_length = biggest(display->height, display->width)
-		/ biggest(map->height, map->width);
+	if (height_ratio > width_ratio)
+		display->square_length = width_ratio;
+	else
+		display->square_length = height_ratio;
+	show_display_info(display, map);
 	draw_2d(display, map);
-	player->x = player->x * square_length - square_length / 2;
-	player->y = player->y * square_length - square_length / 2;
-	mlx_spp(display, player->x, player->y, 0xFFFFFF);
-	mlx_spp(display, player->x - 1, player->y, 0xFFFFFF);
-	mlx_spp(display, player->x + 1, player->y, 0xFFFFFF);
-	mlx_spp(display, player->x, player->y - 1, 0xFFFFFF);
-	mlx_spp(display, player->x, player->y + 1, 0xFFFFFF);
+	player->x = player->x * display->square_length - display->square_length / 2;
+	player->y = player->y * display->square_length - display->square_length / 2;
 	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 }

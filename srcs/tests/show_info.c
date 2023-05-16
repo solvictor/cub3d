@@ -45,3 +45,12 @@ void	show_map(t_map *map)
 		ft_printf("%s", map->map[i++]);
 	ft_printf("=========================End Map===========================\n");
 }
+
+void	show_display_info(t_display *display, t_map *map)
+{
+	ft_printf("Square Length: %d\n", display->square_length);
+	ft_printf("Display Heigth %d\n", display->height);
+	ft_printf("Display Width %d\n", display->width);
+	ft_printf("Map Heigth %d\n", map->height);
+	ft_printf("Map Width %d\n", map->width);
+}

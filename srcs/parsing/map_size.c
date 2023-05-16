@@ -82,24 +82,21 @@ bool	map_size(t_vars *vars, t_map *map)
 {
 	const char	**content = (const char **)vars->file_content;
 	int			i;
-	bool		found_first;
 
 	i = 0;
-	found_first = false; //Might be replaced by checkingif map->first_line == -1
 	while (content[i])
 	{
 		if (!is_line_a_texture(i, map))
 		{
 			if (bad_line((char *)content[i], i, map))
 				return (false);
-			else if (found_first == false && !is_line_empty(content[i]))
-			{
-				found_first = true;
+			else if (map->first_line == -1 && !is_line_empty(content[i]))
 				map->first_line = i;
-			}
 		}
 		++i;
 	}
+	if (map->first_line == -1)
+		return (error_str("No map found"), false);
 	if (is_too_short(content, map) || map->width < 3)
 		return (error_str("Map too small"), false);
 	if (map->start_direction == '\0')

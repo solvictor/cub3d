@@ -19,6 +19,7 @@ static void	init_map(t_vars *vars, t_map *map)
 	map->start_coords[1] = -1;
 	map->start_direction = '\0';
 	map->map = NULL;
+	map->first_line = -1;
 	vars->map = map;
 }
 
@@ -64,8 +65,8 @@ int	main(int ac, char **av)
 	init_player(&vars, &player);
 	if (parsing(av[1], &vars, &map) == false)
 		return (clean_memory(&vars), EXIT_FAILURE);
-	if (start_display(&display, &vars) == false)
-		return (clean_memory(&vars), EXIT_FAILURE);
+	// if (start_display(&display, &vars) == false)
+	// 	return (clean_memory(&vars), EXIT_FAILURE);
 	clean_memory(&vars);
 	return (EXIT_SUCCESS);
 }

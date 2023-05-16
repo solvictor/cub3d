@@ -51,7 +51,7 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 		return (false);
 	if (map_correct(map) == false)
 		return (false);
-	format_map(NULL);
+	format_map(map);
 	show_map(map);
 	vars->player->x = map->start_coords[0];
 	vars->player->y = map->start_coords[1];
