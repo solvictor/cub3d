@@ -16,20 +16,6 @@ static bool	is_too_short(const char **content, t_map *map)
 	return (height < 3);
 }
 
-static bool	is_line_empty(const char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (!ft_c_in_str(line[i], SPACES))
-			return (false);
-		++i;
-	}
-	return (true);
-}
-
 /*
 	Coordinates start at 0:0, map size starts at 1:1
 */

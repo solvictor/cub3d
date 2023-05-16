@@ -9,6 +9,7 @@ SRCS 			=	$(addsuffix .c,				\
 						map_correct				\
 						map_creation			\
 						map_formater			\
+						count_islands			\
 					)							\
 					$(addprefix srcs/cleaning/,	\
 						errors					\
@@ -21,6 +22,7 @@ SRCS 			=	$(addsuffix .c,				\
 					)							\
 					$(addprefix srcs/utils/,	\
 						comparaisons			\
+						line_functions			\
 					)							\
 					$(addprefix srcs/tests/,	\
 						show_info				\

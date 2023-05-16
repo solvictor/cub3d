@@ -61,8 +61,10 @@ void	draw_2d(t_display *display, t_map *map)
 
 void	init_2d(t_display *display, t_map *map, t_player *player)
 {
-	const int	height_ratio = display->height / (map->height + map->isles + 1);
-	const int	width_ratio = display->width / (map->width + map->isles + 1);
+	const int	height_ratio = display->height
+		/ (map->height + map->vertical_islands + 1);
+	const int	width_ratio = display->width
+		/ (map->width + map->horizontal_islands + 1);
 
 	if (height_ratio > width_ratio)
 		display->square_length = width_ratio;

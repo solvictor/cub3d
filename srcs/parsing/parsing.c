@@ -38,7 +38,8 @@ bool	file_opener(char *file_name, t_vars *vars)
 	TODO 
 	Fill map->isles (contains the number of individual islands)
 		is init to -1, if at the end is 1 then set it to 0
-		islands are 1s separated by empty lines (or just \ns)
+		islands are 1s separated by lines full of 1
+		Do the same for the islands separated by a column of 1
 */
 
 bool	parsing(char *file_name, t_vars *vars, t_map *map)
@@ -59,6 +60,7 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 	if (map_correct(map) == false)
 		return (false);
 	format_map(map);
+	count_islands(map);
 	show_map(map);
 	vars->player->x = map->start_coords[0];
 	vars->player->y = map->start_coords[1];
