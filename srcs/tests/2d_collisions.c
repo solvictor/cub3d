@@ -15,7 +15,7 @@ bool	does_collide(int direction,
 		else
 			y = (player->y + 1 * player->speed + CURSOR_RADIUS)
 				/ display->square_length;
-		return (map->map[y + 1][x + 1] == '1');
+		return (map->map[y][x] == '1');
 	}
 	y = player->y / display->square_length;
 	if (direction == LEFT)
@@ -24,7 +24,7 @@ bool	does_collide(int direction,
 	else
 		x = (player->x + 1 * player->speed + CURSOR_RADIUS)
 			/ display->square_length;
-	return (map->map[y + 1][x + 1] == '1');
+	return (map->map[y][x] == '1');
 }
 
 bool	colliding(int direction,

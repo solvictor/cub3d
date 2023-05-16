@@ -43,11 +43,13 @@ void	clear_image(t_display *display)
 
 int	put_image(t_vars *vars)
 {
-	// if (vars->display->refresh == true)
+	if (vars->display->refresh == false)
+		return (1);
 	draw_2d(vars->display, vars->map);
-	move_player(vars->display, vars->player);
+	draw_player(vars->display, vars->player);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
 		vars->display->img, 0, 0);
+	vars->display->refresh = false;
 	return (1);
 }
 

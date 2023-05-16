@@ -69,6 +69,7 @@ typedef struct s_map
 	int				first_line;
 	int				start_coords[2];
 	char			start_direction;
+	int				isles;
 	char			**map;
 }					t_map;
 
@@ -152,7 +153,7 @@ void	basic_right(t_vars *vars);
 void	init_2d(t_display *display, t_map *map, t_player *player);
 bool	colliding(int direction,
 			t_map *map, t_player *player, t_display *display);
-void	move_player(t_display *display, t_player *player);
+void	draw_player(t_display *display, t_player *player);
 void	show_display_info(t_display *display, t_map *map);
 
 #endif

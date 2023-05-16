@@ -34,6 +34,13 @@ bool	file_opener(char *file_name, t_vars *vars)
 	return (close(fd), true);
 }
 
+/*
+	TODO 
+	Fill map->isles (contains the number of individual islands)
+		is init to -1, if at the end is 1 then set it to 0
+		islands are 1s separated by empty lines (or just \ns)
+*/
+
 bool	parsing(char *file_name, t_vars *vars, t_map *map)
 {
 	if (ft_strncmp(".cub", file_name + ft_strlen(file_name) - 4, 4) != 0)
