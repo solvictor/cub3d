@@ -66,7 +66,7 @@ void	init_2d(t_display *display, t_map *map, t_player *player)
 	const int	square_length = biggest(display->height, display->width)
 		/ biggest(map->height, map->width);
 
-	show_map(map->map)
+	show_map(map->map);
 	ft_printf("Display Heigth %d\n", display->height);
 	ft_printf("Display Width %d\n", display->width);
 	ft_printf("Line %s /Line\n", map->map[map->height - 1]);
