@@ -61,6 +61,7 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 		return (false);
 	format_map(map);
 	count_islands(map);
+	ft_printf("Islands %d /Islands\n", map->islands);
 	show_map(map);
 	vars->player->x = map->start_coords[0];
 	vars->player->y = map->start_coords[1];

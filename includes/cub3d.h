@@ -69,8 +69,7 @@ typedef struct s_map
 	int				first_line;
 	int				start_coords[2];
 	char			start_direction;
-	int				horizontal_islands;
-	int				vertical_islands;
+	int				islands;
 	char			**map;
 }					t_map;
 
@@ -108,7 +107,7 @@ bool	map_size(t_vars *vars, t_map *map);
 bool	map_correct(t_map *map);
 bool	create_map(t_vars *vars, t_map *map);
 void	format_map(t_map *map);
-void	count_islands(t_map *map);
+bool	count_islands(t_map *map);
 
 /******************************************************************************/
 /*                                                                            */
@@ -136,7 +135,6 @@ void	mlx_spp(t_display *display, int x, int y, int color);
 int		biggest(int a, int b);
 int		smallest(int a, int b);
 bool	is_line_empty(const char *line);
-
 
 /******************************************************************************/
 /*                                                                            */

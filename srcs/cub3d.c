@@ -20,8 +20,7 @@ static void	init_map(t_vars *vars, t_map *map)
 	map->start_direction = '\0';
 	map->map = NULL;
 	map->first_line = -1;
-	map->horizontal_islands = -1;
-	map->vertical_islands = -1;
+	map->islands = 0;
 	vars->map = map;
 }
 
