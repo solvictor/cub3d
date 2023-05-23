@@ -19,16 +19,19 @@ SRCS 			=	$(addsuffix .c,				\
 						display					\
 						destroy					\
 						listeners				\
+						line_drawing			\
 					)							\
 					$(addprefix srcs/utils/,	\
 						comparaisons			\
 						line_functions			\
+						deg_to_rad				\
 					)							\
 					$(addprefix srcs/tests/,	\
 						show_info				\
 						2d_map					\
 						2d_movements			\
 						2d_collisions			\
+						2d_rotate				\
 					)							\
 						srcs/cub3d				\
 					)

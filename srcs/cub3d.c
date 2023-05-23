@@ -44,6 +44,11 @@ static void	init_player(t_vars *vars, t_player *player)
 	player->x = -1;
 	player->y = -1;
 	player->speed = 5;
+	player->direction = 90;
+	player->fov = 90;
+	player->square_x = -1;
+	player->square_y = -1;
+	player->rotate_speed = 90;
 	vars->player = player;
 }
 

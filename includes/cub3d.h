@@ -12,6 +12,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <math.h>
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 
@@ -47,11 +48,23 @@ enum e_directions
 	RIGHT
 };
 
+typedef struct s_point
+{
+	int			x;
+	int			y;
+	int			color;
+}				t_point;
+
 typedef struct s_player
 {
 	int				x;
 	int				y;
+	int				square_x;
+	int				square_y;
 	int				speed;
+	int				fov;
+	int				direction;
+	int				rotate_speed;
 }					t_player;
 
 typedef struct s_map
@@ -126,6 +139,7 @@ bool	start_display(t_display *display, t_vars *vars);
 int		on_destroy(t_vars *vars);
 int		on_keydown(int keycode, t_vars *vars);
 void	mlx_spp(t_display *display, int x, int y, int color);
+void	draw_line(t_display *display, t_point p1, t_point p2);
 
 /******************************************************************************/
 /*                                                                            */
@@ -135,6 +149,7 @@ void	mlx_spp(t_display *display, int x, int y, int color);
 int		biggest(int a, int b);
 int		smallest(int a, int b);
 bool	is_line_empty(const char *line);
+double	deg_to_rad(int deg);
 
 /******************************************************************************/
 /*                                                                            */
@@ -155,5 +170,9 @@ bool	colliding(int direction,
 			t_map *map, t_player *player, t_display *display);
 void	draw_player(t_display *display, t_player *player);
 void	show_display_info(t_display *display, t_map *map);
+void	draw_fov(t_display *display, t_player *player, t_map *map);
+void	rotate_left(t_vars *vars);
+void	rotate_right(t_vars *vars);
+
 
 #endif

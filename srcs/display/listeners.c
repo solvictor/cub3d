@@ -15,6 +15,10 @@ int	on_keydown(int keycode, t_vars *vars)
 		return (basic_down(vars), 1);
 	if (keycode == XK_d)
 		return (basic_right(vars), 1);
+	if (keycode == XK_Left)
+		return (rotate_left(vars), 1);
+	if (keycode == XK_Right)
+		return (rotate_right(vars), 1);
 	ft_printf("Keycode %d /Keycode\n", keycode);
 	return (0);
 }

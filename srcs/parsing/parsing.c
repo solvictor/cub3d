@@ -65,5 +65,7 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 	show_map(map);
 	vars->player->x = map->start_coords[0];
 	vars->player->y = map->start_coords[1];
+	vars->player->square_x = map->start_coords[0];
+	vars->player->square_y = map->start_coords[1];
 	return (true);
 }
