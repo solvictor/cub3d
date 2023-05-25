@@ -45,16 +45,19 @@ static void	init_player(t_vars *vars, t_player *player)
 	player->y = -1;
 	player->speed = 5;
 	player->direction = 90;
-	player->fov = 90;
+	player->fov = 66;
 	player->square_x = -1;
 	player->square_y = -1;
 	player->rotate_speed = 90;
 	vars->player = player;
 }
 
-/*
-	Check if no start direction for player
-*/
+static void	init_camera(t_vars *vars, t_camera *camera)
+{
+	set_vector(camera->direction, 0, 0);
+	set_vector(camera->plane, 0, 0);
+	vars->camera = camera;
+}
 
 int	main(int ac, char **av)
 {
@@ -62,6 +65,7 @@ int	main(int ac, char **av)
 	t_map		map;
 	t_display	display;
 	t_player	player;
+	t_camera	camera;
 
 	if (ac != 2)
 		return (error_str("Usage: ./cub3d path/to/map.cub"), EXIT_FAILURE);
@@ -69,6 +73,7 @@ int	main(int ac, char **av)
 	init_map(&vars, &map);
 	init_display(&vars, &display);
 	init_player(&vars, &player);
+	init_camera(&vars, &camera);
 	if (parsing(av[1], &vars, &map) == false)
 		return (clean_memory(&vars), EXIT_FAILURE);
 	if (start_display(&display, &vars) == false)

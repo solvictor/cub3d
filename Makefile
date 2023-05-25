@@ -25,6 +25,7 @@ SRCS 			=	$(addsuffix .c,				\
 						comparaisons			\
 						line_functions			\
 						deg_to_rad				\
+						vectors					\
 					)							\
 					$(addprefix srcs/tests/,	\
 						show_info				\

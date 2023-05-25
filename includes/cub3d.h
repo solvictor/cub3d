@@ -55,6 +55,29 @@ typedef struct s_point
 	int			color;
 }				t_point;
 
+typedef struct s_vector
+{
+	double		x;
+	double		y;
+}				t_vector;
+
+typedef struct s_camera
+{
+	t_vector	*direction;
+	t_vector	*plane;
+	float		delta_x;
+	float		delta_y;
+	float		angle;
+}				t_camera;
+
+/*
+
+	Show a view line, then compute delta x and delta y that needs to be added
+	to the player coordinates in order to make it advance (acurrecntly, going forward means going up, but 
+	uin relality going forward should be going in the direction the player is looking to)
+
+*/
+
 typedef struct s_player
 {
 	int				x;
@@ -107,6 +130,7 @@ typedef struct s_vars
 	t_map			*map;
 	t_display		*display;
 	t_player		*player;
+	t_camera		*camera;
 }					t_vars;
 
 /******************************************************************************/
@@ -150,6 +174,7 @@ int		biggest(int a, int b);
 int		smallest(int a, int b);
 bool	is_line_empty(const char *line);
 double	deg_to_rad(int deg);
+void	set_vector(t_vector *vector, double x, double y);
 
 /******************************************************************************/
 /*                                                                            */
