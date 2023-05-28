@@ -1,57 +1,24 @@
 #include "cub3d.h"
 
-int	find_wall_distance_x(t_display *display, t_player *player, t_map *map)
-{
-	int	x;
-
-	x = player->x;
-	if ((player->direction >= 315 || player->direction < 45))
-	{
-		while (map->map[player->square_y][x / display->square_length] != '1')
-			++x;
-		return (x + 1);
-	}
-	while (map->map[player->square_y][x / display->square_length] != '1')
-		--x;
-	return (x);
-}
-
-int	find_wall_distance_y(t_display *display, t_player *player, t_map *map)
-{
-	int	y;
-
-	y = player->y;
-	if ((player->direction >= 45 && player->direction < 135))
-	{
-		while (map->map[y / display->square_length][player->square_x] != '1')
-			++y;
-		return (y + 1);
-	}
-	while (map->map[y / display->square_length][player->square_x] != '1')
-		--y;
-	return (y + 1);
-}
-
 void	draw_fov(t_display *display, t_player *player, t_map *map)
 {
-	t_point	player_pos;
-	t_point	left_fov;
-	// t_point	right_fov;
+	t_point	p1;
+	t_point	p2;
 
-	ft_printf("Player direction %d\n", player->direction);
-	left_fov.x = player->x;
-	left_fov.y = player->y;
-	if ((player->direction >= 315 || player->direction < 45)
-		|| (player->direction >= 135 && player->direction < 225))
-		left_fov.x = find_wall_distance_x(display, player, map);
-	else
-		left_fov.y = find_wall_distance_y(display, player, map);
-	player_pos.x = player->x;
-	player_pos.y = player->y;
-	player_pos.color = 0x0000FF;
-	left_fov.color = 0x0000FF;
-	draw_line(display, player_pos, left_fov);
-
+	(void)map;
+	p1.x = player->x;
+	p1.y = player->y;
+	p1.color = 0xFF0000;
+	// p2.x = p1.x + player->delta_x;
+	// p2.y = p2.y + player->delta_y;
+	// p2.color = 0xFF0000;
+	p2.x = player->x + round((cos(player->angle) * player->speed) * 5);
+	p2.y = player->y + round((sin(player->angle) * player->speed) * 5);
+	p2.color = 0xFF0000;
+	// ft_printf("P1 X %d /P1 X\nP1 Y %d /P1 Y\n", p1.x, p1.y);
+	// ft_printf("P2 X %d /P2 X\nP2 Y %d /P2 Y\n", p2.x, p2.y);
+	//FIXME NOT PERFECT BUT TEMPORARY
+	draw_line(display, p1, p2);
 }
 
 void	draw_player(t_display *display, t_player *player)
@@ -73,42 +40,27 @@ void	draw_player(t_display *display, t_player *player)
 	}
 }
 
-static void	draw_2d_pixels(t_display *display, t_map *map, int i, int y)
-{
-	int	j;
-	int	x;
-
-	j = 0;
-	x = 1;
-	while (j < display->width)
-	{
-		if (map->map[y - 1] && ft_c_in_str(map->map[y - 1][x - 1], FREE))
-			mlx_spp(display, j, i, 0xFFFFFF);
-		else
-			mlx_spp(display, j, i, 0x000000);
-		if (j > x * display->square_length && x < map->width)
-			mlx_spp(display, j, i, 0);
-		if (i > y * display->square_length && y < map->height)
-			mlx_spp(display, j, i, 0);
-		if (j > x * display->square_length && x < map->width)
-			++x;
-		++j;
-	}
-}
-
 void	draw_2d(t_display *display, t_map *map)
 {
 	const int	square_length = display->square_length;
 	int			i;
-	int			y;
+	int			j;
 
 	i = 0;
-	y = 1;
-	while (i < display->height)
+	while (i < map->height * square_length)
 	{
-		draw_2d_pixels(display, map, i, y);
-		if (i > y * square_length && y < map->height)
-			++y;
+		j = 0;
+		while (j < map->width * square_length)
+		{
+			if (ft_c_in_str(map->map[i / square_length][j / square_length],
+				FREE))
+				mlx_spp(display, j, i, 0xFFFFFF);
+			else
+				mlx_spp(display, j, i, 0x000000);
+			if (j % square_length == 0 || i % square_length == 0)
+				mlx_spp(display, j, i, 0);
+			++j;
+		}
 		++i;
 	}
 }

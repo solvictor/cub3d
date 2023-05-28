@@ -48,3 +48,30 @@ bool	colliding(int direction,
 			* display->square_length - CURSOR_RADIUS;
 	return (true);
 }
+
+// bool	does_collide(t_map *map, t_player *player, t_display *display)
+// {
+// 	const int	quadrant = quadrant_of_angle(player->move);
+
+// 	if (quadrant == 1)
+// 	{
+
+// 	}
+// 	else if (quadrant == 2)
+// 	{
+
+// 	}
+// 	else if (quadrant == 3)
+// 	{
+
+// 	}
+// 	else
+// 	{
+
+// 	}
+// }
+
+// bool	colliding(t_map *map, t_player *player, t_display *display)
+// {
+// 	const bool	collide = does_collide(map, player, display);
+// }

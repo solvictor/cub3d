@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:14:15 by tgernez           #+#    #+#             */
-/*   Updated: 2023/04/29 17:15:23 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/05/28 11:56:02 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_c_in_str(char c, char *str)
 	int	i;
 
 	i = 0;
+	if (!c || !str)
+		return (0);
 	while (str[i])
 	{
 		if (c == str[i])

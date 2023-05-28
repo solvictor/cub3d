@@ -5,12 +5,11 @@ void	basic_up(t_vars *vars)
 	t_player	*player;
 	t_display	*display;
 
-	if (colliding(UP, vars->map, vars->player, vars->display))
-		return ;
 	vars->display->refresh = true;
-	vars->player->y -= 1 * vars->player->speed;
 	player = vars->player;
 	display = vars->display;
+	player->x += player->delta_x;
+	player->y += player->delta_y;
 	player->square_x = player->x / display->square_length;
 	player->square_y = player->y / display->square_length;
 	return ;
@@ -21,12 +20,11 @@ void	basic_down(t_vars *vars)
 	t_player	*player;
 	t_display	*display;
 
-	if (colliding(DOWN, vars->map, vars->player, vars->display))
-		return ;
 	vars->display->refresh = true;
-	vars->player->y += 1 * vars->player->speed;
 	player = vars->player;
 	display = vars->display;
+	player->x -= player->delta_x;
+	player->y -= player->delta_y;
 	player->square_x = player->x / display->square_length;
 	player->square_y = player->y / display->square_length;
 	return ;
@@ -37,14 +35,15 @@ void	basic_left(t_vars *vars)
 	t_player	*player;
 	t_display	*display;
 
-	if (colliding(LEFT, vars->map, vars->player, vars->display))
-		return ;
 	vars->display->refresh = true;
-	vars->player->x -= 1 * vars->player->speed;
 	player = vars->player;
 	display = vars->display;
-	player->square_x = player->x / display->square_length;
-	player->square_y = player->y / display->square_length;
+	player->angle -= 0.1;
+	if (player->angle < 0)
+		player->angle += 2 * M_PI;
+	player->delta_x = cos(player->angle) * player->speed;
+	player->delta_y = sin(player->angle) * player->speed;
+	move_player(vars);
 	return ;
 }
 
@@ -53,13 +52,13 @@ void	basic_right(t_vars *vars)
 	t_player	*player;
 	t_display	*display;
 
-	if (colliding(RIGHT, vars->map, vars->player, vars->display))
-		return ;
 	vars->display->refresh = true;
-	vars->player->x += 1 * vars->player->speed;
 	player = vars->player;
 	display = vars->display;
-	player->square_x = player->x / display->square_length;
-	player->square_y = player->y / display->square_length;
+	player->angle += 0.1;
+	if (player->angle > 2 * M_PI)
+		player->angle -= 2 * M_PI;
+	player->delta_x = cos(player->angle) * player->speed;
+	player->delta_y = sin(player->angle) * player->speed;
 	return ;
 }

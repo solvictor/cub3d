@@ -24,7 +24,7 @@ SRCS 			=	$(addsuffix .c,				\
 					$(addprefix srcs/utils/,	\
 						comparaisons			\
 						line_functions			\
-						deg_to_rad				\
+						trigonometry			\
 						vectors					\
 					)							\
 					$(addprefix srcs/tests/,	\
@@ -33,6 +33,7 @@ SRCS 			=	$(addsuffix .c,				\
 						2d_movements			\
 						2d_collisions			\
 						2d_rotate				\
+						2d_ray_computing		\
 					)							\
 						srcs/cub3d				\
 					)

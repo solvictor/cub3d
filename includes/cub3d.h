@@ -71,11 +71,10 @@ typedef struct s_camera
 }				t_camera;
 
 /*
-
 	Show a view line, then compute delta x and delta y that needs to be added
-	to the player coordinates in order to make it advance (acurrecntly, going forward means going up, but 
-	uin relality going forward should be going in the direction the player is looking to)
-
+	to the player coordinates in order to make it advance (currecntly, going
+	forward means going up, but in reality going forward should be going in
+	the direction the player is looking to)
 */
 
 typedef struct s_player
@@ -88,6 +87,9 @@ typedef struct s_player
 	int				fov;
 	int				direction;
 	int				rotate_speed;
+	float			angle;
+	float			delta_x;
+	float			delta_y;
 }					t_player;
 
 typedef struct s_map
@@ -174,6 +176,7 @@ int		biggest(int a, int b);
 int		smallest(int a, int b);
 bool	is_line_empty(const char *line);
 double	deg_to_rad(int deg);
+int		quadrant_of_angle(int deg);
 void	set_vector(t_vector *vector, double x, double y);
 
 /******************************************************************************/
@@ -198,6 +201,7 @@ void	show_display_info(t_display *display, t_map *map);
 void	draw_fov(t_display *display, t_player *player, t_map *map);
 void	rotate_left(t_vars *vars);
 void	rotate_right(t_vars *vars);
+void	move_player(t_vars *vars);
 
 
 #endif

@@ -33,7 +33,7 @@ void	clear_image(t_display *display)
 		j = 0;
 		while (j < display->width)
 		{
-			mlx_spp(display, j, i, 0x000000);
+			mlx_spp(display, j, i, 0x010101);
 			++j;
 		}
 		++i;

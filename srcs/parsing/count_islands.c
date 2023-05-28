@@ -45,5 +45,5 @@ bool	count_islands(t_map *map)
 		j = 0;
 		++i;
 	}
-	return (true);
+	return (ft_free_strs(map_copy), true);
 }

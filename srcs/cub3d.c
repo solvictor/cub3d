@@ -49,11 +49,19 @@ static void	init_player(t_vars *vars, t_player *player)
 	player->square_x = -1;
 	player->square_y = -1;
 	player->rotate_speed = 90;
+	player->angle = 0.1; //TODO Set to start direction
+	player->delta_x = 0;
+	player->delta_y = 0;
 	vars->player = player;
 }
 
 static void	init_camera(t_vars *vars, t_camera *camera)
 {
+	t_vector	direction;
+	t_vector	plane;
+
+	camera->direction = &direction;
+	camera->plane = &plane;
 	set_vector(camera->direction, 0, 0);
 	set_vector(camera->plane, 0, 0);
 	vars->camera = camera;
