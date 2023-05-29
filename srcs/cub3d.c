@@ -50,8 +50,8 @@ static void	init_player(t_vars *vars, t_player *player)
 	player->square_y = -1;
 	player->rotate_speed = 90;
 	player->angle = 0.1; //TODO Set to start direction
-	player->delta_x = 0;
-	player->delta_y = 0;
+	player->delta_x = 3;
+	player->delta_y = 3;
 	vars->player = player;
 }
 

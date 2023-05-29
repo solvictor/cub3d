@@ -21,6 +21,9 @@ SRCS 			=	$(addsuffix .c,				\
 						listeners				\
 						line_drawing			\
 					)							\
+					$(addprefix srcs/caster/,	\
+						caster					\
+					)							\
 					$(addprefix srcs/utils/,	\
 						comparaisons			\
 						line_functions			\

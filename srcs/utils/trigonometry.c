@@ -15,3 +15,10 @@ int	quadrant_of_angle(int deg)
 		return (3);
 	return (4);
 }
+
+float	hyp(t_vector v1, t_vector v2, float angle)
+{
+	(void)angle;
+	return (sqrt((v2.x - v1.x) * (v2.x - v1.x)
+			- (v2.y - v1.y) * (v2.y - v1.y)));
+}

@@ -12,8 +12,8 @@ void	draw_fov(t_display *display, t_player *player, t_map *map)
 	// p2.x = p1.x + player->delta_x;
 	// p2.y = p2.y + player->delta_y;
 	// p2.color = 0xFF0000;
-	p2.x = player->x + round((cos(player->angle) * player->speed) * 5);
-	p2.y = player->y + round((sin(player->angle) * player->speed) * 5);
+	p2.x = player->x + player->delta_x * player->speed;
+	p2.y = player->y + player->delta_y * player->speed;
 	p2.color = 0xFF0000;
 	// ft_printf("P1 X %d /P1 X\nP1 Y %d /P1 Y\n", p1.x, p1.y);
 	// ft_printf("P2 X %d /P2 X\nP2 Y %d /P2 Y\n", p2.x, p2.y);
@@ -80,7 +80,10 @@ void	init_2d(t_display *display, t_map *map, t_player *player)
 	draw_2d(display, map);
 	player->x = player->x * display->square_length + display->square_length / 2;
 	player->y = player->y * display->square_length + display->square_length / 2;
+	player->delta_x = cos(player->angle) * player->speed;
+	player->delta_y = sin(player->angle) * player->speed;
 	draw_fov(display, player, map);
 	draw_player(display, player);
+	caster(display, map, player);
 	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 }

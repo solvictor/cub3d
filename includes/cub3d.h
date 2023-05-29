@@ -4,6 +4,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <float.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -169,6 +170,13 @@ void	draw_line(t_display *display, t_point p1, t_point p2);
 
 /******************************************************************************/
 /*                                                                            */
+/*                                   Caster                                   */
+/*                                                                            */
+/******************************************************************************/
+void	caster(t_display *display, t_map *map, t_player *player);
+
+/******************************************************************************/
+/*                                                                            */
 /*                                   Utils                                    */
 /*                                                                            */
 /******************************************************************************/
@@ -177,6 +185,7 @@ int		smallest(int a, int b);
 bool	is_line_empty(const char *line);
 double	deg_to_rad(int deg);
 int		quadrant_of_angle(int deg);
+float	hyp(t_vector v1, t_vector v2, float angle);
 void	set_vector(t_vector *vector, double x, double y);
 
 /******************************************************************************/

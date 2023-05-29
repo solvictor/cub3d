@@ -18,6 +18,8 @@ void	mlx_spp(t_display *display, int x, int y, int color)
 {
 	char	*dst;
 
+	if (x < 0 || y < 0 || x > display->width || y > display->height) //FIXME Temporary protection
+		return ; 
 	dst = display->addr + (y * display->size_line + x * (display->bpp / 8));
 	*(unsigned int *)dst = color;
 }
@@ -48,6 +50,7 @@ int	put_image(t_vars *vars)
 	draw_2d(vars->display, vars->map);
 	draw_fov(vars->display, vars->player, vars->map);
 	draw_player(vars->display, vars->player);
+	caster(vars->display, vars->map, vars->player);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
 		vars->display->img, 0, 0);
 	vars->display->refresh = false;
