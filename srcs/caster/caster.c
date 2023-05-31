@@ -144,7 +144,7 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist, int ray_number, float ray_angle)
 {
 	float	line_height;
-	// float	line_offset;
+	float	line_offset;
 	float	ca = player->angle - ray_angle;
 
 	if (ca < 0)
@@ -156,21 +156,22 @@ void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist,
 		ca -= 2 * M_PI;
 	}
 	dist = dist * cos(ca); //FIx fisheye
+	// printf("Cos(ca) %f /Cos(ca)\n", cos(ca));
 	(void)player;
 	(void)map;
-	line_height = (60 * display->height) / dist;
+	line_height = (131 * display->height) / dist;
 	if (line_height > display->height)
 		line_height = display->height;
-	// line_offset = display->height - line_height / 2; // Returned everything
+	line_offset = display->height - line_height / 2; // Flipped everything
 	int i = 0;
 	t_point	p1;
 	t_point	p2;
-	while (i < 20)
+	while (i < 40)
 	{
-		p1.x = ray_number * 20 + i;
-		p1.y = 0;
-		p2.x = ray_number * 20 + i;
-		p2.y = p1.y + line_height + 0;
+		p1.x = ray_number * 40 + i;
+		p1.y = display->height - (line_height + line_offset);
+		p2.x = p1.x;
+		p2.y = display->height - line_offset;
 		p1.color = 0xFF0000;
 		p2.color = 0xFF0000;
 		draw_line(display, p1, p2);
