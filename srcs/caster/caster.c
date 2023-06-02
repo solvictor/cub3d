@@ -34,7 +34,7 @@ static void	horizontal_check(t_display *display, t_map *map, t_player *player, f
 		y_offset = -display->square_length;
 		x_offset = -y_offset * a_tan;
 	}
-	if (ray_angle < M_PI)
+	if (ray_angle > 0 && ray_angle < M_PI)
 	{
 		ray_y = (((int)player->y / display->square_length) * display->square_length) + display->square_length;
 		ray_x = (player->y - ray_y) * a_tan + player->x;
@@ -141,44 +141,54 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 	
 }
 
-void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist, int ray_number, float ray_angle)
-{
-	float	line_height;
-	float	line_offset;
-	float	ca = player->angle - ray_angle;
+//Window 320x160
 
-	if (ca < 0)
-	{
-		ca += 2 * M_PI;
-	}
-	if (ca > 2 * M_PI)
-	{
-		ca -= 2 * M_PI;
-	}
-	dist = dist * cos(ca); //FIx fisheye
-	// printf("Cos(ca) %f /Cos(ca)\n", cos(ca));
-	(void)player;
-	(void)map;
-	line_height = (131 * display->height) / dist;
-	if (line_height > display->height)
-		line_height = display->height;
-	line_offset = display->height - line_height / 2; // Flipped everything
-	int i = 0;
-	t_point	p1;
-	t_point	p2;
-	while (i < 40)
-	{
-		p1.x = ray_number * 40 + i;
-		p1.y = display->height - (line_height + line_offset);
-		p2.x = p1.x;
-		p2.y = display->height - line_offset;
-		p1.color = 0xFF0000;
-		p2.color = 0xFF0000;
-		draw_line(display, p1, p2);
-		++i;
-	}
-	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
-}
+// void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist, int ray_number, float ray_angle)
+// {
+// 	float	line_height;
+// 	float	line_offset;
+// 	float	ca = player->angle - ray_angle;
+// 	t_point	p1;
+// 	t_point	p2;
+// 	int i = 0;
+
+// 	if (ca < 0)
+// 	{
+// 		ca += 2 * M_PI;
+// 	}
+// 	if (ca > 2 * M_PI)
+// 	{
+// 		ca -= 2 * M_PI;
+// 	}
+// 	dist = dist * cos(ca); //FIx fisheye
+// 	// printf("Cos(ca) %f /Cos(ca)\n", cos(ca));
+// 	(void)player;
+// 	(void)map;
+// 	// printf("Dist %f /Dist\n", dist);
+// 	line_height = (250 * display->height) / dist;
+// 	if (line_height > display->height)
+// 	{
+// 		line_height = display->height;
+// 		p1.color = 0x00FF00;
+// 		p2.color = 0x00FF00;
+// 	}
+// 	else
+// 	{
+// 		p1.color = 0xFF0000;
+// 		p2.color = 0xFF0000;
+// 	}
+// 	line_offset = display->height - line_height / 2; // Flipped everything
+// 	while (i < 50)
+// 	{
+// 		p1.x = ray_number * 50 + i;
+// 		p1.y = display->height - (line_height + line_offset);
+// 		p2.x = p1.x;
+// 		p2.y = display->height - line_offset;
+// 		draw_line(display, p1, p2);
+// 		++i;
+// 	}
+// 	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
+// }
 
 void	caster(t_display *display, t_map *map, t_player *player)
 {
@@ -198,7 +208,7 @@ void	caster(t_display *display, t_map *map, t_player *player)
 	{
 		ray_angle -= 2 * M_PI;
 	}
-	clear_image(display);
+	// clear_image(display);
 
 	while (ray_number < 60)
 	{
@@ -206,8 +216,8 @@ void	caster(t_display *display, t_map *map, t_player *player)
 		vertical_check(display, map, player, &dist, &point, &player_point, ray_angle);
 		player_point.x = player->x;
 		player_point.y = player->y;
-		// draw_line(display, player_point, point);
-		draw_3d_walls(display, map, player, dist, ray_number, ray_angle);
+		draw_line(display, player_point, point);
+		// draw_3d_walls(display, map, player, dist, ray_number, ray_angle);
 		++ray_number;
 		ray_angle += DR;
 		if (ray_angle < 0)

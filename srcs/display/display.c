@@ -48,7 +48,6 @@ int	put_image(t_vars *vars)
 	if (vars->display->refresh == false)
 		return (1);
 	draw_2d(vars->display, vars->map);
-	draw_fov(vars->display, vars->player, vars->map);
 	draw_player(vars->display, vars->player);
 	caster(vars->display, vars->map, vars->player);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
