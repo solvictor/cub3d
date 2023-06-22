@@ -38,6 +38,11 @@
 # define BUTTONPRESS_MASK 4L
 # define CURSOR_RADIUS 10
 
+# define PI 3.1415926535
+# define P2 1.5707963268
+# define P3 4.7123889803
+# define DR 0.0174533 //1 deg to rad
+
 /*
 	The map contains the '\n' at the end of the lines
 */

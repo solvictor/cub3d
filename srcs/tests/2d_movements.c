@@ -38,12 +38,11 @@ void	basic_left(t_vars *vars)
 	vars->display->refresh = true;
 	player = vars->player;
 	display = vars->display;
-	player->angle -= 0.1;
+	player->angle -= PI / 30;
 	if (player->angle < 0)
-		player->angle += 2 * M_PI;
+		player->angle += 2 * PI;
 	player->delta_x = cos(player->angle) * player->speed;
 	player->delta_y = sin(player->angle) * player->speed;
-	move_player(vars);
 	return ;
 }
 
@@ -55,9 +54,9 @@ void	basic_right(t_vars *vars)
 	vars->display->refresh = true;
 	player = vars->player;
 	display = vars->display;
-	player->angle += 0.1;
-	if (player->angle > 2 * M_PI)
-		player->angle -= 2 * M_PI;
+	player->angle += PI / 30;
+	if (player->angle > 2 * PI)
+		player->angle -= 2 * PI;
 	player->delta_x = cos(player->angle) * player->speed;
 	player->delta_y = sin(player->angle) * player->speed;
 	return ;

@@ -2,7 +2,7 @@
 
 double	deg_to_rad(int deg)
 {
-	return (deg * M_PI / 180);
+	return (deg * PI / 180);
 }
 
 int	quadrant_of_angle(int deg)

@@ -1,5 +1,19 @@
 #include "cub3d.h"
 
+static void	start_direction(t_vars *vars)
+{
+	const t_map	*map = vars->map;
+	
+	if (map->start_direction == 'N')
+		vars->player->angle = PI / 2;
+	else if (map->start_direction == 'S')
+		vars->player->angle = 3 * PI / 2;
+	else if (map->start_direction == 'W')
+		vars->player->angle = PI;
+	else
+		vars->player->angle = 0; //FIXME Starting at 0 create a problem where the first rays points at 0;0
+}
+
 /*
 	File opener
 	Fills vars->file_content with the content of the map file.
@@ -67,5 +81,6 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 	vars->player->y = map->start_coords[1];
 	vars->player->square_x = map->start_coords[0];
 	vars->player->square_y = map->start_coords[1];
+	start_direction(vars);
 	return (true);
 }
