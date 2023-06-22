@@ -1,7 +1,8 @@
 #include "cub3d.h"
 
-#define P2 M_PI / 2
-#define P3 3 * M_PI / 2 //TODO replace with actual values
+#define PI 3.14159265359
+#define P2 PI / 2
+#define P3 3 * PI / 2 //TODO replace with actual values
 #define DR 0.0174533 //1 deg to rad
 /*
 	Add sprint, that makes FOV greater
@@ -27,21 +28,21 @@ static void	horizontal_check(t_display *display, t_map *map, t_player *player, f
 	*dist = FLT_MAX;
 	set_vector(&horizontal, player->x, player->y);
 	a_tan = -1 / tan(ray_angle);
-	if (ray_angle > M_PI)
+	if (ray_angle > PI)
 	{
-		ray_y = (((int)player->y / display->square_length) * display->square_length) - 0.0001;
+		ray_y = (((int)player->y / display->square_length) * display->square_length) - 0.0002;
 		ray_x = (player->y - ray_y) * a_tan + player->x;
 		y_offset = -display->square_length;
 		x_offset = -y_offset * a_tan;
 	}
-	if (ray_angle > 0 && ray_angle < M_PI)
+	if (ray_angle > 0 && ray_angle < PI)
 	{
 		ray_y = (((int)player->y / display->square_length) * display->square_length) + display->square_length;
 		ray_x = (player->y - ray_y) * a_tan + player->x;
 		y_offset = display->square_length;
 		x_offset = -y_offset * a_tan;
 	}
-	if (ray_angle == 0 || ray_angle == M_PI)
+	if (ray_angle == 0 || ray_angle == PI)
 	{
 		ray_x = player->x;
 		ray_y = player->y;
@@ -51,11 +52,13 @@ static void	horizontal_check(t_display *display, t_map *map, t_player *player, f
 	{
 		mx = (int)ray_x / display->square_length;
 		my = (int)ray_y / display->square_length;
-		if (my >= 0 && mx > 0 && mx < map->width && my < map->height && map->map[my][mx] == '1')
+		if (my >= 0 && mx >= 0 && mx < map->width && my < map->height && map->map[my][mx] == '1')
 		{
 			set_vector(&player_pos, player->x, player->y);
 			set_vector(&horizontal, ray_x, ray_y);
-			*dist = hyp(player_pos, horizontal, ray_angle);
+			// *dist = hyp(player_pos, horizontal, ray_angle);
+		*dist = hyp(player_pos, horizontal, ray_angle) * cos(player->angle - ray_angle);
+
 			point->x = ray_x;
 			point->y = ray_y;
 			point->color = 0x00FF00;
@@ -72,7 +75,7 @@ static void	horizontal_check(t_display *display, t_map *map, t_player *player, f
 
 }
 
-static void	vertical_check(t_display *display, t_map *map, t_player *player, float *dist, t_point *point, t_point *player_point, float ray_angle)
+static void	vertical_check(t_display *display, t_map *map, t_player *player, float *dist, t_point *point, t_point *player_point, float ray_angle, int *h_or_v)
 {
 	int	mx;
 	int	my;
@@ -93,7 +96,7 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 	n_tan = -tan(ray_angle);
 	if (ray_angle > P2 && ray_angle < P3)
 	{
-		ray_x = (((int)player->x / display->square_length) * display->square_length) - 0.0001;
+		ray_x = (((int)player->x / display->square_length) * display->square_length) - 0.0002;
 		ray_y = (player->x - ray_x) * n_tan + player->y;
 		x_offset = -display->square_length;
 		y_offset = -x_offset * n_tan;
@@ -105,7 +108,7 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 		x_offset = display->square_length;
 		y_offset = -x_offset * n_tan;
 	}
-	if (ray_angle == 0 || ray_angle == M_PI)
+	if (ray_angle == 0 || ray_angle == PI)
 	{
 		ray_x = player->x;
 		ray_y = player->y;
@@ -115,13 +118,17 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 	{
 		mx = (int)ray_x / display->square_length;
 		my = (int)ray_y / display->square_length;
-		if (my >= 0 && mx > 0 && mx < map->width && my < map->height && map->map[my][mx] == '1')
+		if (my >= 0 && mx >= 0 && mx < map->width && my < map->height && map->map[my][mx] == '1')
 		{
 			set_vector(&player_pos, player->x, player->y);
 			set_vector(&vertical, ray_x, ray_y);
-			dist_vertical = hyp(player_pos, vertical, ray_angle);
+			// printf("Dist %f / DOF %d\n", *dist, depth_of_field);
+			dist_vertical = hyp(player_pos, vertical, ray_angle) * cos(player->angle - ray_angle);
+
+			// dist_vertical = hyp(player_pos, vertical, ray_angle);
 			if (dist_vertical < *dist)
 			{
+				*h_or_v = 'v';
 				point->x = ray_x;
 				point->y = ray_y;
 				point->color = 0xFF0000;
@@ -137,8 +144,6 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 			depth_of_field += 1;
 		}
 	}
-
-	
 }
 
 //Window 320x160
@@ -154,11 +159,11 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 
 // 	if (ca < 0)
 // 	{
-// 		ca += 2 * M_PI;
+// 		ca += 2 * PI;
 // 	}
-// 	if (ca > 2 * M_PI)
+// 	if (ca > 2 * PI)
 // 	{
-// 		ca -= 2 * M_PI;
+// 		ca -= 2 * PI;
 // 	}
 // 	dist = dist * cos(ca); //FIx fisheye
 // 	// printf("Cos(ca) %f /Cos(ca)\n", cos(ca));
@@ -178,9 +183,9 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 // 		p2.color = 0xFF0000;
 // 	}
 // 	line_offset = display->height - line_height / 2; // Flipped everything
-// 	while (i < 50)
+// 	while (i < display->square_length)
 // 	{
-// 		p1.x = ray_number * 50 + i;
+// 		p1.x = ray_number * display->square_length + i;
 // 		p1.y = display->height - (line_height + line_offset);
 // 		p2.x = p1.x;
 // 		p2.y = display->height - line_offset;
@@ -190,43 +195,102 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 // 	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 // }
 
+void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist, int ray_number, float ray_angle, int *x, int h_or_v)
+{
+	int		line_height;
+	int		start;
+	int		end;
+	int		color; // set color of the wall, white in this case
+	if (h_or_v == 'v')
+		color = 0x00FFFFFF;
+	else
+		color = 0x00FFFF00;
+	int		y;
+	// float	ca = -(player->angle - ray_angle);
+
+	// if (ca < 0)
+	// {
+	// 	ca += 2 * PI;
+	// }
+	// if (ca > 2 * PI)
+	// {
+	// 	ca -= 2 * PI;
+	// }
+
+	(void) map; (void)player; (void)ray_number; (void) ray_angle;
+	// Calculate height of line to draw on screen
+	for (int i = 0; i < 50; i++)
+	{
+
+		line_height = ((int)(display->height / dist)) * 40;
+
+		// calculate lowest and highest pixel to fill in current stripe
+		start = -line_height / 2 + display->height / 2;
+		if(start < 0)
+			start = 0;
+		end = (line_height / 2 + display->height / 2) * 1;
+		if(end >= display->height)
+			end = display->height - 1;
+
+		y = start;
+		// draw pixel for each vertical stripe
+		while(y <= end)
+		{
+			mlx_spp(display, *x, y, color);
+			y++;
+		}
+		*x += 1;
+	}
+
+}
+
+
 void	caster(t_display *display, t_map *map, t_player *player)
 {
 	float	dist;
 	float	ray_angle;
 	int		ray_number;
+	int		x = 0;
 	t_point	point;
 	t_point	player_point;
+	int	h_or_v;
+
+	point.x = 0;
+	point.y = 0;
+	player_point.x = 0;
+	player_point.y = 0;
 
 	ray_number = 0;
 	ray_angle = player->angle - DR * 30;
 	if (ray_angle < 0)
 	{
-		ray_angle += 2 * M_PI;
+		ray_angle += 2 * PI;
 	}
-	if (ray_angle > 2 * M_PI)
+	if (ray_angle > 2 * PI)
 	{
-		ray_angle -= 2 * M_PI;
+		ray_angle -= 2 * PI;
 	}
-	// clear_image(display);
+	clear_image(display);
 
 	while (ray_number < 60)
 	{
+		h_or_v = 'h';
 		horizontal_check(display, map, player, &dist, &point, &player_point, ray_angle);
-		vertical_check(display, map, player, &dist, &point, &player_point, ray_angle);
+		vertical_check(display, map, player, &dist, &point, &player_point, ray_angle, &h_or_v);
 		player_point.x = player->x;
 		player_point.y = player->y;
 		draw_line(display, player_point, point);
-		// draw_3d_walls(display, map, player, dist, ray_number, ray_angle);
+		draw_3d_walls(display, map, player, dist, ray_number, ray_angle, &x, h_or_v);
 		++ray_number;
 		ray_angle += DR;
 		if (ray_angle < 0)
 		{
-			ray_angle += 2 * M_PI;
+			ray_angle += 2 * PI;
 		}
-		if (ray_angle > 2 * M_PI)
+		if (ray_angle > 2 * PI)
 		{
-			ray_angle -= 2 * M_PI;
+			ray_angle -= 2 * PI;
 		}
 	}
+	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 }

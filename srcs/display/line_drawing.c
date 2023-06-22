@@ -69,3 +69,15 @@ void	draw_line(t_display *display, t_point p1, t_point p2)
 			bres_draw_high(display, p2, p1);
 	}
 }
+
+void	draw_vertical_line(int x, int y_start, int y_end, t_display *display)
+{
+	int		y;
+
+	y = y_end;
+	while (y <= y_start)
+	{
+		mlx_spp(display, x, y, 0xFFFFFF);
+		++y;
+	}
+}

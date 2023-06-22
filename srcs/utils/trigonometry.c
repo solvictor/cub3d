@@ -20,5 +20,5 @@ float	hyp(t_vector v1, t_vector v2, float angle)
 {
 	(void)angle;
 	return (sqrt(fabs((v2.x - v1.x) * (v2.x - v1.x)
-			- (v2.y - v1.y) * (v2.y - v1.y))));
+				- (v2.y - v1.y) * (v2.y - v1.y))));
 }

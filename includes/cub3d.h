@@ -166,6 +166,7 @@ bool	start_display(t_display *display, t_vars *vars);
 int		on_destroy(t_vars *vars);
 int		on_keydown(int keycode, t_vars *vars);
 void	mlx_spp(t_display *display, int x, int y, int color);
+void	draw_vertical_line(int x, int y_start, int y_end, t_display *display);
 void	draw_line(t_display *display, t_point p1, t_point p2);
 void	clear_image(t_display *display);
 
