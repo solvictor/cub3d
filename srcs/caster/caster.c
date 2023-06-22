@@ -57,7 +57,15 @@ static void	horizontal_check(t_display *display, t_map *map, t_player *player, f
 			set_vector(&player_pos, player->x, player->y);
 			set_vector(&horizontal, ray_x, ray_y);
 			// *dist = hyp(player_pos, horizontal, ray_angle);
-		*dist = hyp(player_pos, horizontal, ray_angle) * cos(player->angle - ray_angle);
+			if (ray_angle < 0)
+			{
+				ray_angle += 2 * PI;
+			}
+			if (ray_angle > 2 * PI)
+			{
+				ray_angle -= 2 * PI;
+			}
+			*dist = hyp(player_pos, horizontal, ray_angle) * cos(player->angle - ray_angle);
 
 			point->x = ray_x;
 			point->y = ray_y;
@@ -123,6 +131,14 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 			set_vector(&player_pos, player->x, player->y);
 			set_vector(&vertical, ray_x, ray_y);
 			// printf("Dist %f / DOF %d\n", *dist, depth_of_field);
+			if (ray_angle < 0)
+			{
+				ray_angle += 2 * PI;
+			}
+			if (ray_angle > 2 * PI)
+			{
+				ray_angle -= 2 * PI;
+			}
 			dist_vertical = hyp(player_pos, vertical, ray_angle) * cos(player->angle - ray_angle);
 
 			// dist_vertical = hyp(player_pos, vertical, ray_angle);
