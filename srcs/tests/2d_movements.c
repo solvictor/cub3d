@@ -33,11 +33,9 @@ void	basic_down(t_vars *vars)
 void	basic_left(t_vars *vars)
 {
 	t_player	*player;
-	t_display	*display;
 
 	vars->display->refresh = true;
 	player = vars->player;
-	display = vars->display;
 	player->angle -= PI / 30;
 	if (player->angle < 0)
 		player->angle += 2 * PI;
@@ -49,11 +47,9 @@ void	basic_left(t_vars *vars)
 void	basic_right(t_vars *vars)
 {
 	t_player	*player;
-	t_display	*display;
 
 	vars->display->refresh = true;
 	player = vars->player;
-	display = vars->display;
 	player->angle += PI / 30;
 	if (player->angle > 2 * PI)
 		player->angle -= 2 * PI;

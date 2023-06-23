@@ -51,7 +51,6 @@ bool	create_map(t_vars *vars, t_map *map)
 {
 	int			i;
 	int			j;
-	size_t		len_line;
 	const char	**content = (const char **)vars->file_content + map->first_line;
 
 	i = 0;
@@ -61,7 +60,6 @@ bool	create_map(t_vars *vars, t_map *map)
 	while (content[i])
 	{
 		j = 0;
-		len_line = ft_strlen(content[i]);
 		map->map[i] = ft_calloc(map->width + 2, sizeof (char));
 		if (!map->map[i])
 			return (ft_free_strs(map->map), perror("malloc"), false);
