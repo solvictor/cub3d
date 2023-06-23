@@ -54,6 +54,8 @@ bool	file_opener(char *file_name, t_vars *vars)
 		is init to -1, if at the end is 1 then set it to 0
 		islands are 1s separated by lines full of 1
 		Do the same for the islands separated by a column of 1
+	TODO
+		Check if the RGB Codes are correct (no missing)
 */
 
 bool	parsing(char *file_name, t_vars *vars, t_map *map)

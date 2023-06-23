@@ -55,16 +55,12 @@ static void	init_player(t_vars *vars, t_player *player)
 	vars->player = player;
 }
 
-static void	init_camera(t_vars *vars, t_camera *camera)
+static void	init_caster(t_vars *vars, t_caster *caster)
 {
-	t_vector	direction;
-	t_vector	plane;
-
-	camera->direction = &direction;
-	camera->plane = &plane;
-	set_vector(camera->direction, 0, 0);
-	set_vector(camera->plane, 0, 0);
-	vars->camera = camera;
+	caster->ray_angle = 0;
+	caster->ray_length = 0;
+	caster->ray_number = 0;
+	vars->caster = caster;
 }
 
 int	main(int ac, char **av)
@@ -73,7 +69,7 @@ int	main(int ac, char **av)
 	t_map		map;
 	t_display	display;
 	t_player	player;
-	t_camera	camera;
+	t_caster	caster;
 
 	if (ac != 2)
 		return (error_str("Usage: ./cub3d path/to/map.cub"), EXIT_FAILURE);
@@ -81,7 +77,7 @@ int	main(int ac, char **av)
 	init_map(&vars, &map);
 	init_display(&vars, &display);
 	init_player(&vars, &player);
-	init_camera(&vars, &camera);
+	init_caster(&vars, &caster);
 	if (parsing(av[1], &vars, &map) == false)
 		return (clean_memory(&vars), EXIT_FAILURE);
 	if (start_display(&display, &vars) == false)

@@ -11,7 +11,7 @@ static void	bres_draw_low(t_display *display, t_point p1, t_point p2)
 	delta_y = abs(p2.y - p1.y);
 	sign_delta_y = 1 - (p2.y - p1.y < 0) * 2;
 	bres_val = (2 * delta_y) - (p2.x - p1.x);
-	x = p1.x - 1;
+	x = p1.x;
 	y = p1.y;
 	while (++x < p2.x)
 	{
@@ -37,7 +37,7 @@ static void	bres_draw_high(t_display *display, t_point p1, t_point p2)
 	delta_x = abs(p2.x - p1.x);
 	sign_delta_x = 1 - (p2.x - p1.x < 0) * 2;
 	bres_val = (2 * delta_x) - (p2.y - p1.y);
-	x = p1.x - 1;
+	x = p1.x;
 	y = p1.y;
 	while (++y < p2.y)
 	{

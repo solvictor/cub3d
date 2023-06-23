@@ -63,18 +63,9 @@ typedef struct s_point
 
 typedef struct s_vector
 {
-	double		x;
-	double		y;
+	float		x;
+	float		y;
 }				t_vector;
-
-typedef struct s_camera
-{
-	t_vector	*direction;
-	t_vector	*plane;
-	float		delta_x;
-	float		delta_y;
-	float		angle;
-}				t_camera;
 
 /*
 	Show a view line, then compute delta x and delta y that needs to be added
@@ -132,13 +123,21 @@ typedef struct s_display
 	bool			refresh;
 }					t_display;
 
+typedef struct s_caster
+{
+	float	ray_length;
+	float	ray_angle;
+	int		ray_number;
+	int		depth_of_field;
+}				t_caster;
+
 typedef struct s_vars
 {
 	char			**file_content;
 	t_map			*map;
 	t_display		*display;
 	t_player		*player;
-	t_camera		*camera;
+	t_caster		*caster;
 }					t_vars;
 
 /******************************************************************************/

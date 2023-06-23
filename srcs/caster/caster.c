@@ -144,10 +144,10 @@ void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist,
 	int		start;
 	int		end;
 	int		color; // set color of the wall, white in this case
-	if (h_or_v == 'v')
-		color = 0x00FFFFFF;
-	else
-		color = 0x00FFFF00;
+	// if (h_or_v == 'v')
+	// 	color = 0x00FFFFFF;
+	// else
+	// 	color = 0x00FFFF00;
 	int		y;
 	float	ca = player->angle - ray_angle;
 
@@ -161,8 +161,10 @@ void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist,
 	{
 		ca -= 2 * PI;
 	}
+	(void)h_or_v;
 
 	(void) map; (void)player; (void)ray_number; (void) ray_angle;
+	color = 0xFFFFFF - 50 * ray_number;
 	// Calculate height of line to draw on screen
 	for (int i = 0; i < 50; i++)
 	{
