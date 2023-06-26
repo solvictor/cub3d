@@ -11,6 +11,6 @@ const void	horizontal_check_setup(t_map *map, t_display *display,
 	caster->ray_length = FLT_MAX;
 	if (caster->ray_angle > PI)
 	{
-		ray.y = (((int)player->y / 64))
+		ray.y = (((int)player->y / display->square_length))
 	}
 }

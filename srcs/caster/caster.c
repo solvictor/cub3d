@@ -123,7 +123,10 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 				point->color = 0xFF0000;
 				player_point->color = 0xFF0000;
 				*dist = dist_vertical;
+				return ;
+				printf("Dist Vertical %f /Dist Vertical\n", dist_vertical);
 			}
+			printf("Dist %f /Dist \n", *dist);
 			depth_of_field = map->width;
 		}
 		else
@@ -135,24 +138,15 @@ static void	vertical_check(t_display *display, t_map *map, t_player *player, flo
 	}
 }
 
-//Window 320x160
-
-
-void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist, int ray_number, float ray_angle, int *x, int h_or_v)
+void	draw_3d_walls(t_display *display, t_player *player, float dist, float ray_angle, int *x, int h_or_v)
 {
-	int		line_height;
+	float	line_height;
 	int		start;
 	int		end;
-	int		color; // set color of the wall, white in this case
-	// if (h_or_v == 'v')
-	// 	color = 0x00FFFFFF;
-	// else
-	// 	color = 0x00FFFF00;
+	int		color;
 	int		y;
-	float	ca = player->angle - ray_angle;
+	float	ca =  -(player->angle - ray_angle);
 
-	printf("Ray Angle %f /Ray Angle\n", ray_angle);
-	printf("Player Angle %f /Player Angle\n", player->angle);
 	if (ca < 0)
 	{
 		ca += 2 * PI;
@@ -161,34 +155,29 @@ void	draw_3d_walls(t_display *display, t_map *map, t_player *player, float dist,
 	{
 		ca -= 2 * PI;
 	}
-	(void)h_or_v;
 
-	(void) map; (void)player; (void)ray_number; (void) ray_angle;
-	color = 0xFFFFFF - 50 * ray_number;
-	// Calculate height of line to draw on screen
-	for (int i = 0; i < 50; i++)
+	dist = dist *  cos(ca);
+	if (h_or_v == 'v')
+		color = 0x00FFFFFF;
+	else
+		color = 0x00FFFF00;
+
+	line_height = (int)((64 * display->height) / dist);
+	if (line_height > display->height)
+		line_height = display->height;
+	start = (-line_height + display->height) / 2;
+	if (start < 0)
+		start = 0;
+	end = (line_height + display->height) / 2;
+	if (end > display->height)
+		end = display->height - 1;
+
+	y = start;
+	while(y <= end)
 	{
-
-		line_height = ((int)(display->height / dist)) * 40;
-
-		// calculate lowest and highest pixel to fill in current stripe
-		start = -line_height / 2 + display->height / 2;
-		if(start < 0)
-			start = 0;
-		end = (line_height / 2 + display->height / 2) * 1;
-		if(end >= display->height)
-			end = display->height - 1;
-
-		y = start;
-		// draw pixel for each vertical stripe
-		while(y <= end)
-		{
-			mlx_spp(display, *x, y, color);
-			y++;
-		}
-		*x += 1;
+		mlx_spp(display, *x, y, color);
+		y++;
 	}
-
 }
 
 
@@ -210,18 +199,15 @@ void	caster(t_display *display, t_map *map, t_player *player)
 	ray_number = 0;
 	ray_angle = player->angle - DR * 30;
 	// ray_angle = player->angle;
-
+	printf("Player Angle %f /Player Angle\n", player->angle);
 	if (ray_angle < 0)
-	{
 		ray_angle += 2 * PI;
-	}
 	if (ray_angle > 2 * PI)
-	{
 		ray_angle -= 2 * PI;
-	}
+	printf("Ray Angle %f /Ray Angle\n", ray_angle);	
 	clear_image(display);
 
-	while (ray_number < 60)
+	while (ray_number < display->width)
 	{
 		h_or_v = 'h';
 		horizontal_check(display, map, player, &dist, &point, &player_point, ray_angle);
@@ -229,17 +215,14 @@ void	caster(t_display *display, t_map *map, t_player *player)
 		player_point.x = player->x;
 		player_point.y = player->y;
 		draw_line(display, player_point, point);
-		draw_3d_walls(display, map, player, dist, ray_number, ray_angle, &x, h_or_v);
+		draw_3d_walls(display, player, dist, ray_angle, &x, h_or_v);
+		++x;
 		++ray_number;
-		ray_angle += DR;
+		ray_angle += (DR / display->width) * 60;
 		if (ray_angle < 0)
-		{
 			ray_angle += 2 * PI;
-		}
 		if (ray_angle > 2 * PI)
-		{
 			ray_angle -= 2 * PI;
-		}
 	}
 	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 }
