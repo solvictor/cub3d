@@ -7,9 +7,9 @@ void	draw_3d_walls(t_display *display, t_camera *camera, int x)
 	int			draw_end;
 	int			color;
 
-	printf("display->height: %f\n", display->height);
+	printf("display->height: %d\n", display->height);
 	printf("camera->perp_wall_dist: %f\n", camera->perp_wall_dist);
-	printf("Line Height: %f\n", line_height);
+	printf("Line Height: %d\n", line_height);
 	draw_start = -line_height / 2 + display->height / 2;
 	if (draw_start < 0)
 		draw_start = 0;
@@ -35,85 +35,98 @@ void	caster(t_display *display, t_player *player, t_map *map,
 	x = 0;
 	set_vector(&camera->pos, player->x, player->y);
 	clear_image(display);
-	while (x < display->width)
+	printf("Camera->plane.x : %f\n", camera->plane.x);
+	printf("Camera->plane.y : %f\n", camera->plane.y);
+	printf("Camera->dir.x : %f\n", camera->dir.x);
+	printf("Camera->dir.y : %f\n", camera->dir.y);
+	// while (x < display->width) // <= to mirror camera_x?
+	while (x < 1) // <= to mirror camera_x?
 	{
 		// ft_printf("Start X: %d\n", x);
 		camera->camera_x = 2 * x / (double)display->width - 1;
+		printf("Camera->camera_x : %f\n", camera->camera_x);
 		set_vector(&camera->ray_dir,
 			camera->dir.x + camera->plane.x * camera->camera_x,
 			camera->dir.y + camera->plane.y * camera->camera_x);
-		camera->map_x = (int)camera->pos.x;
-		camera->map_y = (int)camera->pos.y;
-	printf("hey\n");
-		if (camera->map_x >= map->width || camera->map_y >= map->height
-			|| camera->map_x < 0 || camera->map_y < 0)
+		printf("Camera->ray_dir.x : %f\n", camera->ray_dir.x);
+		printf("Camera->ray_dir.y : %f\n", camera->ray_dir.y);		
+		camera->map_x = (int)camera->pos.x / display->square_length;
+		camera->map_y = (int)camera->pos.y / display->square_length;
+		printf("Camera->map_x : %d\n", camera->map_x);
+		printf("Camera->map_y : %d\n", camera->map_y);
+		if (camera->map_x < 0 || camera->map_y < 0 || camera->map_x > map->width || camera->map_y > map->height)
+		{
+			printf("Bad coordinates in caster\n");
 			return ;
+		}
+
 		if (camera->ray_dir.x == 0 && camera->ray_dir.y == 0)
 			set_vector(&camera->delta_dist, DBL_MAX, DBL_MAX);
-		else if (camera->ray_dir.x == 0 && camera->ray_dir.y != 0)
-			set_vector(&camera->delta_dist, DBL_MAX,
-				fabs(1 / camera->ray_dir.y));
-		else if (camera->ray_dir.x != 0 && camera->ray_dir.y == 0)
-			set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
-				DBL_MAX);
-		else
-			set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
-				fabs(1 / camera->ray_dir.y));
-		ft_printf("Segfault test============================\n");
-		hit = 0;
-		if (camera->ray_dir.x < 0)
-		{
-			camera->step_x = -1; // MAybe put the steps as local variables
-			camera->side_dist.x = (camera->pos.x - camera->map_x)
-				* camera->delta_dist.x;
-		}
-		else
-		{
-			camera->step_x = 1;
-			camera->side_dist.x = (camera->map_x + 1.0 - camera->pos.x)
-				* camera->delta_dist.x;
-		}
-		if (camera->ray_dir.y < 0)
-		{
-			camera->step_y = -1;
-			camera->side_dist.y = (camera->pos.y - camera->map_y)
-				* camera->delta_dist.y;
-		}
-		else
-		{
-			camera->step_y = 1;
-			camera->side_dist.y = (camera->map_y + 1.0 - camera->pos.y)
-				* camera->delta_dist.y;
-		}
-		// ft_printf("End X: %d\n", x);
-		while (hit == 0)
-		{
-			if (camera->side_dist.x < camera->side_dist.y)
-			{
-				camera->side_dist.x += camera->delta_dist.x;
-				camera->map_x += camera->step_x;
-				camera->side = 0;
-			}
-			else
-			{
-				camera->side_dist.y += camera->delta_dist.y;
-				camera->map_y += camera->step_y;
-				camera->side = 1;
-			}
-			// ft_printf("Map Y / Map X: %d/%d\n", camera->map_x, camera->map_y);
-			if (map->map[camera->map_y][camera->map_x] == '1')
-				hit = 1;
+		// else if (camera->ray_dir.x == 0 && camera->ray_dir.y != 0)
+		// 	set_vector(&camera->delta_dist, DBL_MAX,
+		// 		fabs(1 / camera->ray_dir.y));
+		// else if (camera->ray_dir.x != 0 && camera->ray_dir.y == 0)
+		// 	set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
+		// 		DBL_MAX);
+		// else
+		// 	set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
+		// 		fabs(1 / camera->ray_dir.y));
+		// hit = 0;
+		// if (camera->ray_dir.x < 0)
+		// {
+		// 	camera->step_x = -1; // MAybe put the steps as local variables
+		// 	camera->side_dist.x = (camera->pos.x - camera->map_x)
+		// 		* camera->delta_dist.x;
+		// }
+		// else
+		// {
+		// 	camera->step_x = 1;
+		// 	camera->side_dist.x = (camera->map_x + 1.0 - camera->pos.x)
+		// 		* camera->delta_dist.x;
+		// }
+		// if (camera->ray_dir.y < 0)
+		// {
+		// 	camera->step_y = -1;
+		// 	camera->side_dist.y = (camera->pos.y - camera->map_y)
+		// 		* camera->delta_dist.y;
+		// }
+		// else
+		// {
+		// 	camera->step_y = 1;
+		// 	camera->side_dist.y = (camera->map_y + 1.0 - camera->pos.y)
+		// 		* camera->delta_dist.y;
+		// }
+		// // ft_printf("End X: %d\n", x);
+		// while (hit == 0)
+		// {
+		// 	if (camera->side_dist.x < camera->side_dist.y)
+		// 	{
+		// 		camera->side_dist.x += camera->delta_dist.x;
+		// 		camera->map_x += camera->step_x;
+		// 		camera->side = 0;
+		// 	}
+		// 	else
+		// 	{
+		// 		camera->side_dist.y += camera->delta_dist.y;
+		// 		camera->map_y += camera->step_y;
+		// 		camera->side = 1;
+		// 	}
+		// 	// ft_printf("Map Y / Map X: %d/%d\n", camera->map_x, camera->map_y);
+		// ft_printf("Segfault test============================\n");
+		// 	if (map->map[camera->map_y][camera->map_x] == '1')
+		// 		hit = 1;
 
-		}
-		// ft_printf("camera side dist x / camera delta dist x: %d / %d\n", camera->side_dist.x, camera->delta_dist.x);
-		if (camera->side == 0)
-			camera->perp_wall_dist = camera->side_dist.x - camera->delta_dist.x;
-		else
-			camera->perp_wall_dist = camera->side_dist.y - camera->delta_dist.y;
-		if (camera->perp_wall_dist == 0)
-			camera->perp_wall_dist = 1;
-		draw_3d_walls(display, camera, x);
+		// }
+		// // ft_printf("camera side dist x / camera delta dist x: %d / %d\n", camera->side_dist.x, camera->delta_dist.x);
+		// if (camera->side == 0)
+		// 	camera->perp_wall_dist = camera->side_dist.x - camera->delta_dist.x;
+		// else
+		// 	camera->perp_wall_dist = camera->side_dist.y - camera->delta_dist.y;
+		// if (camera->perp_wall_dist == 0)
+		// 	camera->perp_wall_dist = 1;
+		// draw_3d_walls(display, camera, x);
 		++x;
+		printf("x=%d\n", x);
 	}
 	// mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 }
