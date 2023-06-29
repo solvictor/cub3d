@@ -44,7 +44,8 @@ void	draw_2d(t_display *display, t_map *map)
 	}
 }
 
-void	init_2d(t_display *display, t_map *map, t_player *player)
+void	init_2d(t_display *display, t_map *map, t_player *player,
+		t_camera *camera)
 {
 	const int	height_ratio = display->height
 		/ (map->height + map->islands);
@@ -62,6 +63,6 @@ void	init_2d(t_display *display, t_map *map, t_player *player)
 	player->delta_x = cos(player->angle) * player->speed;
 	player->delta_y = sin(player->angle) * player->speed;
 	draw_player(display, player);
-	caster(display, map, player);
+	caster(display, player, map, camera);
 	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 }

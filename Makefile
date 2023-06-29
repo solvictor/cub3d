@@ -22,13 +22,14 @@ SRCS 			=	$(addsuffix .c,				\
 						line_drawing			\
 					)							\
 					$(addprefix srcs/caster/,	\
-						caster					\
+						new_caster				\
 					)							\
 					$(addprefix srcs/utils/,	\
 						comparaisons			\
 						line_functions			\
 						trigonometry			\
 						vectors					\
+						points					\
 					)							\
 					$(addprefix srcs/tests/,	\
 						show_info				\
@@ -47,7 +48,8 @@ CC				= cc
 MLXDIR			= minilibx-linux
 MLXLIB			= -lmlx
 XLIBS			= -lX11 -lXext
-FLAGS			= -Wall -Wextra -Werror
+FLAGS			= -Wall -Wextra 
+#=====================================TODO ADD WERROR
 OBJS			= ${SRCS:.c=.o}
 RM				= rm -rf
 RED				= \033[1;31m

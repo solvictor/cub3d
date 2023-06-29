@@ -63,8 +63,8 @@ typedef struct s_point
 
 typedef struct s_vector
 {
-	float		x;
-	float		y;
+	double		x;
+	double		y;
 }				t_vector;
 
 /*
@@ -123,13 +123,22 @@ typedef struct s_display
 	bool			refresh;
 }					t_display;
 
-typedef struct s_caster
+typedef struct s_camera
 {
-	float	ray_length;
-	float	ray_angle;
-	int		ray_number;
-	int		depth_of_field;
-}				t_caster;
+	double			camera_x;
+	double			perp_wall_dist;
+	int				step_x;
+	int				step_y;
+	int				map_x;
+	int				map_y;
+	int				side;
+	t_vector		pos;
+	t_vector		dir;
+	t_vector		plane;
+	t_vector		ray_dir;
+	t_vector		side_dist;
+	t_vector		delta_dist;
+}					t_camera;
 
 typedef struct s_vars
 {
@@ -137,7 +146,7 @@ typedef struct s_vars
 	t_map			*map;
 	t_display		*display;
 	t_player		*player;
-	t_caster		*caster;
+	t_camera		*camera;
 }					t_vars;
 
 /******************************************************************************/
@@ -145,78 +154,85 @@ typedef struct s_vars
 /*                                 Parsing                                    */
 /*                                                                            */
 /******************************************************************************/
-bool	parsing(char *file_name, t_vars *vars, t_map *map);
-bool	get_textures_info(t_vars *vars, t_map *map);
-bool	map_size(t_vars *vars, t_map *map);
-bool	map_correct(t_map *map);
-bool	create_map(t_vars *vars, t_map *map);
-void	format_map(t_map *map);
-bool	count_islands(t_map *map);
+bool		parsing(char *file_name, t_vars *vars, t_map *map);
+bool		get_textures_info(t_vars *vars, t_map *map);
+bool		map_size(t_vars *vars, t_map *map);
+bool		map_correct(t_map *map);
+bool		create_map(t_vars *vars, t_map *map);
+void		format_map(t_map *map);
+bool		count_islands(t_map *map);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                 Cleaning                                   */
 /*                                                                            */
 /******************************************************************************/
-void	error_str(char *str);
-void	clean_memory(t_vars *vars);
+void		error_str(char *str);
+void		clean_memory(t_vars *vars);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                  Display                                   */
 /*                                                                            */
 /******************************************************************************/
-bool	start_display(t_display *display, t_vars *vars);
-int		on_destroy(t_vars *vars);
-int		on_keydown(int keycode, t_vars *vars);
-void	mlx_spp(t_display *display, int x, int y, int color);
-void	draw_vertical_line(int x, int y_start, int y_end, t_display *display);
-void	draw_line(t_display *display, t_point p1, t_point p2);
-void	clear_image(t_display *display);
+bool		start_display(t_display *display, t_vars *vars);
+int			on_destroy(t_vars *vars);
+int			on_keydown(int keycode, t_vars *vars);
+void		mlx_spp(t_display *display, int x, int y, int color);
+void		draw_vertical_line(int x, int y_start, int y_end,
+				t_display *display);
+void		draw_line(t_display *display, t_point p1, t_point p2);
+void		clear_image(t_display *display);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                   Caster                                   */
 /*                                                                            */
 /******************************************************************************/
-void	caster(t_display *display, t_map *map, t_player *player);
+void	caster(t_display *display, t_player *player, t_map *map,
+				t_camera *camera);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                   Utils                                    */
 /*                                                                            */
 /******************************************************************************/
-int		biggest(int a, int b);
-int		smallest(int a, int b);
-bool	is_line_empty(const char *line);
-double	deg_to_rad(int deg);
-int		quadrant_of_angle(int deg);
-float	hyp(t_vector v1, t_vector v2, float angle);
-void	set_vector(t_vector *vector, double x, double y);
+int			biggest(int a, int b);
+int			smallest(int a, int b);
+bool		is_line_empty(const char *line);
+double		deg_to_rad(int deg);
+int			quadrant_of_angle(int deg);
+float		hyp_v(t_vector v1, t_vector v2);
+float		hyp(float x1, float y1, float x2, float y2);
+void		correct_angle(float *angle);
+void		set_vector(t_vector *vector, double x, double y);
+t_vector	addition(t_vector v_a, t_vector v_b);
+void		set_point(t_point *point, int x, int y, int color);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                   Tests                                    */
 /*                                                                            */
 /******************************************************************************/
-void	show_file(t_vars *vars);
-void	show_texture_info(t_map *map);
-void	show_map_info(t_map *map);
-void	show_map(t_map *map);
-void	draw_2d(t_display *display, t_map *map);
-void	basic_up(t_vars *vars);
-void	basic_down(t_vars *vars);
-void	basic_left(t_vars *vars);
-void	basic_right(t_vars *vars);
-void	init_2d(t_display *display, t_map *map, t_player *player);
-bool	colliding(int direction,
-			t_map *map, t_player *player, t_display *display);
-void	draw_player(t_display *display, t_player *player);
-void	show_display_info(t_display *display, t_map *map);
-void	draw_fov(t_display *display, t_player *player, t_map *map);
-void	rotate_left(t_vars *vars);
-void	rotate_right(t_vars *vars);
-void	move_player(t_vars *vars);
+void		show_file(t_vars *vars);
+void		show_texture_info(t_map *map);
+void		show_map_info(t_map *map);
+void		show_map(t_map *map);
+void		draw_2d(t_display *display, t_map *map);
+void		basic_up(t_vars *vars);
+void		basic_down(t_vars *vars);
+void		basic_left(t_vars *vars);
+void		basic_right(t_vars *vars);
+void		init_2d(t_display *display, t_map *map, t_player *player,
+				t_camera *camera);
+bool		colliding(int direction,
+				t_map *map, t_player *player, t_display *display);
+void		draw_player(t_display *display, t_player *player);
+void		show_display_info(t_display *display, t_map *map);
+void		draw_fov(t_display *display, t_player *player, t_map *map);
+void		rotate_left(t_vars *vars);
+void		rotate_right(t_vars *vars);
+void		move_player(t_vars *vars);
 
 
 #endif
