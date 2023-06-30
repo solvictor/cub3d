@@ -60,8 +60,8 @@ void	caster(t_display *display, t_player *player, t_map *map,
 			return ;
 		}
 
-		if (camera->ray_dir.x == 0 && camera->ray_dir.y == 0)
-			set_vector(&camera->delta_dist, DBL_MAX, DBL_MAX);
+		// if (camera->ray_dir.x == 0 && camera->ray_dir.y == 0)
+		// 	set_vector(&camera->delta_dist, DBL_MAX, DBL_MAX);
 		// else if (camera->ray_dir.x == 0 && camera->ray_dir.y != 0)
 		// 	set_vector(&camera->delta_dist, DBL_MAX,
 		// 		fabs(1 / camera->ray_dir.y));
