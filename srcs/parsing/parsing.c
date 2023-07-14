@@ -2,13 +2,13 @@
 
 static bool	check_parameters(t_vars *vars)
 {
-	const char	ids[6][2] = {"NO", "SO", "WE", "EA", "F", "C"};
+	const char	ids[6][3] = {"NO", "SO", "WE", "EA", "F", "C"};
 	int			i;
 	int			j;
 
 	i = 0;
 	j = 0;
-	while (vars->file_content[i])
+	while (vars->file_content[i] && j < 6)
 	{
 		if (!is_line_empty(vars->file_content[i]))
 		{

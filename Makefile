@@ -35,7 +35,6 @@ SRCS 			=	$(addsuffix .c,				\
 						show_info				\
 						2d_map					\
 						2d_movements			\
-						2d_collisions			\
 					)							\
 						srcs/cub3d				\
 					)
