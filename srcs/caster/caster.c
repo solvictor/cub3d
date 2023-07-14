@@ -16,24 +16,15 @@ void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 		draw_end = display->height - 1;
 	y = 0;
 	while (y < draw_start)
-	{
-		mlx_spp(display, x, y, map->ceiling_color);
-		++y;
-	}
+		mlx_spp(display, x, y++, map->ceiling_color);
 	color = 0x00002F;
 	if (camera->side == 1)
 		color /= 2;
 	while (draw_start <= draw_end)
-	{
-		mlx_spp(display, x, draw_start, color);
-		++draw_start;
-	}
+		mlx_spp(display, x, draw_start++, color);
 	y = draw_end;
 	while (y < display->height)
-	{
-		mlx_spp(display, x, y, map->floor_color);
-		++y;
-	}
+		mlx_spp(display, x, y++, map->floor_color);
 }
 
 void	caster(t_display *display, t_map *map, t_camera *camera)
