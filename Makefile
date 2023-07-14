@@ -18,21 +18,17 @@ SRCS 			=	$(addsuffix .c,				\
 						display					\
 						destroy					\
 						listeners				\
-						line_drawing			\
 					)							\
 					$(addprefix srcs/caster/,	\
-						caster				\
+						caster					\
+						movements				\
 					)							\
 					$(addprefix srcs/utils/,	\
-						comparaisons			\
 						line_functions			\
-						trigonometry			\
 						vectors					\
-						points					\
 					)							\
 					$(addprefix srcs/tests/,	\
 						show_info				\
-						2d_movements			\
 					)							\
 						srcs/cub3d				\
 					)

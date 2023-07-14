@@ -5,7 +5,7 @@ static bool	init(t_display *display)
 	display->mlx = mlx_init();
 	mlx_get_screen_size(display->mlx, &display->width, &display->height);
 	display->win = mlx_new_window(display->mlx, display->width,
-			display->height, "Cub3d");
+			display->height, "Cub3d ouuuuuuuuuuuu");
 	display->img = mlx_new_image(display->mlx, display->width, display->height);
 	display->addr = mlx_get_data_addr(display->img, &display->bpp,
 			&display->size_line, &display->endian);

@@ -54,13 +54,6 @@ enum e_directions
 	RIGHT
 };
 
-typedef struct s_point
-{
-	int			x;
-	int			y;
-	int			color;
-}				t_point;
-
 typedef struct s_vector
 {
 	double		x;
@@ -139,7 +132,6 @@ bool		map_size(t_vars *vars, t_map *map);
 bool		map_correct(t_map *map);
 bool		create_map(t_vars *vars, t_map *map);
 void		format_map(t_map *map);
-bool		count_islands(t_map *map);
 
 /******************************************************************************/
 /*                                                                            */
@@ -158,9 +150,6 @@ bool		start_display(t_display *display, t_vars *vars);
 int			on_destroy(t_vars *vars);
 int			on_keydown(int keycode, t_vars *vars);
 void		mlx_spp(t_display *display, int x, int y, int color);
-void		draw_vertical_line(int x, int y_start, int y_end,
-				t_display *display);
-void		draw_line(t_display *display, t_point p1, t_point p2);
 void		clear_image(t_display *display);
 
 /******************************************************************************/
@@ -175,17 +164,9 @@ void	caster(t_display *display, t_map *map, t_camera *camera);
 /*                                   Utils                                    */
 /*                                                                            */
 /******************************************************************************/
-int			biggest(int a, int b);
-int			smallest(int a, int b);
-bool		is_line_empty(const char *line);
-double		deg_to_rad(int deg);
-int			quadrant_of_angle(int deg);
-float		hyp_v(t_vector v1, t_vector v2);
-float		hyp(float x1, float y1, float x2, float y2);
-void		correct_angle(float *angle);
 void		set_vector(t_vector *vector, double x, double y);
-t_vector	addition(t_vector v_a, t_vector v_b);
-void		set_point(t_point *point, int x, int y, int color);
+bool		is_line_empty(const char *line);
+
 
 /******************************************************************************/
 /*                                                                            */
@@ -196,14 +177,10 @@ void		show_file(t_vars *vars);
 void		show_texture_info(t_map *map);
 void		show_map_info(t_map *map);
 void		show_map(t_map *map);
-void		draw_2d(t_display *display, t_map *map);
 void		basic_up(t_vars *vars);
 void		basic_down(t_vars *vars);
 void		basic_left(t_vars *vars);
 void		basic_right(t_vars *vars);
-void		rotate_left(t_vars *vars);
-void		rotate_right(t_vars *vars);
-void		move_player(t_vars *vars);
 
 
 #endif
