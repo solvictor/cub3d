@@ -16,12 +16,10 @@ void	show_texture_info(t_map *map)
 {
 	ft_printf("Texture NO %s\n", map->path_north);
 	ft_printf("Texture SO %s\n", map->path_south);
-	ft_printf("Texture EA %s\n", map->path_east);
 	ft_printf("Texture WE %s\n", map->path_west);
-	ft_printf("Texture Floor %d %d %d\n", map->floor_color[0],
-		map->floor_color[1], map->floor_color[2]);
-	ft_printf("Texture Ceiling %d %d %d\n", map->ceiling_color[0],
-		map->ceiling_color[1], map->ceiling_color[2]);
+	ft_printf("Texture EA %s\n", map->path_east);
+	ft_printf("Texture Floor %d\n", map->floor_color);
+	ft_printf("Texture Ceiling %d\n", map->ceiling_color);
 }
 
 void	show_map_info(t_map *map)

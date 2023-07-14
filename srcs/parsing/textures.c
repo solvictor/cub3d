@@ -28,15 +28,15 @@ static bool	assign_to_map_aux(char *id, char *value, t_map *map)
 		return (false);
 	else if (!ft_strncmp(id, "F", 1))
 	{
-		map->floor_color[0] = ft_atoi(colors[0]);
-		map->floor_color[1] = ft_atoi(colors[1]);
-		map->floor_color[2] = ft_atoi(colors[2]);
+		map->floor_color = ft_atoi(colors[0]) * 65536;
+		map->floor_color += ft_atoi(colors[1]) * 256;
+		map->floor_color += ft_atoi(colors[2]);
 	}
 	else if (!ft_strncmp(id, "C", 1))
 	{
-		map->ceiling_color[0] = ft_atoi(colors[0]);
-		map->ceiling_color[1] = ft_atoi(colors[1]);
-		map->ceiling_color[2] = ft_atoi(colors[2]);
+		map->ceiling_color = ft_atoi(colors[0]) * 65536;
+		map->ceiling_color += ft_atoi(colors[1]) * 256;
+		map->ceiling_color += ft_atoi(colors[2]);
 	}
 	return (free(value), ft_free_strs((char **)colors), true);
 }

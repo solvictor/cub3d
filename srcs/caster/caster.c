@@ -1,11 +1,12 @@
 #include "cub3d.h"
 
-void	draw_3d_walls(t_display *display, t_camera *camera, int x)
+void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 {
 	const int	line_height = (int)(display->height / camera->perp_wall_dist);
 	int			draw_start;
 	int			draw_end;
 	int			color;
+	int			y;
 
 	draw_start = -line_height / 2 + display->height / 2;
 	if (draw_start < 0)
@@ -13,6 +14,12 @@ void	draw_3d_walls(t_display *display, t_camera *camera, int x)
 	draw_end = line_height / 2 + display->height / 2;
 	if (draw_end >= display->height)
 		draw_end = display->height - 1;
+	y = 0;
+	while (y < draw_start)
+	{
+		mlx_spp(display, x, y, map->ceiling_color);
+		++y;
+	}
 	color = 0xFF0000;
 	if (camera->side == 1)
 		color /= 2;
@@ -20,6 +27,12 @@ void	draw_3d_walls(t_display *display, t_camera *camera, int x)
 	{
 		mlx_spp(display, x, draw_start, color);
 		++draw_start;
+	}
+	y = draw_end;
+	while (y < display->height)
+	{
+		mlx_spp(display, x, y, map->floor_color);
+		++y;
 	}
 }
 
@@ -99,7 +112,7 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 			camera->perp_wall_dist = camera->side_dist.y - camera->delta_dist.y;
 		if (camera->perp_wall_dist == 0)
 			camera->perp_wall_dist = 1;
-		draw_3d_walls(display, camera, x);
+		draw_3d_walls(display, map, camera, x);
 		++x;
 	}
 }

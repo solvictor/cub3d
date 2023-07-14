@@ -6,12 +6,8 @@ static void	init_map(t_vars *vars, t_map *map)
 	map->path_south = NULL;
 	map->path_east = NULL;
 	map->path_west = NULL;
-	map->ceiling_color[0] = 0;
-	map->ceiling_color[1] = 0;
-	map->ceiling_color[2] = 0;
-	map->floor_color[0] = 0;
-	map->floor_color[1] = 0;
-	map->floor_color[2] = 0;
+	map->floor_color = 0;
+	map->ceiling_color = 0;
 	map->param_number = 0;
 	map->height = 0;
 	map->width = 0;

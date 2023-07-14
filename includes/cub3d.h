@@ -69,8 +69,8 @@ typedef struct s_vector
 
 typedef struct s_map
 {
-	unsigned char	ceiling_color[3];
-	unsigned char	floor_color[3];
+	int				ceiling_color;
+	int				floor_color;
 	char			*path_north;
 	char			*path_south;
 	char			*path_east;
