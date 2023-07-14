@@ -31,7 +31,7 @@ void	caster(t_display *display, t_player *player, t_map *map,
 
 	x = 0;
 	clear_image(display);
-	while (x <= display->width)//TODO Maybe switch to a strict inferiority
+	while (x < display->width)//TODO Maybe switch to a strict inferiority
 	{
 		camera->camera_x = 2 * x / (double)display->width - 1;
 		set_vector(&camera->ray_dir,
@@ -39,12 +39,12 @@ void	caster(t_display *display, t_player *player, t_map *map,
 			camera->dir.y + camera->plane.y * camera->camera_x);		
 		camera->map_x = (int)camera->pos.x;
 		camera->map_y = (int)camera->pos.y;
-		if (camera->map_x < 0 || camera->map_y < 0
-			|| camera->map_x >= map->width || camera->map_y >= map->height)
-		{
-			printf("Bad coordinates in caster\n");
-			return ;
-		}
+		// if (camera->map_x < 0 || camera->map_y < 0
+		// 	|| camera->map_x >= map->width || camera->map_y >= map->height)
+		// {
+		// 	printf("Bad coordinates in caster\n");
+		// 	return ;
+		// }
 
 		if (camera->ray_dir.x == 0 && camera->ray_dir.y == 0)
 			set_vector(&camera->delta_dist, DBL_MAX, DBL_MAX);
@@ -110,6 +110,5 @@ void	caster(t_display *display, t_player *player, t_map *map,
 		draw_3d_walls(display, camera, x);
 		++x;
 	}
-	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
+	display->refresh = true;
 }
-
