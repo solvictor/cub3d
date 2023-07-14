@@ -16,11 +16,11 @@ void	basic_up(t_vars *vars)
 	// 	|| (0 > index_y || map->width < index_y))
 	// 	return ;
 	//TODO protect for index < 0 and index > bigger size map
-	// if (map->map[(int)camera->pos.y][index_x] == '0')
+	if (map->map[(int)camera->pos.y][index_x] == '0')
 	{
 		camera->pos.x += camera->dir.x * camera->move_speed;
 	}
-	// if (map->map[index_y][(int)camera->pos.x] == '0')
+	if (map->map[index_y][(int)camera->pos.x] == '0')
 	{
 		camera->pos.y += camera->dir.y * camera->move_speed;
 	}
@@ -42,11 +42,11 @@ void	basic_down(t_vars *vars)
 	// 	|| (0 > index_y || map->width < index_y))
 	// 	return ;
 	//TODO protect for index < 0 and index > bigger size map
-	// if (map->map[(int)camera->pos.y][index_x] == '0')
+	if (map->map[(int)camera->pos.y][index_x] == '0')
 	{
 		camera->pos.x -= camera->dir.x * camera->move_speed;
 	}
-	// if (map->map[index_y][(int)camera->pos.x] == '0')
+	if (map->map[index_y][(int)camera->pos.x] == '0')
 	{
 		camera->pos.y -= camera->dir.y * camera->move_speed;
 	}
