@@ -90,7 +90,6 @@ typedef struct s_display
 	int				bpp;
 	int				size_line;
 	int				endian;
-	int				square_length;
 	bool			refresh;
 }					t_display;
 
