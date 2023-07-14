@@ -3,11 +3,19 @@
 static bool	check_rgb(const char **colors)
 {
 	int	i;
+	int	tmp;
 
 	i = 0;
 	while (colors[i])
+	{
+		tmp = ft_atoi(colors[i]);
+		if (0 > tmp || tmp > 255)
+			return (error_str("Invalid RGB value"), false);
 		i++;
-	return (i == 3);
+	}
+	if (i != 3)
+		return (error_str("Wrong RGB format"), false);
+	return (true);
 }
 
 static bool	assign_to_map_aux(char *id, char *value, t_map *map)
@@ -17,7 +25,7 @@ static bool	assign_to_map_aux(char *id, char *value, t_map *map)
 	if (!colors)
 		return (perror("malloc"), false);
 	if (!check_rgb(colors))
-		return (error_str("Wrong RGB format"), false);
+		return (false);
 	else if (!ft_strncmp(id, "F", 1))
 	{
 		map->floor_color[0] = ft_atoi(colors[0]);
