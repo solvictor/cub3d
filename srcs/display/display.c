@@ -65,7 +65,7 @@ bool	start_display(t_display *display, t_vars *vars)
 	mlx_hook(display->win, ON_KEYDOWN, KEYPRESS_MASK, on_keydown, vars);
 	mlx_loop_hook(display->mlx, &put_image, vars);
 	clear_image(display);
-	init_2d(display, vars->map, vars->player, vars->camera);
+	init_cub3d(display, vars->map, vars->player, vars->camera);
 	mlx_loop(display->mlx);
 	return (true);
 }

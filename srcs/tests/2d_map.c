@@ -44,7 +44,7 @@ void	draw_2d(t_display *display, t_map *map)
 	}
 }
 
-void	init_2d(t_display *display, t_map *map, t_player *player,
+void	init_cub3d(t_display *display, t_map *map, t_player *player,
 		t_camera *camera)
 {
 	const int	height_ratio = display->height

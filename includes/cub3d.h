@@ -218,7 +218,7 @@ void		basic_up(t_vars *vars);
 void		basic_down(t_vars *vars);
 void		basic_left(t_vars *vars);
 void		basic_right(t_vars *vars);
-void		init_2d(t_display *display, t_map *map, t_player *player,
+void		init_cub3d(t_display *display, t_map *map, t_player *player,
 				t_camera *camera);
 bool		colliding(int direction,
 				t_map *map, t_player *player, t_display *display);
