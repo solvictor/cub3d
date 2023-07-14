@@ -45,7 +45,7 @@ int	put_image(t_vars *vars)
 {
 	if (vars->display->refresh == false)
 		return (1);
-	caster(vars->display, vars->player, vars->map, vars->camera);
+	caster(vars->display, vars->map, vars->camera);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
 		vars->display->img, 0, 0);
 	vars->display->refresh = false;
@@ -59,7 +59,7 @@ bool	start_display(t_display *display, t_vars *vars)
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
 	mlx_hook(display->win, ON_KEYDOWN, KEYPRESS_MASK, on_keydown, vars);
 	mlx_loop_hook(display->mlx, &put_image, vars);
-	caster(display, vars->map, vars->player, vars->camera);
+	vars->display->refresh = true;
 	put_image(vars);
 	mlx_loop(display->mlx);
 	return (true);

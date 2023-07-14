@@ -20,7 +20,6 @@ static void	init_map(t_vars *vars, t_map *map)
 	map->start_direction = '\0';
 	map->map = NULL;
 	map->first_line = -1;
-	map->islands = 0;
 	vars->map = map;
 }
 
@@ -39,22 +38,6 @@ static void	init_display(t_vars *vars, t_display *display)
 	vars->display = display;
 }
 
-static void	init_player(t_vars *vars, t_player *player)
-{
-	player->x = -1;
-	player->y = -1;
-	player->speed = 5;
-	player->direction = 90;
-	player->fov = 66;
-	player->square_x = -1;
-	player->square_y = -1;
-	player->rotate_speed = 90;
-	player->angle = 0.1; //TODO Set to start direction
-	player->delta_x = 3;
-	player->delta_y = 3;
-	vars->player = player;
-}
-
 static void	init_camera(t_vars *vars, t_camera *camera)
 {
 	set_vector(&camera->pos, 0, 0);
@@ -70,7 +53,6 @@ int	main(int ac, char **av)
 	t_vars		vars;
 	t_map		map;
 	t_display	display;
-	t_player	player;
 	t_camera	camera;
 
 	if (ac != 2)
@@ -78,7 +60,6 @@ int	main(int ac, char **av)
 	vars.file_content = NULL;
 	init_map(&vars, &map);
 	init_display(&vars, &display);
-	init_player(&vars, &player);
 	init_camera(&vars, &camera);
 	if (parsing(av[1], &vars, &map) == false)
 		return (clean_memory(&vars), EXIT_FAILURE);

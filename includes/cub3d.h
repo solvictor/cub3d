@@ -67,21 +67,6 @@ typedef struct s_vector
 	double		y;
 }				t_vector;
 
-typedef struct s_player
-{
-	int				x;
-	int				y;
-	int				square_x;
-	int				square_y;
-	int				speed; //TODO rename to move_speed
-	int				fov;
-	int				direction;
-	int				rotate_speed;
-	float			angle;
-	float			delta_x;
-	float			delta_y;
-}					t_player;
-
 typedef struct s_map
 {
 	unsigned char	ceiling_color[3];
@@ -140,7 +125,6 @@ typedef struct s_vars
 	char			**file_content;
 	t_map			*map;
 	t_display		*display;
-	t_player		*player;
 	t_camera		*camera;
 }					t_vars;
 
@@ -184,8 +168,7 @@ void		clear_image(t_display *display);
 /*                                   Caster                                   */
 /*                                                                            */
 /******************************************************************************/
-void	caster(t_display *display, t_player *player, t_map *map,
-				t_camera *camera);
+void	caster(t_display *display, t_map *map, t_camera *camera);
 
 /******************************************************************************/
 /*                                                                            */
@@ -218,13 +201,6 @@ void		basic_up(t_vars *vars);
 void		basic_down(t_vars *vars);
 void		basic_left(t_vars *vars);
 void		basic_right(t_vars *vars);
-void		init_cub3d(t_display *display, t_map *map, t_player *player,
-				t_camera *camera);
-bool		colliding(int direction,
-				t_map *map, t_player *player, t_display *display);
-void		draw_player(t_display *display, t_player *player);
-void		show_display_info(t_display *display, t_map *map);
-void		draw_fov(t_display *display, t_player *player, t_map *map);
 void		rotate_left(t_vars *vars);
 void		rotate_right(t_vars *vars);
 void		move_player(t_vars *vars);
