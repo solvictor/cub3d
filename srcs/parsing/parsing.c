@@ -1,5 +1,27 @@
 #include "cub3d.h"
 
+static bool	check_parameters(t_vars *vars)
+{
+	const char	ids[6][2] = {"NO", "SO", "WE", "EA", "F", "C"};
+	int			i;
+	int			j;
+
+	i = 0;
+	j = 0;
+	while (vars->file_content[i])
+	{
+		if (!is_line_empty(vars->file_content[i]))
+		{
+			if (ft_strncmp(vars->file_content[i], (char *)ids[j],
+					ft_strlen(ids[j])))
+				return (error_str("Wrong parameter in map"), false);
+			++j;
+		}
+		++i;
+	}
+	return (true);
+}
+
 static void	start_direction(t_vars *vars)
 {
 	const t_map	*map = vars->map;
@@ -29,7 +51,7 @@ bool	file_opener(char *file_name, t_vars *vars)
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		return (perror("open"), false);
+		return (error_str("Couldn't find the file"), perror("open"), false);
 	lines = 1;
 	while (read(fd, buff, 1))
 		lines += (buff[0] == '\n' || buff[0] == '\0');
@@ -56,6 +78,9 @@ bool	file_opener(char *file_name, t_vars *vars)
 		Do the same for the islands separated by a column of 1
 	TODO
 		Check if the RGB Codes are correct (no missing)
+
+	TODO
+		Turn player->start_coords into a vector
 */
 
 bool	parsing(char *file_name, t_vars *vars, t_map *map)
@@ -63,6 +88,8 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 	if (ft_strncmp(".cub", file_name + ft_strlen(file_name) - 4, 4) != 0)
 		return (error_str("Wrong file format"), false);
 	if (file_opener(file_name, vars) == false)
+		return (false);
+	if (check_parameters(vars) == false)
 		return (false);
 	show_file(vars);
 	if (get_textures_info(vars, map) == false)
@@ -76,13 +103,14 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 	if (map_correct(map) == false)
 		return (false);
 	format_map(map);
-	count_islands(map);
+	count_islands(map); //TODO will be useless pretty soon
 	ft_printf("Islands %d /Islands\n", map->islands);
 	show_map(map);
 	vars->player->x = map->start_coords[0];
 	vars->player->y = map->start_coords[1];
 	vars->player->square_x = map->start_coords[0];
 	vars->player->square_y = map->start_coords[1];
+	set_vector(&vars->camera->pos, map->start_coords[0], map->start_coords[1]);
 	start_direction(vars);
 	return (true);
 }

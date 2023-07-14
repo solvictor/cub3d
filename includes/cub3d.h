@@ -67,20 +67,13 @@ typedef struct s_vector
 	double		y;
 }				t_vector;
 
-/*
-	Show a view line, then compute delta x and delta y that needs to be added
-	to the player coordinates in order to make it advance (currecntly, going
-	forward means going up, but in reality going forward should be going in
-	the direction the player is looking to)
-*/
-
 typedef struct s_player
 {
 	int				x;
 	int				y;
 	int				square_x;
 	int				square_y;
-	int				speed;
+	int				speed; //TODO rename to move_speed
 	int				fov;
 	int				direction;
 	int				rotate_speed;
@@ -138,6 +131,8 @@ typedef struct s_camera
 	t_vector		ray_dir;
 	t_vector		side_dist;
 	t_vector		delta_dist;
+	double			move_speed;
+	double			rot_speed;
 }					t_camera;
 
 typedef struct s_vars

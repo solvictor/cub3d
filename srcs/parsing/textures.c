@@ -1,11 +1,23 @@
 #include "cub3d.h"
 
+static bool	check_rgb(const char **colors)
+{
+	int	i;
+
+	i = 0;
+	while (colors[i])
+		i++;
+	return (i == 3);
+}
+
 static bool	assign_to_map_aux(char *id, char *value, t_map *map)
 {
 	const char	**colors = (const char **)ft_split(value, ',');
 
 	if (!colors)
-		return (false);
+		return (perror("malloc"), false);
+	if (!check_rgb(colors))
+		return (error_str("Wrong RGB format"), false);
 	else if (!ft_strncmp(id, "F", 1))
 	{
 		map->floor_color[0] = ft_atoi(colors[0]);
@@ -18,9 +30,7 @@ static bool	assign_to_map_aux(char *id, char *value, t_map *map)
 		map->ceiling_color[1] = ft_atoi(colors[1]);
 		map->ceiling_color[2] = ft_atoi(colors[2]);
 	}
-	free(value);
-	ft_free_strs((char **)colors);
-	return (true);
+	return (free(value), ft_free_strs((char **)colors), true);
 }
 
 /*
@@ -91,7 +101,7 @@ bool	get_textures_info(t_vars *vars, t_map *map)
 		{
 			tmp = find_id((char *)ids[j], (char *)content[i], i, map);
 			if (tmp && !assign_to_map((char *)ids[j], tmp, map))
-				return (perror("malloc"), false);
+				return (false);
 			++j;
 		}
 		++i;

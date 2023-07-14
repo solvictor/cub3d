@@ -60,6 +60,8 @@ static void	init_camera(t_vars *vars, t_camera *camera)
 	set_vector(&camera->pos, 0, 0);
 	set_vector(&camera->dir, -1, 0);
 	set_vector(&camera->plane, 0, 0.66);
+	camera->move_speed = 0.10;
+	camera->rot_speed = 0.10;
 	vars->camera = camera;
 }
 

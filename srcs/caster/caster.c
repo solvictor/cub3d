@@ -30,7 +30,6 @@ void	caster(t_display *display, t_player *player, t_map *map,
 	int	hit;
 
 	x = 0;
-	set_vector(&camera->pos, player->x, player->y);
 	clear_image(display);
 	while (x <= display->width)//TODO Maybe switch to a strict inferiority
 	{
@@ -38,8 +37,8 @@ void	caster(t_display *display, t_player *player, t_map *map,
 		set_vector(&camera->ray_dir,
 			camera->dir.x + camera->plane.x * camera->camera_x,
 			camera->dir.y + camera->plane.y * camera->camera_x);		
-		camera->map_x = (int)camera->pos.x / display->square_length;
-		camera->map_y = (int)camera->pos.y / display->square_length;
+		camera->map_x = (int)camera->pos.x;
+		camera->map_y = (int)camera->pos.y;
 		if (camera->map_x < 0 || camera->map_y < 0
 			|| camera->map_x >= map->width || camera->map_y >= map->height)
 		{
@@ -62,25 +61,25 @@ void	caster(t_display *display, t_player *player, t_map *map,
 		if (camera->ray_dir.x < 0)
 		{
 			camera->step_x = -1; //TODO Maybe put the steps as local variables
-			camera->side_dist.x = (camera->pos.x / display->square_length - camera->map_x)
+			camera->side_dist.x = (camera->pos.x - camera->map_x)
 				* camera->delta_dist.x;
 		}
 		else
 		{
 			camera->step_x = 1;
-			camera->side_dist.x = (camera->map_x + 1.0 - camera->pos.x / display->square_length)
+			camera->side_dist.x = (camera->map_x + 1.0 - camera->pos.x)
 				* camera->delta_dist.x;
 		}
 		if (camera->ray_dir.y < 0)
 		{
 			camera->step_y = -1;
-			camera->side_dist.y = (camera->pos.y / display->square_length - camera->map_y)
+			camera->side_dist.y = (camera->pos.y - camera->map_y)
 				* camera->delta_dist.y;
 		}
 		else
 		{
 			camera->step_y = 1;
-			camera->side_dist.y = (camera->map_y + 1.0 - camera->pos.y / display->square_length)
+			camera->side_dist.y = (camera->map_y + 1.0 - camera->pos.y)
 				* camera->delta_dist.y;
 		}
 		while (hit == 0)
