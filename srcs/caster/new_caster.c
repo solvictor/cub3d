@@ -2,7 +2,7 @@
 
 void	draw_3d_walls(t_display *display, t_camera *camera, int x)
 {
-	const int	line_height = (int)(display->height / camera->perp_wall_dist) * 1;
+	const int	line_height = (int)(display->height / camera->perp_wall_dist);
 	int			draw_start;
 	int			draw_end;
 	int			color;
@@ -39,10 +39,8 @@ void	caster(t_display *display, t_player *player, t_map *map,
 	printf("Camera->plane.y : %f\n", camera->plane.y);
 	printf("Camera->dir.x : %f\n", camera->dir.x);
 	printf("Camera->dir.y : %f\n", camera->dir.y);
-	// while (x < display->width) // <= to mirror camera_x?
-	while (x < 1) // <= to mirror camera_x?
+	while (x <= display->width)//TODO Maybe switch to a strict inferiority
 	{
-		// ft_printf("Start X: %d\n", x);
 		camera->camera_x = 2 * x / (double)display->width - 1;
 		printf("Camera->camera_x : %f\n", camera->camera_x);
 		set_vector(&camera->ray_dir,
@@ -54,80 +52,81 @@ void	caster(t_display *display, t_player *player, t_map *map,
 		camera->map_y = (int)camera->pos.y / display->square_length;
 		printf("Camera->map_x : %d\n", camera->map_x);
 		printf("Camera->map_y : %d\n", camera->map_y);
-		if (camera->map_x < 0 || camera->map_y < 0 || camera->map_x > map->width || camera->map_y > map->height)
+		if (camera->map_x < 0 || camera->map_y < 0
+			|| camera->map_x >= map->width || camera->map_y >= map->height)
 		{
 			printf("Bad coordinates in caster\n");
 			return ;
 		}
 
-		// if (camera->ray_dir.x == 0 && camera->ray_dir.y == 0)
-		// 	set_vector(&camera->delta_dist, DBL_MAX, DBL_MAX);
-		// else if (camera->ray_dir.x == 0 && camera->ray_dir.y != 0)
-		// 	set_vector(&camera->delta_dist, DBL_MAX,
-		// 		fabs(1 / camera->ray_dir.y));
-		// else if (camera->ray_dir.x != 0 && camera->ray_dir.y == 0)
-		// 	set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
-		// 		DBL_MAX);
-		// else
-		// 	set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
-		// 		fabs(1 / camera->ray_dir.y));
-		// hit = 0;
-		// if (camera->ray_dir.x < 0)
-		// {
-		// 	camera->step_x = -1; // MAybe put the steps as local variables
-		// 	camera->side_dist.x = (camera->pos.x - camera->map_x)
-		// 		* camera->delta_dist.x;
-		// }
-		// else
-		// {
-		// 	camera->step_x = 1;
-		// 	camera->side_dist.x = (camera->map_x + 1.0 - camera->pos.x)
-		// 		* camera->delta_dist.x;
-		// }
-		// if (camera->ray_dir.y < 0)
-		// {
-		// 	camera->step_y = -1;
-		// 	camera->side_dist.y = (camera->pos.y - camera->map_y)
-		// 		* camera->delta_dist.y;
-		// }
-		// else
-		// {
-		// 	camera->step_y = 1;
-		// 	camera->side_dist.y = (camera->map_y + 1.0 - camera->pos.y)
-		// 		* camera->delta_dist.y;
-		// }
-		// // ft_printf("End X: %d\n", x);
-		// while (hit == 0)
-		// {
-		// 	if (camera->side_dist.x < camera->side_dist.y)
-		// 	{
-		// 		camera->side_dist.x += camera->delta_dist.x;
-		// 		camera->map_x += camera->step_x;
-		// 		camera->side = 0;
-		// 	}
-		// 	else
-		// 	{
-		// 		camera->side_dist.y += camera->delta_dist.y;
-		// 		camera->map_y += camera->step_y;
-		// 		camera->side = 1;
-		// 	}
-		// 	// ft_printf("Map Y / Map X: %d/%d\n", camera->map_x, camera->map_y);
-		// ft_printf("Segfault test============================\n");
-		// 	if (map->map[camera->map_y][camera->map_x] == '1')
-		// 		hit = 1;
+		if (camera->ray_dir.x == 0 && camera->ray_dir.y == 0)
+			set_vector(&camera->delta_dist, DBL_MAX, DBL_MAX);
+		else if (camera->ray_dir.x == 0 && camera->ray_dir.y != 0)
+			set_vector(&camera->delta_dist, DBL_MAX,
+				fabs(1 / camera->ray_dir.y));
+		else if (camera->ray_dir.x != 0 && camera->ray_dir.y == 0)
+			set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
+				DBL_MAX);
+		else
+			set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
+				fabs(1 / camera->ray_dir.y));
+		hit = 0;
+		if (camera->ray_dir.x < 0)
+		{
+			camera->step_x = -1; //TODO Maybe put the steps as local variables
+			camera->side_dist.x = (camera->pos.x / display->square_length - camera->map_x)
+				* camera->delta_dist.x;
+		}
+		else
+		{
+			camera->step_x = 1;
+			camera->side_dist.x = (camera->map_x + 1.0 - camera->pos.x / display->square_length)
+				* camera->delta_dist.x;
+		}
+		if (camera->ray_dir.y < 0)
+		{
+			camera->step_y = -1;
+			camera->side_dist.y = (camera->pos.y / display->square_length - camera->map_y)
+				* camera->delta_dist.y;
+		}
+		else
+		{
+			camera->step_y = 1;
+			camera->side_dist.y = (camera->map_y + 1.0 - camera->pos.y / display->square_length)
+				* camera->delta_dist.y;
+		}
+		while (hit == 0)
+		{
+			printf("Start\n");
+			if (camera->side_dist.x < camera->side_dist.y)
+			{
+				camera->side_dist.x += camera->delta_dist.x;
+				camera->map_x += camera->step_x;
+				camera->side = 0;
+			}
+			else
+			{
+				camera->side_dist.y += camera->delta_dist.y;
+				camera->map_y += camera->step_y;
+				camera->side = 1;
+			}
+			if (camera->map_y >= map->height || camera->map_x >= map->width
+				|| camera->map_y < 0 || camera->map_x < 0
+				|| map->map[camera->map_y][camera->map_x] == '1')
+				hit = 1;
+			printf("End\n");
 
-		// }
-		// // ft_printf("camera side dist x / camera delta dist x: %d / %d\n", camera->side_dist.x, camera->delta_dist.x);
-		// if (camera->side == 0)
-		// 	camera->perp_wall_dist = camera->side_dist.x - camera->delta_dist.x;
-		// else
-		// 	camera->perp_wall_dist = camera->side_dist.y - camera->delta_dist.y;
-		// if (camera->perp_wall_dist == 0)
-		// 	camera->perp_wall_dist = 1;
-		// draw_3d_walls(display, camera, x);
+		}
+		if (camera->side == 0)
+			camera->perp_wall_dist = camera->side_dist.x - camera->delta_dist.x;
+		else
+			camera->perp_wall_dist = camera->side_dist.y - camera->delta_dist.y;
+		if (camera->perp_wall_dist == 0)
+			camera->perp_wall_dist = 1;
+		draw_3d_walls(display, camera, x);
 		++x;
 		printf("x=%d\n", x);
 	}
-	// mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
+	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 }
 
