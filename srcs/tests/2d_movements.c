@@ -4,12 +4,12 @@ void	basic_up(t_vars *vars)
 {
 	t_player	*player;
 	t_display	*display;
+	t_camera	*camera;
 
 	vars->display->refresh = true;
 	player = vars->player;
 	display = vars->display;
-	player->x += player->delta_x + 0.5;
-	player->y += player->delta_y + 0.5;
+	player->x += player->speed;
 	player->square_x = player->x / display->square_length;
 	player->square_y = player->y / display->square_length;
 	return ;
@@ -23,8 +23,7 @@ void	basic_down(t_vars *vars)
 	vars->display->refresh = true;
 	player = vars->player;
 	display = vars->display;
-	player->x -= player->delta_x - 0.5;
-	player->y -= player->delta_y - 0.5;
+	player->x -= player->speed
 	player->square_x = player->x / display->square_length;
 	player->square_y = player->y / display->square_length;
 	return ;

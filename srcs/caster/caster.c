@@ -1,71 +1,116 @@
 #include "cub3d.h"
 
-void	draw_3d_walls(t_display *display, t_player *player, t_caster *caster)
+void	draw_3d_walls(t_display *display, t_camera *camera, int x)
 {
-	const float	ca = player->angle - caster->ray_angle;
-	float		line_height;
-	int			start;
-	int			end;
+	const int	line_height = (int)(display->height / camera->perp_wall_dist);
+	int			draw_start;
+	int			draw_end;
+	int			color;
 
-	correct_angle((float *)&ca);
-	caster->ray_length_final *= cos(ca);
-	line_height = (int)((100 * display->height) / caster->ray_length_final);
-	if (line_height > display->height)
-		line_height = display->height;
-	start = (-line_height + display->height) / 2;
-	if (start < 0)
-		start = 0;
-	end = (line_height + display->height) / 2;
-	if (end > display->height)
-		end = display->height - 1;
-	while (start <= end)
+	draw_start = -line_height / 2 + display->height / 2;
+	if (draw_start < 0)
+		draw_start = 0;
+	draw_end = line_height / 2 + display->height / 2;
+	if (draw_end >= display->height)
+		draw_end = display->height - 1;
+	color = 0xFF0000;
+	if (camera->side == 1)
+		color /= 2;
+	while (draw_start <= draw_end)
 	{
-		mlx_spp(display, caster->x_coord, start, 0xFFFFFF);
-		++start;
+		mlx_spp(display, x, draw_start, color);
+		++draw_start;
 	}
 }
 
-
-static void	init_caster(t_caster *caster)
+void	caster(t_display *display, t_player *player, t_map *map,
+	t_camera *camera)
 {
-	caster->ray_length_h = 0;
-	caster->ray_length_v = 0;
-	caster->ray_length_final = 0;
-	caster->ray_angle = 0;
-	caster->ray_number = 0;
-	caster->x_coord = 0;
-	caster->depth_of_field = 0;
-	set_vector(&caster->ray, 0, 0);
-	set_vector(&caster->offset, 0, 0);
-	set_point(&caster->impact, 0, 0, 0xFFFFFF);
-	set_point(&caster->origin, 0, 0, 0xFFFFFF);
-}
+	int	x;
+	int	hit;
 
-void	casting(t_display *display, t_map *map, t_player *player,
-	t_caster *caster)
-{
-	init_caster(caster);
-	caster->ray_angle = player->angle - DR * 30;
-	correct_angle(&caster->ray_angle);
-	// clear_image(display);
-	while (caster->ray_number < display->width)
+	x = 0;
+	set_vector(&camera->pos, player->x, player->y);
+	clear_image(display);
+	while (x <= display->width)//TODO Maybe switch to a strict inferiority
 	{
-		horizontal_check(display, map, player, caster);
-		// vertical_check(display, map, player, caster);
-		caster->origin.x = player->x;
-		caster->origin.y = player->y;
-		draw_line(display, caster->origin, caster->impact);
-		// draw_3d_walls(display, player, caster);
-		++(caster->x_coord);
-		++(caster->ray_number);
-		// caster->ray_angle = correct_angle((caster->ray_angle + DR
-		// 			/ display->width) * 60);
-		caster->ray_angle += (DR / display->width) * 60;
-		correct_angle(&caster->ray_angle);
-		if (caster->ray_angle < 0)
-			caster->ray_angle += 2 * PI;
-		if (caster->ray_angle > 2 * PI)
-			caster->ray_angle -= 2 * PI;
+		camera->camera_x = 2 * x / (double)display->width - 1;
+		set_vector(&camera->ray_dir,
+			camera->dir.x + camera->plane.x * camera->camera_x,
+			camera->dir.y + camera->plane.y * camera->camera_x);		
+		camera->map_x = (int)camera->pos.x / display->square_length;
+		camera->map_y = (int)camera->pos.y / display->square_length;
+		if (camera->map_x < 0 || camera->map_y < 0
+			|| camera->map_x >= map->width || camera->map_y >= map->height)
+		{
+			printf("Bad coordinates in caster\n");
+			return ;
+		}
+
+		if (camera->ray_dir.x == 0 && camera->ray_dir.y == 0)
+			set_vector(&camera->delta_dist, DBL_MAX, DBL_MAX);
+		else if (camera->ray_dir.x == 0 && camera->ray_dir.y != 0)
+			set_vector(&camera->delta_dist, DBL_MAX,
+				fabs(1 / camera->ray_dir.y));
+		else if (camera->ray_dir.x != 0 && camera->ray_dir.y == 0)
+			set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
+				DBL_MAX);
+		else
+			set_vector(&camera->delta_dist, fabs(1 / camera->ray_dir.x),
+				fabs(1 / camera->ray_dir.y));
+		hit = 0;
+		if (camera->ray_dir.x < 0)
+		{
+			camera->step_x = -1; //TODO Maybe put the steps as local variables
+			camera->side_dist.x = (camera->pos.x / display->square_length - camera->map_x)
+				* camera->delta_dist.x;
+		}
+		else
+		{
+			camera->step_x = 1;
+			camera->side_dist.x = (camera->map_x + 1.0 - camera->pos.x / display->square_length)
+				* camera->delta_dist.x;
+		}
+		if (camera->ray_dir.y < 0)
+		{
+			camera->step_y = -1;
+			camera->side_dist.y = (camera->pos.y / display->square_length - camera->map_y)
+				* camera->delta_dist.y;
+		}
+		else
+		{
+			camera->step_y = 1;
+			camera->side_dist.y = (camera->map_y + 1.0 - camera->pos.y / display->square_length)
+				* camera->delta_dist.y;
+		}
+		while (hit == 0)
+		{
+			if (camera->side_dist.x < camera->side_dist.y)
+			{
+				camera->side_dist.x += camera->delta_dist.x;
+				camera->map_x += camera->step_x;
+				camera->side = 0;
+			}
+			else
+			{
+				camera->side_dist.y += camera->delta_dist.y;
+				camera->map_y += camera->step_y;
+				camera->side = 1;
+			}
+			if (camera->map_y >= map->height || camera->map_x >= map->width
+				|| camera->map_y < 0 || camera->map_x < 0
+				|| map->map[camera->map_y][camera->map_x] == '1')
+				hit = 1;
+		}
+		if (camera->side == 0)
+			camera->perp_wall_dist = camera->side_dist.x - camera->delta_dist.x;
+		else
+			camera->perp_wall_dist = camera->side_dist.y - camera->delta_dist.y;
+		if (camera->perp_wall_dist == 0)
+			camera->perp_wall_dist = 1;
+		draw_3d_walls(display, camera, x);
+		++x;
 	}
-	printf("Correct Angle: %f\n", caster->ray_angle);
+	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
 }
+

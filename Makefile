@@ -22,7 +22,7 @@ SRCS 			=	$(addsuffix .c,				\
 						line_drawing			\
 					)							\
 					$(addprefix srcs/caster/,	\
-						new_caster				\
+						caster				\
 					)							\
 					$(addprefix srcs/utils/,	\
 						comparaisons			\
