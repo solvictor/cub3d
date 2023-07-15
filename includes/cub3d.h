@@ -14,6 +14,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <math.h>
+# include <stdint.h>
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 

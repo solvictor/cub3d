@@ -32,16 +32,16 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 	int	x;
 	int	hit;
 
-	x = display->width - 1;
-	// x = 0;
+	// x = display->width - 1;
+	x = 0;
 	clear_image(display);
-	while (x >= 0)
-	// while (x < display->width)
+	// while (x >= 0)
+	while (x < display->width)
 	{
 		camera->camera_x = -(2 * x / (double)display->width - 1);
 		set_vector(&camera->ray_dir,
 			camera->dir.x + camera->plane.x * camera->camera_x,
-			camera->dir.y + camera->plane.y * camera->camera_x);		
+			camera->dir.y + camera->plane.y * camera->camera_x);
 		camera->map_x = (int)camera->pos.x;
 		camera->map_y = (int)camera->pos.y;
 		if (camera->ray_dir.x == 0 && camera->ray_dir.y == 0)
@@ -106,7 +106,7 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 		if (camera->perp_wall_dist == 0)
 			camera->perp_wall_dist = 1;
 		draw_3d_walls(display, map, camera, x);
-		// ++x;
-		--x;
+		++x;
+		// --x;
 	}
 }
