@@ -3,7 +3,6 @@
 /*
 	TODO
 		-Differentiate the texture depending on the side of the wall
-		-Texture isn't "centered" (?)
 */
 
 void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
@@ -13,7 +12,6 @@ void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 	int			draw_end;
 	int			color;
 	int			y;
-	int			pitch;
 	int			texture_number;
 	double		wall_x;
 	int			texture_x;
@@ -21,11 +19,10 @@ void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 	double		texture_pos;
 	int			texture_y;
 
-	pitch = 100;
-	draw_start = -line_height / 2 + display->height / 2 + pitch;
+	draw_start = -line_height / 2 + display->height / 2;
 	if (draw_start < 0)
 		draw_start = 0;
-	draw_end = line_height / 2 + display->height / 2 + pitch;
+	draw_end = line_height / 2 + display->height / 2;
 	if (draw_end >= display->height)
 		draw_end = display->height - 1;
 	texture_number = map->map[camera->map_y][camera->map_x] - 1 - '0';
@@ -40,7 +37,7 @@ void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 	if (camera->side == 1 && camera->ray_dir.y < 0)
 		texture_x = TEXTURE_WIDTH - texture_x - 1;
 	step = 1.0 * TEXTURE_HEIGHT / line_height;
-	texture_pos = (draw_start - pitch - display->height / 2 + line_height / 2) * step;
+	texture_pos = (draw_start - display->height / 2 + line_height / 2) * step;
 	y = 0;
 	while (y < draw_start)
 		mlx_spp(display, x, y++, map->ceiling_color);
