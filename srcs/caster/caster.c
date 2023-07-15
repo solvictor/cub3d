@@ -17,7 +17,7 @@ void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 	y = 0;
 	while (y < draw_start)
 		mlx_spp(display, x, y++, map->ceiling_color);
-	color = 0xFF0000;
+	color = 0x00004F;
 	if (camera->side == 1)
 		color /= 2;
 	while (draw_start <= draw_end)

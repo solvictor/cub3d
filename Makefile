@@ -24,6 +24,7 @@ SRCS 			=	$(addsuffix .c,				\
 					$(addprefix srcs/caster/,	\
 						caster					\
 						movements				\
+						textures				\
 					)							\
 					$(addprefix srcs/utils/,	\
 						line_functions			\
