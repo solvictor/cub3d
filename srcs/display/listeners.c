@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-/*
-	TODO Might replace the exit()
-*/
 int	on_keydown(int keycode, t_vars *vars)
 {
 	if (keycode == XK_Escape)

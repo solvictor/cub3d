@@ -17,7 +17,7 @@ void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 	y = 0;
 	while (y < draw_start)
 		mlx_spp(display, x, y++, map->ceiling_color);
-	color = 0x00002F;
+	color = 0xFF0000;
 	if (camera->side == 1)
 		color /= 2;
 	while (draw_start <= draw_end)
@@ -32,11 +32,13 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 	int	x;
 	int	hit;
 
-	x = 0;
+	x = display->width - 1;
+	// x = 0;
 	clear_image(display);
-	while (x < display->width)
+	while (x >= 0)
+	// while (x < display->width)
 	{
-		camera->camera_x = 2 * x / (double)display->width - 1;
+		camera->camera_x = -(2 * x / (double)display->width - 1);
 		set_vector(&camera->ray_dir,
 			camera->dir.x + camera->plane.x * camera->camera_x,
 			camera->dir.y + camera->plane.y * camera->camera_x);		
@@ -104,6 +106,7 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 		if (camera->perp_wall_dist == 0)
 			camera->perp_wall_dist = 1;
 		draw_3d_walls(display, map, camera, x);
-		++x;
+		// ++x;
+		--x;
 	}
 }

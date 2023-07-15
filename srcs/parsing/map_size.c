@@ -16,9 +16,6 @@ static bool	is_too_short(const char **content, t_map *map)
 	return (height < 3);
 }
 
-/*
-	Coordinates start at 0:0, map size starts at 1:1
-*/
 static bool	bad_line(char *line, int line_nb, t_map *map)
 {
 	int	i;
@@ -30,14 +27,11 @@ static bool	bad_line(char *line, int line_nb, t_map *map)
 		{
 			if (!ft_c_in_str(line[i], PLAYER))
 				return (error_str("Bad char in map"), true);
-			else
-			{
-				if (map->start_coords[0] != -1)
-					return (error_str("Too many players in map"), true);
-				map->start_coords[0] = i;
-				map->start_coords[1] = line_nb - map->first_line;
-				map->start_direction = line[i];
-			}
+			else if (map->start_coords[0] != -1)
+				return (error_str("Too many players in map"), true);
+			map->start_coords[0] = i;
+			map->start_coords[1] = line_nb - map->first_line;
+			map->start_direction = line[i];
 		}
 		++i;
 	}

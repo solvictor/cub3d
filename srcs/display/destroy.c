@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-/*
-	TODO Might replace the exit()
-*/
 int	on_destroy(t_vars *vars)
 {
 	clean_memory(vars);
@@ -10,9 +7,6 @@ int	on_destroy(t_vars *vars)
 	return (1);
 }
 
-/*
-	TODO Might replace the exit()
-*/
 int	on_keypress(int keycode, t_vars *vars)
 {
 	if (keycode == XK_Escape)

@@ -1,5 +1,9 @@
 #include "cub3d.h"
 
+/*
+	TODO deactivate collisions for mandatory
+*/
+
 void	basic_up(t_vars *vars)
 {
 	t_camera	*camera;
@@ -52,25 +56,6 @@ void	basic_left(t_vars *vars)
 
 	camera = vars->camera;
 	vars->display->refresh = true;
-	camera->dir.x = old_dir_x * cos(camera->rot_speed)
-		- camera->dir.y * sin(camera->rot_speed);
-	camera->dir.y = old_dir_x * sin(camera->rot_speed)
-		+ camera->dir.y * cos(camera->rot_speed);
-	camera->plane.x = old_plane_x * cos(camera->rot_speed)
-		- camera->plane.y * sin(camera->rot_speed);
-	camera->plane.y = old_plane_x * sin(camera->rot_speed)
-		+ camera->plane.y * cos(camera->rot_speed);
-}
-
-void	basic_right(t_vars *vars)
-{
-	const double	old_dir_x = vars->camera->dir.x;
-	const double	old_plane_x = vars->camera->plane.x;
-	t_camera		*camera;
-
-
-	camera = vars->camera;
-	vars->display->refresh = true;
 	camera->dir.x = old_dir_x * cos(-camera->rot_speed)
 		- camera->dir.y * sin(-camera->rot_speed);
 	camera->dir.y = old_dir_x * sin(-camera->rot_speed)
@@ -79,4 +64,22 @@ void	basic_right(t_vars *vars)
 		- camera->plane.y * sin(-camera->rot_speed);
 	camera->plane.y = old_plane_x * sin(-camera->rot_speed)
 		+ camera->plane.y * cos(-camera->rot_speed);
+}
+
+void	basic_right(t_vars *vars)
+{
+	const double	old_dir_x = vars->camera->dir.x;
+	const double	old_plane_x = vars->camera->plane.x;
+	t_camera		*camera;
+
+	camera = vars->camera;
+	vars->display->refresh = true;
+	camera->dir.x = old_dir_x * cos(camera->rot_speed)
+		- camera->dir.y * sin(camera->rot_speed);
+	camera->dir.y = old_dir_x * sin(camera->rot_speed)
+		+ camera->dir.y * cos(camera->rot_speed);
+	camera->plane.x = old_plane_x * cos(camera->rot_speed)
+		- camera->plane.y * sin(camera->rot_speed);
+	camera->plane.y = old_plane_x * sin(camera->rot_speed)
+		+ camera->plane.y * cos(camera->rot_speed);
 }

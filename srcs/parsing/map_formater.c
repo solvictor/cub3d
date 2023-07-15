@@ -1,5 +1,11 @@
 #include "cub3d.h"
 
+/*
+	TODO
+	Once start coordinates have been memorized, turn the NSEW into a 0
+
+*/
+
 void	format_map(t_map *map)
 {
 	int	i;

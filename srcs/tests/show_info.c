@@ -46,7 +46,6 @@ void	show_map(t_map *map)
 
 void	show_display_info(t_display *display, t_map *map)
 {
-	ft_printf("Square Length: %d\n", display->square_length);
 	ft_printf("Display Heigth %d\n", display->height);
 	ft_printf("Display Width %d\n", display->width);
 	ft_printf("Map Heigth %d\n", map->height);
