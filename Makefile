@@ -4,6 +4,7 @@ DIRSRCS 		= srcs/program/
 SRCS 			=	$(addsuffix .c,				\
 					$(addprefix srcs/parsing/,	\
 						parsing					\
+						rgb						\
 						textures				\
 						map_size				\
 						map_correct				\
@@ -18,6 +19,7 @@ SRCS 			=	$(addsuffix .c,				\
 						display					\
 						destroy					\
 						listeners				\
+						textures				\
 					)							\
 					$(addprefix srcs/caster/,	\
 						caster					\

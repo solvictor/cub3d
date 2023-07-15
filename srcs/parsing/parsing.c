@@ -68,6 +68,8 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 	if (get_textures_info(vars, map) == false)
 		return (false);
 	show_texture_info(map);
+	if (do_textures_exist(map) == false)
+		return (false);
 	if (map_size(vars, map) == false)
 		return (false);
 	show_map_info(map);

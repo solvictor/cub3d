@@ -16,6 +16,7 @@ static void	init_map(t_vars *vars, t_map *map)
 	map->start_direction = '\0';
 	map->map = NULL;
 	map->first_line = -1;
+	map->textures[0].img = NULL;
 	vars->map = map;
 }
 

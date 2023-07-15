@@ -59,6 +59,7 @@ bool	start_display(t_display *display, t_vars *vars)
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
 	mlx_hook(display->win, ON_KEYDOWN, KEYPRESS_MASK, on_keydown, vars);
 	mlx_loop_hook(display->mlx, &put_image, vars);
+	get_textures(display, vars->map);
 	vars->display->refresh = true;
 	put_image(vars);
 	mlx_loop(display->mlx);

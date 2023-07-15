@@ -1,26 +1,5 @@
 #include "cub3d.h"
 
-void	ft_strrev(char *str)
-{
-	int		i;
-	int		j;
-	char	tmp;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	i -= 1;
-	j = 0;
-	while (j < i)
-	{
-		tmp = str[i];
-		str[i] = str[j];
-		str[j] = tmp;
-		j++;
-		i--;
-	}
-}
-
 static bool	recopying(t_map *map, char **cleaned_map,
 	int last_line)
 {

@@ -39,6 +39,8 @@
 # define BUTTONPRESS_MASK 4L
 # define CURSOR_RADIUS 10
 
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 1080
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
 
@@ -56,65 +58,79 @@ typedef struct s_vector
 	double		y;
 }				t_vector;
 
+typedef struct s_texture
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	void		*addr;
+	int			height;
+	int			width;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_texture;
+
 typedef struct s_map
 {
-	int				ceiling_color;
-	int				floor_color;
-	char			*path_north;
-	char			*path_south;
-	char			*path_east;
-	char			*path_west;
-	int				param_number;
-	int				param_lines[6];
-	int				height;
-	int				width;
-	int				first_line;
-	int				start_coords[2];
-	char			start_direction;
-	int				islands;
-	char			**map;
-}					t_map;
+	int			ceiling_color;
+	int			floor_color;
+	char		*path_north;
+	char		*path_south;
+	char		*path_east;
+	char		*path_west;
+	int			param_number;
+	int			param_lines[6];
+	int			height;
+	int			width;
+	int			first_line;
+	int			start_coords[2];
+	char		start_direction;
+	int			islands;
+	char		**map;
+	t_texture	textures[4];
+}				t_map;
 
 typedef struct s_display
 {
-	void			*mlx;
-	void			*win;
-	void			*img;
-	void			*addr;
-	int				height;
-	int				width;
-	int				bpp;
-	int				size_line;
-	int				endian;
-	bool			refresh;
-}					t_display;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	void		*addr;
+	int			height;
+	int			width;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	bool		refresh;
+}				t_display;
 
 typedef struct s_camera
 {
-	double			camera_x;
-	double			perp_wall_dist;
-	int				step_x;
-	int				step_y;
-	int				map_x;
-	int				map_y;
-	int				side;
-	t_vector		pos;
-	t_vector		dir;
-	t_vector		plane;
-	t_vector		ray_dir;
-	t_vector		side_dist;
-	t_vector		delta_dist;
-	double			move_speed;
-	double			rot_speed;
-}					t_camera;
+	double		camera_x;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			map_x;
+	int			map_y;
+	int			side;
+	t_vector	pos;
+	t_vector	dir;
+	t_vector	plane;
+	t_vector	ray_dir;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+	double		move_speed;
+	double		rot_speed;
+}				t_camera;
 
 typedef struct s_vars
 {
-	char			**file_content;
-	t_map			*map;
-	t_display		*display;
-	t_camera		*camera;
-}					t_vars;
+	char		**file_content;
+	t_map		*map;
+	t_display	*display;
+	t_camera	*camera;
+}				t_vars;
 
 /******************************************************************************/
 /*                                                                            */
@@ -127,6 +143,7 @@ bool		map_size(t_vars *vars, t_map *map);
 bool		map_correct(t_map *map);
 bool		create_map(t_vars *vars, t_map *map);
 void		format_map(t_map *map);
+bool		do_textures_exist(t_map *map);
 
 /******************************************************************************/
 /*                                                                            */
@@ -135,6 +152,7 @@ void		format_map(t_map *map);
 /******************************************************************************/
 void		error_str(char *str);
 void		clean_memory(t_vars *vars);
+void		destroy_images(t_display *display, t_map *map, const int ind);
 
 /******************************************************************************/
 /*                                                                            */
@@ -152,7 +170,8 @@ void		clear_image(t_display *display);
 /*                                   Caster                                   */
 /*                                                                            */
 /******************************************************************************/
-void	caster(t_display *display, t_map *map, t_camera *camera);
+void		caster(t_display *display, t_map *map, t_camera *camera);
+bool		get_textures(t_display *display, t_map *map);
 
 /******************************************************************************/
 /*                                                                            */

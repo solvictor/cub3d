@@ -32,10 +32,8 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 	int	x;
 	int	hit;
 
-	// x = display->width - 1;
 	x = 0;
 	clear_image(display);
-	// while (x >= 0)
 	while (x < display->width)
 	{
 		camera->camera_x = -(2 * x / (double)display->width - 1);
@@ -107,6 +105,5 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 			camera->perp_wall_dist = 1;
 		draw_3d_walls(display, map, camera, x);
 		++x;
-		// --x;
 	}
 }

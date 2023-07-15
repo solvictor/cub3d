@@ -22,9 +22,23 @@ static void	destroy_window(t_display *display)
 	free(display->mlx);
 }
 
+void	destroy_images(t_display *display, t_map *map, const int ind)
+{
+	mlx_destroy_image(display->mlx, map->textures[0].img);
+	map->textures[0].img = NULL;
+	if (ind >= 1)
+		mlx_destroy_image(display->mlx, map->textures[1].img);
+	if (ind >= 2)
+		mlx_destroy_image(display->mlx, map->textures[2].img);
+	if (ind >= 3)
+		mlx_destroy_image(display->mlx, map->textures[3].img);
+}
+
 void	clean_memory(t_vars *vars)
 {
 	clean_map(vars->map);
+	if (vars->map->textures[0].img != NULL)
+		destroy_images(vars->display, vars->map, 3);
 	if (vars->display->img)
 		destroy_window(vars->display);
 	ft_free_strs(vars->file_content);
