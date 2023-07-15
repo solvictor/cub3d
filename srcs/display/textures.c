@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static bool	get_addresses(t_display *display, t_map *map)
+static bool	get_addresses(t_map *map)
 {
 	map->textures[0].addr = mlx_get_data_addr(map->textures[0].img,
 			&(map->textures[0].bpp), &(map->textures[0].size_line),
@@ -43,7 +43,7 @@ bool	get_textures(t_display *display, t_map *map)
 			&(map->textures[3].width), &(map->textures[3].height));
 	if (!map->textures[3].img)
 		return (destroy_images(display, map, 3), false);
-	if (!get_addresses(display, map))
+	if (!get_addresses(map))
 		return (destroy_images(display, map, 3), false);
 	return (true);
 }
