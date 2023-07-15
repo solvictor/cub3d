@@ -137,49 +137,50 @@ typedef struct s_vars
 /*                                 Parsing                                    */
 /*                                                                            */
 /******************************************************************************/
-bool		parsing(char *file_name, t_vars *vars, t_map *map);
-bool		get_textures_info(t_vars *vars, t_map *map);
-bool		map_size(t_vars *vars, t_map *map);
-bool		map_correct(t_map *map);
-bool		create_map(t_vars *vars, t_map *map);
-void		format_map(t_map *map);
-bool		do_textures_exist(t_map *map);
+bool			parsing(char *file_name, t_vars *vars, t_map *map);
+bool			get_textures_info(t_vars *vars, t_map *map);
+bool			map_size(t_vars *vars, t_map *map);
+bool			map_correct(t_map *map);
+bool			create_map(t_vars *vars, t_map *map);
+void			format_map(t_map *map);
+bool			do_textures_exist(t_map *map);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                 Cleaning                                   */
 /*                                                                            */
 /******************************************************************************/
-void		error_str(char *str);
-void		clean_memory(t_vars *vars);
-void		destroy_images(t_display *display, t_map *map, const int ind);
+void			error_str(char *str);
+void			clean_memory(t_vars *vars);
+void			destroy_images(t_display *display, t_map *map, const int ind);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                  Display                                   */
 /*                                                                            */
 /******************************************************************************/
-bool		start_display(t_display *display, t_vars *vars);
-int			on_destroy(t_vars *vars);
-int			on_keydown(int keycode, t_vars *vars);
-void		mlx_spp(t_display *display, int x, int y, int color);
-void		clear_image(t_display *display);
+bool			start_display(t_display *display, t_vars *vars);
+int				on_destroy(t_vars *vars);
+int				on_keydown(int keycode, t_vars *vars);
+void			mlx_spp(t_display *display, int x, int y, int color);
+void			clear_image(t_display *display);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                   Caster                                   */
 /*                                                                            */
 /******************************************************************************/
-void		caster(t_display *display, t_map *map, t_camera *camera);
-bool		get_textures(t_display *display, t_map *map);
+void			caster(t_display *display, t_map *map, t_camera *camera);
+bool			get_textures(t_display *display, t_map *map);
+unsigned int	get_color(t_map *map, int id, int texture_x, int texture_y);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                   Utils                                    */
 /*                                                                            */
 /******************************************************************************/
-void		set_vector(t_vector *vector, double x, double y);
-bool		is_line_empty(const char *line);
+void			set_vector(t_vector *vector, double x, double y);
+bool			is_line_empty(const char *line);
 
 
 /******************************************************************************/
@@ -187,14 +188,14 @@ bool		is_line_empty(const char *line);
 /*                                   Tests                                    */
 /*                                                                            */
 /******************************************************************************/
-void		show_file(t_vars *vars);
-void		show_texture_info(t_map *map);
-void		show_map_info(t_map *map);
-void		show_map(t_map *map);
-void		basic_up(t_vars *vars);
-void		basic_down(t_vars *vars);
-void		basic_left(t_vars *vars);
-void		basic_right(t_vars *vars);
+void			show_file(t_vars *vars);
+void			show_texture_info(t_map *map);
+void			show_map_info(t_map *map);
+void			show_map(t_map *map);
+void			basic_up(t_vars *vars);
+void			basic_down(t_vars *vars);
+void			basic_left(t_vars *vars);
+void			basic_right(t_vars *vars);
 
 
 #endif

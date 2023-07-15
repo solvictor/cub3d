@@ -1,5 +1,11 @@
 #include "cub3d.h"
 
+/*
+	TODO
+		-Differentiate the texture depending on the side of the wall
+		-Texture isn't "centered" (?)
+*/
+
 void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 {
 	const int	line_height = (int)(display->height / camera->perp_wall_dist);
@@ -7,21 +13,45 @@ void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
 	int			draw_end;
 	int			color;
 	int			y;
+	int			pitch;
+	int			texture_number;
+	double		wall_x;
+	int			texture_x;
+	double		step;
+	double		texture_pos;
+	int			texture_y;
 
-	draw_start = -line_height / 2 + display->height / 2;
+	pitch = 100;
+	draw_start = -line_height / 2 + display->height / 2 + pitch;
 	if (draw_start < 0)
 		draw_start = 0;
-	draw_end = line_height / 2 + display->height / 2;
+	draw_end = line_height / 2 + display->height / 2 + pitch;
 	if (draw_end >= display->height)
 		draw_end = display->height - 1;
+	texture_number = map->map[camera->map_y][camera->map_x] - 1 - '0';
+	if (camera->side == 0)
+		wall_x = camera->pos.y + camera->perp_wall_dist * camera->ray_dir.y;
+	else
+		wall_x = camera->pos.x + camera->perp_wall_dist * camera->ray_dir.x;
+	wall_x -= floor(wall_x);
+	texture_x = (int)(wall_x * (double)TEXTURE_WIDTH);
+	if (camera->side == 0 && camera->ray_dir.x > 0)
+		texture_x = TEXTURE_WIDTH - texture_x - 1;
+	if (camera->side == 1 && camera->ray_dir.y < 0)
+		texture_x = TEXTURE_WIDTH - texture_x - 1;
+	step = 1.0 * TEXTURE_HEIGHT / line_height;
+	texture_pos = (draw_start - pitch - display->height / 2 + line_height / 2) * step;
 	y = 0;
 	while (y < draw_start)
 		mlx_spp(display, x, y++, map->ceiling_color);
-	color = 0x00004F;
-	if (camera->side == 1)
-		color /= 2;
-	while (draw_start <= draw_end)
-		mlx_spp(display, x, draw_start++, color);
+	y = draw_start;
+	while (y < draw_end)
+	{
+		texture_y = (int)texture_pos & (TEXTURE_HEIGHT - 1);
+		texture_pos += step;
+		mlx_spp(display, x, y, get_color(map, texture_number, texture_x, texture_y));
+		++y;
+	}
 	y = draw_end;
 	while (y < display->height)
 		mlx_spp(display, x, y++, map->floor_color);
