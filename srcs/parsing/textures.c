@@ -18,7 +18,7 @@ bool	find_extra_parameter(t_map *map, t_vars *vars)
 		while (vars->file_content[tmp][i] && vars->file_content[tmp][i] != '\n')
 		{
 			if (!ft_c_in_str(vars->file_content[tmp][i], SPACES)
-					&& !ft_c_in_str(vars->file_content[tmp][i], "01"))
+					&& !ft_c_in_str(vars->file_content[tmp][i], WALL_TYPES))
 				if (!ft_c_in_str(vars->file_content[tmp][i], PLAYER))
 					return (error_str("Wrong parameter in file"), false);
 			++i;

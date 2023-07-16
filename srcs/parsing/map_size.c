@@ -23,7 +23,7 @@ static bool	bad_line(char *line, int line_nb, t_map *map)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 	{
-		if (!ft_c_in_str(line[i], SPACES) && !ft_c_in_str(line[i], "01"))
+		if (!ft_c_in_str(line[i], SPACES) && !ft_c_in_str(line[i], WALL_TYPES))
 		{
 			if (!ft_c_in_str(line[i], PLAYER))
 				return (error_str("Bad char in map"), true);

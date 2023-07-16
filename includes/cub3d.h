@@ -26,6 +26,7 @@
 # define FREE "0NSEW"
 # define COLLIDE "1"
 # define MAP_CHARS "0NSEW1"
+# define WALL_TYPES "01"
 
 # define ON_KEYPRESS 2
 # define ON_KEYRELEASE 3
