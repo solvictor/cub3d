@@ -47,4 +47,3 @@ bool	get_textures(t_display *display, t_map *map)
 		return (destroy_images(display, map, 3), false);
 	return (true);
 }
-
