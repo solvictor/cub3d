@@ -14,13 +14,12 @@ static bool	init(t_display *display)
 	return (true);
 }
 
-static void	init_position(t_display *display, t_camera *camera, char start_dir)
+static void	init_position(t_camera *camera, char start_dir)
 {
 	const double	old_dir_x = camera->dir.x;
 	const double	old_plane_x = camera->plane.x;
 	double			to_add;
 
-	ft_printf("Stat dir %c\n", start_dir);
 	if (start_dir == 'W')
 		to_add = 0;
 	else if (start_dir == 'N')
@@ -55,7 +54,7 @@ bool	start_display(t_display *display, t_vars *vars)
 {
 	if (init(display) == false)
 		return (false);
-	init_position(display, vars->camera, vars->map->start_direction);
+	init_position(vars->camera, vars->map->start_direction);
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
 	mlx_hook(display->win, ON_KEYPRESS, KEYPRESS_MASK, on_keypress, vars);
 	mlx_hook(display->win, ON_KEYRELEASE, KEYRELEASE_MASK, on_keyrelease, vars);

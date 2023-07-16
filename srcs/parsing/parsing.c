@@ -8,13 +8,13 @@ static bool	check_parameters(t_vars *vars)
 
 	i = 0;
 	j = 0;
-	while (vars->file_content[i] && j < 6)
+	while (vars->file_content[i])
 	{
 		if (!is_line_empty(vars->file_content[i]))
 		{
-			if (ft_strncmp(vars->file_content[i], (char *)ids[j],
+			if (j < 6 && ft_strncmp(vars->file_content[i], (char *)ids[j],
 					ft_strlen(ids[j])))
-				return (error_str("Wrong parameter in map"), false);
+				return (error_str("Wrong parameter in file"), false);			
 			++j;
 		}
 		++i;
@@ -64,21 +64,19 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 		return (false);
 	if (check_parameters(vars) == false)
 		return (false);
-	show_file(vars);
 	if (get_textures_info(vars, map) == false)
 		return (false);
-	show_texture_info(map);
 	if (do_textures_exist(map) == false)
+		return (false);
+	if (find_extra_parameter(map, vars) == false)
 		return (false);
 	if (map_size(vars, map) == false)
 		return (false);
-	show_map_info(map);
 	if (create_map(vars, map) == false)
 		return (false);
 	if (map_correct(map) == false)
 		return (false);
 	format_map(map);
-	show_map(map);
 	set_vector(&vars->camera->pos, map->start_coords[0] + 0.5,
 		map->start_coords[1] + 0.5);
 	return (true);

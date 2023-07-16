@@ -31,9 +31,6 @@ SRCS 			=	$(addsuffix .c,				\
 						line_functions			\
 						vectors					\
 					)							\
-					$(addprefix srcs/tests/,	\
-						show_info				\
-					)							\
 						srcs/cub3d				\
 					)
 BONUSOBJS		= ${BONUS:.c=.o}

@@ -54,7 +54,6 @@ static void	basic_up(t_display *display, t_camera *camera, t_map *map)
 	int			index_y;
 
 	display->refresh = true;
-
 	index_x = camera->pos.x + camera->dir.x * camera->move_speed;
 	index_y = camera->pos.y + camera->dir.y * camera->move_speed;
 	if (!((int)camera->pos.y <= 0 || index_x <= 0
@@ -100,7 +99,6 @@ static void	basic_left(t_display *display, t_camera *camera)
 	camera->plane.y = old_plane_x * sin(-camera->rot_speed)
 		+ camera->plane.y * cos(-camera->rot_speed);
 }
-
 
 static void	basic_right(t_display *display, t_camera *camera)
 {

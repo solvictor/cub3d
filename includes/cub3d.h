@@ -1,20 +1,16 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../libft/libft.h"
-# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <float.h>
-# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
-# include <sys/wait.h>
 # include <unistd.h>
 # include <stdbool.h>
 # include <math.h>
-# include <stdint.h>
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 
@@ -107,7 +103,7 @@ typedef struct s_map
 	int			param_lines[6];
 	int			height;
 	int			width;
-	int			first_line;
+	int			first_line_map;
 	int			start_coords[2];
 	char		start_direction;
 	int			islands;
@@ -172,6 +168,8 @@ bool			map_correct(t_map *map);
 bool			create_map(t_vars *vars, t_map *map);
 void			format_map(t_map *map);
 bool			do_textures_exist(t_map *map);
+bool			find_extra_parameter(t_map *map, t_vars *vars);
+
 
 /******************************************************************************/
 /*                                                                            */
@@ -191,7 +189,6 @@ bool			start_display(t_display *display, t_vars *vars);
 int				on_destroy(t_vars *vars);
 int				on_keypress(int keycode, t_vars *vars);
 int				on_keyrelease(int keycode, t_vars *vars);
-void			clear_image(t_display *display);
 
 /******************************************************************************/
 /*                                                                            */
@@ -214,17 +211,5 @@ void			movement_selector(t_display *display, t_camera *camera,
 /******************************************************************************/
 void			set_vector(t_vector *vector, double x, double y);
 bool			is_line_empty(const char *line);
-
-
-/******************************************************************************/
-/*                                                                            */
-/*                                   Tests                                    */
-/*                                                                            */
-/******************************************************************************/
-void			show_file(t_vars *vars);
-void			show_texture_info(t_map *map);
-void			show_map_info(t_map *map);
-void			show_map(t_map *map);
-
 
 #endif

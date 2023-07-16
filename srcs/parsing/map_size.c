@@ -5,7 +5,7 @@ static bool	is_too_short(const char **content, t_map *map)
 	int	i;
 	int	height;
 
-	i = map->first_line;
+	i = map->first_line_map;
 	height = 0;
 	while (content[i])
 	{
@@ -30,7 +30,7 @@ static bool	bad_line(char *line, int line_nb, t_map *map)
 			else if (map->start_coords[0] != -1)
 				return (error_str("Too many players in map"), true);
 			map->start_coords[0] = i;
-			map->start_coords[1] = line_nb - map->first_line;
+			map->start_coords[1] = line_nb - map->first_line_map;
 			map->start_direction = line[i];
 		}
 		++i;
@@ -70,12 +70,12 @@ bool	map_size(t_vars *vars, t_map *map)
 		{
 			if (bad_line((char *)content[i], i, map))
 				return (false);
-			else if (map->first_line == -1 && !is_line_empty(content[i]))
-				map->first_line = i;
+			else if (map->first_line_map == -1 && !is_line_empty(content[i]))
+				map->first_line_map = i;
 		}
 		++i;
 	}
-	if (map->first_line == -1)
+	if (map->first_line_map == -1)
 		return (error_str("No map found"), false);
 	if (is_too_short(content, map) || map->width < 3)
 		return (error_str("Map too small"), false);

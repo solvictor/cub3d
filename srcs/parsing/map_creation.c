@@ -52,7 +52,7 @@ bool	create_map(t_vars *vars, t_map *map)
 {
 	int			i;
 	int			j;
-	const char	**content = (const char **)vars->file_content + map->first_line;
+	const char	**content = (const char **)vars->file_content + map->first_line_map;
 
 	i = 0;
 	map->map = ft_calloc(map->height + 2, sizeof (char *));
