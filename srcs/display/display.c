@@ -43,6 +43,7 @@ void	clear_image(t_display *display)
 
 int	put_image(t_vars *vars)
 {
+	movement_selector(vars->display, vars->camera, vars->map);
 	if (vars->display->refresh == false)
 		return (1);
 	caster(vars->display, vars->map, vars->camera);
@@ -57,7 +58,8 @@ bool	start_display(t_display *display, t_vars *vars)
 	if (init(display) == false)
 		return (false);
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
-	mlx_hook(display->win, ON_KEYDOWN, KEYPRESS_MASK, on_keydown, vars);
+	mlx_hook(display->win, ON_KEYPRESS, KEYPRESS_MASK, on_keypress, vars);
+	mlx_hook(display->win, ON_KEYRELEASE, KEYRELEASE_MASK, on_keyrelease, vars);
 	mlx_loop_hook(display->mlx, &put_image, vars);
 	get_textures(display, vars->map);
 	vars->display->refresh = true;

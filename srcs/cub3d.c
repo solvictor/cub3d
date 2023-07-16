@@ -39,9 +39,13 @@ static void	init_camera(t_vars *vars, t_camera *camera)
 {
 	set_vector(&camera->pos, 0, 0);
 	set_vector(&camera->dir, -1, 0);
-	set_vector(&camera->plane, 0, 0.66);
-	camera->move_speed = 0.10;
-	camera->rot_speed = 0.10;
+	set_vector(&camera->plane, 0, 0.80);
+	camera->move_speed = 0.06;
+	camera->rot_speed = 0.04;
+	camera->w = false;
+	camera->a = false;
+	camera->s = false;
+	camera->d = false;
 	vars->camera = camera;
 }
 

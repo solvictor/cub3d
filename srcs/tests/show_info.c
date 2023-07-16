@@ -1,5 +1,9 @@
 #include "cub3d.h"
 
+/*
+	TODO delete tests
+*/
+
 void	show_file(t_vars *vars)
 {
 	const char	**map_file = (const char **) vars->file_content;

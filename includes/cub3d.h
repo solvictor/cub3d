@@ -31,11 +31,13 @@
 # define COLLIDE "1"
 # define MAP_CHARS "0NSEW1"
 
-# define ON_KEYDOWN 2
+# define ON_KEYPRESS 2
+# define ON_KEYRELEASE 3
 # define ON_MOUSEDOWN 4
 # define ON_DESTROY 17
 # define NO_MASK 0L
 # define KEYPRESS_MASK 1L
+# define KEYRELEASE_MASK 2L
 # define BUTTONPRESS_MASK 4L
 # define CURSOR_RADIUS 10
 
@@ -60,7 +62,7 @@ enum e_cardinals
 	EAST
 };
 
-typedef struct	s_column
+typedef struct s_column
 {
 	int				draw_start;
 	int				draw_end;
@@ -142,6 +144,10 @@ typedef struct s_camera
 	t_vector	delta_dist;
 	double		move_speed;
 	double		rot_speed;
+	bool		w;
+	bool		a;
+	bool		s;
+	bool		d;
 }				t_camera;
 
 typedef struct s_vars
@@ -181,7 +187,8 @@ void			destroy_images(t_display *display, t_map *map, const int ind);
 /******************************************************************************/
 bool			start_display(t_display *display, t_vars *vars);
 int				on_destroy(t_vars *vars);
-int				on_keydown(int keycode, t_vars *vars);
+int				on_keypress(int keycode, t_vars *vars);
+int				on_keyrelease(int keycode, t_vars *vars);
 void			mlx_spp(t_display *display, int x, int y, int color);
 void			clear_image(t_display *display);
 
@@ -196,6 +203,8 @@ unsigned int	get_color(t_map *map, int id, int texture_x, int texture_y);
 int				select_texture(t_camera *camera);
 void			draw_3d_walls(t_display *display, t_map *map, t_camera *camera,
 					int x);
+void			movement_selector(t_display *display, t_camera *camera,
+					t_map *map);
 
 /******************************************************************************/
 /*                                                                            */
@@ -215,10 +224,6 @@ void			show_file(t_vars *vars);
 void			show_texture_info(t_map *map);
 void			show_map_info(t_map *map);
 void			show_map(t_map *map);
-void			basic_up(t_vars *vars);
-void			basic_down(t_vars *vars);
-void			basic_left(t_vars *vars);
-void			basic_right(t_vars *vars);
 
 
 #endif

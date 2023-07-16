@@ -49,7 +49,7 @@ static void	camera_step(t_camera *camera)
 	}
 }
 
-static void	hit_detection(t_display *display, t_camera *camera, t_map *map,
+static void	hit_detection(t_camera *camera, t_map *map,
 	int *hit)
 {
 	if (camera->side_dist.x < camera->side_dist.y)
@@ -76,14 +76,13 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 	int	hit;
 
 	x = 0;
-	clear_image(display);
 	while (x < display->width)
 	{
 		init_caster(display, camera, x);
 		camera_step(camera);
 		hit = 0;
 		while (hit == 0)
-			hit_detection(display, camera, map, &hit);
+			hit_detection(camera, map, &hit);
 		if (camera->side == 0)
 			camera->perp_wall_dist = camera->side_dist.x - camera->delta_dist.x;
 		else
