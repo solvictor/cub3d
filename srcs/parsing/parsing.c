@@ -79,6 +79,7 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 		return (false);
 	format_map(map);
 	show_map(map);
-	set_vector(&vars->camera->pos, map->start_coords[0], map->start_coords[1]);
+	set_vector(&vars->camera->pos, map->start_coords[0] + 0.5,
+		map->start_coords[1] + 0.5);
 	return (true);
 }

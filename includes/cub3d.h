@@ -41,6 +41,8 @@
 # define BUTTONPRESS_MASK 4L
 # define CURSOR_RADIUS 10
 
+# define PI 3.14159265359
+
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define TEXTURE_WIDTH 64
@@ -189,7 +191,6 @@ bool			start_display(t_display *display, t_vars *vars);
 int				on_destroy(t_vars *vars);
 int				on_keypress(int keycode, t_vars *vars);
 int				on_keyrelease(int keycode, t_vars *vars);
-void			mlx_spp(t_display *display, int x, int y, int color);
 void			clear_image(t_display *display);
 
 /******************************************************************************/

@@ -1,5 +1,13 @@
 #include "cub3d.h"
 
+static void	mlx_spp(t_display *display, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = display->addr + (y * display->size_line + x * (display->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
 static void	initialize_column(t_display *display, t_column *column,
 		t_camera *camera, const int line_height)
 {

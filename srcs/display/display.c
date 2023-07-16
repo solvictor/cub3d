@@ -14,31 +14,29 @@ static bool	init(t_display *display)
 	return (true);
 }
 
-void	mlx_spp(t_display *display, int x, int y, int color)
+static void	init_position(t_display *display, t_camera *camera, char start_dir)
 {
-	char	*dst;
+	const double	old_dir_x = camera->dir.x;
+	const double	old_plane_x = camera->plane.x;
+	double			to_add;
 
-	dst = display->addr + (y * display->size_line + x * (display->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	clear_image(t_display *display)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < display->height)
-	{
-		j = 0;
-		while (j < display->width)
-		{
-			mlx_spp(display, j, i, 0x010101);
-			++j;
-		}
-		++i;
-	}
-	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
+	ft_printf("Stat dir %c\n", start_dir);
+	if (start_dir == 'W')
+		to_add = 0;
+	else if (start_dir == 'N')
+		to_add = 3 * PI / 2;
+	else if (start_dir == 'S')
+		to_add = PI / 2;
+	else
+		to_add = PI;
+	camera->dir.x = old_dir_x * cos(-to_add)
+		- camera->dir.y * sin(-to_add);
+	camera->dir.y = old_dir_x * sin(-to_add)
+		+ camera->dir.y * cos(-to_add);
+	camera->plane.x = old_plane_x * cos(-to_add)
+		- camera->plane.y * sin(-to_add);
+	camera->plane.y = old_plane_x * sin(-to_add)
+		+ camera->plane.y * cos(-to_add);
 }
 
 int	put_image(t_vars *vars)
@@ -57,6 +55,7 @@ bool	start_display(t_display *display, t_vars *vars)
 {
 	if (init(display) == false)
 		return (false);
+	init_position(display, vars->camera, vars->map->start_direction);
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
 	mlx_hook(display->win, ON_KEYPRESS, KEYPRESS_MASK, on_keypress, vars);
 	mlx_hook(display->win, ON_KEYRELEASE, KEYRELEASE_MASK, on_keyrelease, vars);
