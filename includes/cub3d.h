@@ -60,6 +60,18 @@ enum e_cardinals
 	EAST
 };
 
+typedef struct	s_column
+{
+	int				draw_start;
+	int				draw_end;
+	unsigned int	color;
+	int				texture_number;
+	double			wall_x;
+	int				texture_x;
+	int				texture_y;
+	double			texture_pos;
+	double			step;
+}					t_column;
 typedef struct s_vector
 {
 	double		x;
@@ -181,6 +193,9 @@ void			clear_image(t_display *display);
 void			caster(t_display *display, t_map *map, t_camera *camera);
 bool			get_textures(t_display *display, t_map *map);
 unsigned int	get_color(t_map *map, int id, int texture_x, int texture_y);
+int				select_texture(t_camera *camera);
+void			draw_3d_walls(t_display *display, t_map *map, t_camera *camera,
+					int x);
 
 /******************************************************************************/
 /*                                                                            */

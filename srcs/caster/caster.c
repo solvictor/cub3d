@@ -1,85 +1,5 @@
 #include "cub3d.h"
 
-/*
-	TODO
-		-Differentiate the texture depending on the side of the wall
-*/
-
-int	select_texture(t_camera *camera)
-{
-	int	wall_face;
-
-	if (camera->side == 0)
-	{
-		if (camera->step_x > 0) 
-			wall_face = WEST;
-		else
-			wall_face = EAST;
-	}
-	else
-	{
-		if (camera->step_y > 0)
-			wall_face = NORTH;
-		else
-			wall_face = SOUTH;
-	}
-	return (wall_face);
-}
-
-
-void	draw_3d_walls(t_display *display, t_map *map, t_camera *camera, int x)
-{
-	const int		line_height = (int)(display->height / camera->perp_wall_dist);
-	int				draw_start;
-	int				draw_end;
-	int				y;
-	unsigned int	color;
-	int				texture_number;
-	double			wall_x;
-	int				texture_x;
-	double			step;
-	double			texture_pos;
-	int				texture_y;
-
-	draw_start = -line_height / 2 + display->height / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	draw_end = line_height / 2 + display->height / 2;
-	if (draw_end >= display->height)
-		draw_end = display->height - 1;
-	texture_number = map->map[camera->map_y][camera->map_x] - 1 - '0';
-	texture_number = select_texture(camera);
-	if (camera->side == 0)
-		wall_x = camera->pos.y + camera->perp_wall_dist * camera->ray_dir.y;
-	else
-		wall_x = camera->pos.x + camera->perp_wall_dist * camera->ray_dir.x;
-	wall_x -= floor((wall_x));
-	texture_x = (int)(wall_x * (double)TEXTURE_WIDTH);
-	if (camera->side == 0 && camera->ray_dir.x > 0)
-		texture_x = TEXTURE_WIDTH - texture_x - 1;
-	if (camera->side == 1 && camera->ray_dir.y < 0)
-		texture_x = TEXTURE_WIDTH - texture_x - 1;
-	step = 1.0 * TEXTURE_HEIGHT / line_height;
-	texture_pos = (draw_start - display->height / 2 + line_height / 2) * step;
-	y = 0;
-	while (y < draw_start)
-		mlx_spp(display, x, y++, map->ceiling_color);
-	y = draw_start;
-	while (y < draw_end)
-	{
-		texture_y = (int)texture_pos & (TEXTURE_HEIGHT - 1);
-		texture_pos += step;
-		color = get_color(map, texture_number, texture_x, texture_y);
-		if (camera->side == 1)
-			color = (color >> 1) & 8355711;
-		mlx_spp(display, x, y, color);
-		++y;
-	}
-	y = draw_end;
-	while (y < display->height)
-		mlx_spp(display, x, y++, map->floor_color);
-}
-
 void	caster(t_display *display, t_map *map, t_camera *camera)
 {
 	int	x;
@@ -109,7 +29,7 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 		hit = 0;
 		if (camera->ray_dir.x < 0)
 		{
-			camera->step_x = -1; //TODO Maybe put the steps as local variables
+			camera->step_x = -1;
 			camera->side_dist.x = (camera->pos.x - camera->map_x)
 				* camera->delta_dist.x;
 		}
