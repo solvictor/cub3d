@@ -1,6 +1,4 @@
 NAME			= cub3d
-FTSRCS			= .c
-DIRSRCS 		= srcs/program/
 SRCS 			=	$(addsuffix .c,				\
 					$(addprefix srcs/parsing/,	\
 						parsing					\
@@ -32,6 +30,38 @@ SRCS 			=	$(addsuffix .c,				\
 						vectors					\
 					)							\
 						srcs/cub3d				\
+					)
+BONUS			= $(addsuffix .c,				\
+					$(addprefix bonus/parsing/,	\
+						parsing					\
+						rgb						\
+						textures				\
+						map_size				\
+						map_correct				\
+						map_creation			\
+						map_formater			\
+					)							\
+					$(addprefix bonus/cleaning/,	\
+						errors					\
+						clean_memory			\
+					)							\
+					$(addprefix bonus/display/,	\
+						display					\
+						destroy					\
+						listeners				\
+						textures				\
+					)							\
+					$(addprefix bonus/caster/,	\
+						caster					\
+						movements				\
+						textures				\
+						walls					\
+					)							\
+					$(addprefix bonus/utils/,	\
+						line_functions			\
+						vectors					\
+					)							\
+						bonus/cub3d				\
 					)
 BONUSOBJS		= ${BONUS:.c=.o}
 PATH_INCLUDES	= includes
@@ -72,8 +102,9 @@ ${LIBFTDIR}/libft.a:
 ${MLXDIR}/libmlx.a:
 	@make -C ${MLXDIR}
 
-bonus: ${BONUSOBJS} ${LIBFTDIR}/libft.a
-	@${CC} ${FLAGS} ${BONUSOBJS} ${HEADER} -L${LIBFTDIR} ${LIBFTLIB} -o cub3d -g3
+bonus: ${BONUSOBJS} ${LIBFTDIR}/libft.a ${MLXDIR}/libmlx.a
+	@${CC} ${FLAGS} ${BONUSOBJS} -I${HEADER} ${XLIBS} -L${MLXDIR} ${MLXLIB} -L${LIBFTDIR} ${LIBFTLIB} -lm -o cub3d_bonus -g3
+	@echo "${LGREEN}Successfully created${NC}${CYAN} cub3d_bonus${NC}${LGREEN}!${NC}"
 
 norm:
 	norminette srcs
