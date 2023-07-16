@@ -52,6 +52,14 @@ enum e_directions
 	RIGHT
 };
 
+enum e_cardinals
+{
+	NORTH = 0,
+	SOUTH,
+	WEST,
+	EAST
+};
+
 typedef struct s_vector
 {
 	double		x;
