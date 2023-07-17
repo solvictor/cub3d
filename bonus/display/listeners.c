@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	on_keypress(int keycode, t_vars *vars)
 {
@@ -26,6 +26,28 @@ int	on_keyrelease(int keycode, t_vars *vars)
 	if (keycode == XK_s)
 		vars->camera->s = false;
 	if (keycode == XK_d)
+		vars->camera->d = false;
+	return (1);
+}
+
+int	on_mousepress(int button, int x, int y, t_vars *vars)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+		vars->camera->a = true;
+	if (button == 3)
+		vars->camera->d = true;
+	return (1);
+}
+
+int	on_mouserelease(int button, int x, int y, t_vars *vars)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+		vars->camera->a = false;
+	if (button == 3)
 		vars->camera->d = false;
 	return (1);
 }

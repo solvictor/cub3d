@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static bool	recopying(t_map *map, char **cleaned_map,
 	int last_line)

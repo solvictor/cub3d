@@ -1,6 +1,6 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
-static void	mlx_spp(t_display *display, int x, int y, int color)
+void	mlx_spp(t_display *display, int x, int y, int color)
 {
 	char	*dst;
 

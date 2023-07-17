@@ -30,7 +30,7 @@
 
 # define ON_KEYPRESS 2
 # define ON_KEYRELEASE 3
-# define ON_MOUSEDOWN 4
+# define ON_MOUSEPRESS 4
 # define ON_DESTROY 17
 # define NO_MASK 0L
 # define KEYPRESS_MASK 1L

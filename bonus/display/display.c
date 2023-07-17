@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static bool	init(t_display *display)
 {
@@ -44,6 +44,7 @@ int	put_image(t_vars *vars)
 	if (vars->display->refresh == false)
 		return (1);
 	caster(vars->display, vars->map, vars->camera);
+	minimap(vars->display, vars->map, vars->camera);
 	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
 		vars->display->img, 0, 0);
 	vars->display->refresh = false;
@@ -58,6 +59,9 @@ bool	start_display(t_display *display, t_vars *vars)
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
 	mlx_hook(display->win, ON_KEYPRESS, KEYPRESS_MASK, on_keypress, vars);
 	mlx_hook(display->win, ON_KEYRELEASE, KEYRELEASE_MASK, on_keyrelease, vars);
+	mlx_hook(display->win, ON_MOUSEPRESS, MOUSEPRESS_MASK, on_mousepress, vars);
+	mlx_hook(display->win, ON_MOUSERELEASE, MOUSERELEASE_MASK, on_mouserelease,
+		vars);
 	mlx_loop_hook(display->mlx, &put_image, vars);
 	get_textures(display, vars->map);
 	vars->display->refresh = true;

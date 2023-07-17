@@ -41,7 +41,7 @@ BONUS			= $(addsuffix .c,				\
 						map_creation			\
 						map_formater			\
 					)							\
-					$(addprefix bonus/cleaning/,	\
+					$(addprefix bonus/cleaning/,\
 						errors					\
 						clean_memory			\
 					)							\
@@ -50,6 +50,7 @@ BONUS			= $(addsuffix .c,				\
 						destroy					\
 						listeners				\
 						textures				\
+						minimap					\
 					)							\
 					$(addprefix bonus/caster/,	\
 						caster					\

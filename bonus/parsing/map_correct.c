@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static bool	char_mid_map_valid(const char **map_content, unsigned int i,
 	unsigned int j, t_map *map)

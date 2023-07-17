@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static bool	is_too_short(const char **content, t_map *map)
 {

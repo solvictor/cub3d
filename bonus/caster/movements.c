@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	basic_up(t_display *display, t_camera *camera, t_map *map)
 {

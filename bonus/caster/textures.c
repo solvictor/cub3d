@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 unsigned int	get_color(t_map *map, int id, int texture_x, int texture_y)
 {

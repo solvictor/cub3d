@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 bool	find_extra_parameter(t_map *map, t_vars *vars)
 {

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	init_caster(t_display *display, t_camera *camera, int x)
 {
