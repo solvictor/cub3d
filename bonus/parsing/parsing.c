@@ -14,7 +14,7 @@ static bool	check_parameters(t_vars *vars)
 		{
 			if (j < 6 && ft_strncmp(vars->file_content[i], (char *)ids[j],
 					ft_strlen(ids[j])))
-				return (error_str("Wrong parameter in file"), false);			
+				return (error_str("Wrong parameter in file"), false);
 			++j;
 		}
 		++i;

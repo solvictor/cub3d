@@ -171,7 +171,6 @@ void			format_map(t_map *map);
 bool			do_textures_exist(t_map *map);
 bool			find_extra_parameter(t_map *map, t_vars *vars);
 
-
 /******************************************************************************/
 /*                                                                            */
 /*                                 Cleaning                                   */

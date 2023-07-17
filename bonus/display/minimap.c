@@ -39,7 +39,6 @@ void	draw_player(t_display *display, t_camera *camera, int color)
 	}
 }
 
-
 void	minimap(t_display *display, t_map *map, t_camera *camera)
 {
 	int	i;
@@ -52,15 +51,12 @@ void	minimap(t_display *display, t_map *map, t_camera *camera)
 		while (j < map->width)
 		{
 			if (map->map[i][j] == '0')
-				draw_tile(display, j, i,  display->minimap_colors[0]);
+				draw_tile(display, j, i, display->minimap_colors[0]);
 			else
-				draw_tile(display, j, i,  display->minimap_colors[1]);
+				draw_tile(display, j, i, display->minimap_colors[1]);
 			++j;
 		}
 		++i;
 	}
 	draw_player(display, camera, display->minimap_colors[2]);
 }
-
-
-

@@ -198,7 +198,6 @@ int				on_keyrelease(int keycode, t_vars *vars);
 int				on_mousepress(int button, int x, int y, t_vars *vars);
 int				on_mouserelease(int button, int x, int y, t_vars *vars);
 
-
 /******************************************************************************/
 /*                                                                            */
 /*                                   Caster                                   */
