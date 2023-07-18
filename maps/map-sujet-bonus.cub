@@ -1,12 +1,10 @@
-NO ./textures/purplestone.xpm
-SO ./textures/eagle.xpm
-WE ./textures/simple_wall.xpm
-EA ./textures/bookshelf.xpm
-S ./textures/barrel.xpm;10.5:9.5
-S
+NO ./textures/dungeon_wall1.xpm
+SO ./textures/dungeon_wall1.xpm
+WE ./textures/dungeon_wall1.xpm
+EA ./textures/dungeon_wall1.xpm
 
-F 0,0,50
-C 0,0,120
+F 0,0,0
+C 0,0,0
 
         1111111111111111111111111
         1000000000110000000000001
