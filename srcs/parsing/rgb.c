@@ -88,7 +88,7 @@ static char	*find_id(char *id, char *line, int line_nb, t_map *map)
 	while (--i >= 0)
 		info[i] = tmp[i];
 	free(tmp);
-	map->param_lines[map->param_number++] = line_nb;
+	map->param_lines[map->total_parameters++] = line_nb;
 	return (info);
 }
 
@@ -114,7 +114,7 @@ bool	get_textures_info(t_vars *vars, t_map *map)
 		}
 		++i;
 	}
-	if (map->param_number < 6)
+	if (map->total_parameters < 6)
 		return (error_str("Not enough parameters for textures"), false);
 	return (true);
 }

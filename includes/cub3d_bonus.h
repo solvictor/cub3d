@@ -65,6 +65,19 @@ enum e_cardinals
 	EAST
 };
 
+typedef struct s_sprite
+{
+	double			x;
+	double			y;
+	int				texture;
+}					t_sprite;
+
+/*
+	Format for spites in file:
+		S path-to-texture.xpm;x-coordinate(float),y-coordinate(float);
+		x-coordinate(float),y-coordinate(float) (no \n, but line too long)
+*/
+
 typedef struct s_column
 {
 	int				draw_start;
@@ -104,7 +117,7 @@ typedef struct s_map
 	char			*path_south;
 	char			*path_east;
 	char			*path_west;
-	int				param_number;
+	int				total_parameters;
 	int				param_lines[6];
 	int				height;
 	int				width;
@@ -220,5 +233,6 @@ void			mlx_spp(t_display *display, int x, int y, int color);
 /******************************************************************************/
 void			set_vector(t_vector *vector, double x, double y);
 bool			is_line_empty(const char *line);
+void			sort_sprites(int *order, double *dist, int amount);
 
 #endif

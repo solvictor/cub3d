@@ -8,7 +8,7 @@ static void	init_map(t_vars *vars, t_map *map)
 	map->path_west = NULL;
 	map->floor_color = 0;
 	map->ceiling_color = 0;
-	map->param_number = 0;
+	map->total_parameters = 0;
 	map->height = 0;
 	map->width = 0;
 	map->start_coords[0] = -1;

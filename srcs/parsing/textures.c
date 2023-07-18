@@ -7,7 +7,7 @@ bool	find_extra_parameter(t_map *map, t_vars *vars)
 
 	tmp = map->param_lines[0];
 	i = 0;
-	while (++i < map->param_number)
+	while (++i < map->total_parameters)
 		if (map->param_lines[i] >= tmp)
 			tmp = map->param_lines[i];
 	tmp += 1;

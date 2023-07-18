@@ -100,7 +100,7 @@ typedef struct s_map
 	char		*path_south;
 	char		*path_east;
 	char		*path_west;
-	int			param_number;
+	int			total_parameters;
 	int			param_lines[6];
 	int			height;
 	int			width;
