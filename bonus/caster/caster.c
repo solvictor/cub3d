@@ -66,7 +66,8 @@ static void	hit_detection(t_camera *camera, t_map *map,
 	}
 	if (camera->map_y >= map->height || camera->map_x >= map->width
 		|| camera->map_y < 0 || camera->map_x < 0
-		|| map->map[camera->map_y][camera->map_x] == '1')
+		|| map->map[camera->map_y][camera->map_x] == '1'
+		|| map->map[camera->map_y][camera->map_x] == '2')
 		*hit = 1;
 }
 

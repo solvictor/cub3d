@@ -40,13 +40,18 @@ static void	init_position(t_camera *camera, char start_dir)
 
 int	put_image(t_vars *vars)
 {
-	movement_selector(vars->display, vars->camera, vars->map);
-	if (vars->display->refresh == false)
+	t_display *display;
+
+	display = vars->display;
+	movement_selector(display, vars->camera, vars->map);
+	if (display->refresh == false)
 		return (1);
-	caster(vars->display, vars->map, vars->camera);
-	minimap(vars->display, vars->map, vars->camera);
-	mlx_put_image_to_window(vars->display->mlx, vars->display->win,
-		vars->display->img, 0, 0);
+	caster(display, vars->map, vars->camera);
+	minimap(display, vars->map, vars->camera);
+	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
+	if (door(display, vars->map, vars->camera))
+		mlx_string_put(display->mlx, display->win, 700, 300,
+			0xFFFFFF, INTERACTION_MESSAGE);
 	vars->display->refresh = false;
 	return (1);
 }

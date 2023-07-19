@@ -52,6 +52,10 @@ void	minimap(t_display *display, t_map *map, t_camera *camera)
 		{
 			if (map->map[i][j] == '0')
 				draw_tile(display, j, i, display->minimap_colors[0]);
+			else if (map->map[i][j] == '2')
+				draw_tile(display, j, i, display->minimap_colors[1]);
+			else if (map->map[i][j] == '3')
+				draw_tile(display, j, i, display->minimap_colors[0]);
 			else
 				draw_tile(display, j, i, display->minimap_colors[1]);
 			++j;

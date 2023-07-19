@@ -1,5 +1,9 @@
 #include "cub3d_bonus.h"
 
+/*
+	TODO clean using strchr
+*/
+
 void	basic_up(t_display *display, t_camera *camera, t_map *map)
 {
 	int			index_x;
@@ -8,11 +12,13 @@ void	basic_up(t_display *display, t_camera *camera, t_map *map)
 	display->refresh = true;
 	index_x = camera->pos.x + camera->dir.x * camera->move_speed;
 	index_y = camera->pos.y + camera->dir.y * camera->move_speed;
-	if (map->map[(int)camera->pos.y][index_x] == '0')
+	if (map->map[(int)camera->pos.y][index_x] == '0' 
+		|| map->map[(int)camera->pos.y][index_x] == '3')
 	{
 		camera->pos.x += camera->dir.x * camera->move_speed;
 	}
-	if (map->map[index_y][(int)camera->pos.x] == '0')
+	if (map->map[index_y][(int)camera->pos.x] == '0'
+		|| map->map[index_y][(int)camera->pos.x] == '3')
 	{
 		camera->pos.y += camera->dir.y * camera->move_speed;
 	}
@@ -26,11 +32,13 @@ void	basic_down(t_display *display, t_camera *camera, t_map *map)
 	display->refresh = true;
 	index_x = camera->pos.x - camera->dir.x * camera->move_speed;
 	index_y = camera->pos.y - camera->dir.y * camera->move_speed;
-	if (map->map[(int)camera->pos.y][index_x] == '0')
+	if (map->map[(int)camera->pos.y][index_x] == '0'
+		|| map->map[(int)camera->pos.y][index_x] == '3')
 	{
 		camera->pos.x -= camera->dir.x * camera->move_speed;
 	}
-	if (map->map[index_y][(int)camera->pos.x] == '0')
+	if (map->map[index_y][(int)camera->pos.x] == '0'
+		|| map->map[index_y][(int)camera->pos.x] == '3')
 	{
 		camera->pos.y -= camera->dir.y * camera->move_speed;
 	}

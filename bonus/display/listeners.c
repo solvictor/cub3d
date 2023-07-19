@@ -2,6 +2,8 @@
 
 int	on_keypress(int keycode, t_vars *vars)
 {
+	static int increment = 0;
+
 	if (keycode == XK_Escape)
 		return (clean_memory(vars), exit(EXIT_SUCCESS), 1);
 	if (keycode == XK_w)
@@ -12,6 +14,8 @@ int	on_keypress(int keycode, t_vars *vars)
 		vars->camera->s = true;
 	if (keycode == XK_d)
 		vars->camera->d = true;
+	if (keycode == XK_e)
+		door_action(vars->display, vars->map, vars->camera);
 	return (1);
 }
 

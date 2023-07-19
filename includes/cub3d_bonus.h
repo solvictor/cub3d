@@ -23,10 +23,10 @@
 
 # define SPACES " \f\n\r\t\v"
 # define PLAYER "NSEW"
-# define FREE "0NSEW"
-# define COLLIDE "1"
-# define MAP_CHARS "0NSEW1"
-# define WALL_TYPES "01"
+# define FREE "0NSEW23"
+# define COLLIDE "12"
+# define MAP_CHARS "0NSEW123"
+# define WALL_TYPES "0123"
 
 # define ON_KEYPRESS 2
 # define ON_KEYRELEASE 3
@@ -48,6 +48,7 @@
 # define TEXTURE_HEIGHT 64
 # define TILE_SIZE 10
 # define PLAYER_RADIUS 3
+# define INTERACTION_MESSAGE "Press E to interact with the door"
 
 enum e_directions
 {
@@ -69,7 +70,7 @@ typedef struct s_sprite
 {
 	double			x;
 	double			y;
-	int				texture;
+	int				nb_texture;
 }					t_sprite;
 
 /*
@@ -77,6 +78,13 @@ typedef struct s_sprite
 		S path-to-texture.xpm;x-coordinate(float),y-coordinate(float);
 		x-coordinate(float),y-coordinate(float) (no \n, but line too long)
 */
+
+typedef struct s_door
+{
+	int				x;
+	int				y;
+	int				nb_texture;
+}					t_door;
 
 typedef struct s_column
 {
@@ -127,6 +135,8 @@ typedef struct s_map
 	int				islands;
 	char			**map;
 	t_texture		textures[4];
+	t_sprite		*sprites;
+	t_door			*doors;
 }					t_map;
 
 typedef struct s_display
@@ -225,6 +235,7 @@ void			draw_3d_walls(t_display *display, t_map *map, t_camera *camera,
 void			movement_selector(t_display *display, t_camera *camera,
 					t_map *map);
 void			mlx_spp(t_display *display, int x, int y, int color);
+bool			door(t_display *display, t_map *map, t_camera *camera);
 
 /******************************************************************************/
 /*                                                                            */

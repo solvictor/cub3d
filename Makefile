@@ -57,6 +57,7 @@ BONUS			= $(addsuffix .c,				\
 						movements				\
 						textures				\
 						walls					\
+						doors					\
 					)							\
 					$(addprefix bonus/utils/,	\
 						line_functions			\
