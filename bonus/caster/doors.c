@@ -13,8 +13,8 @@ static bool	valid_coordinates(t_map *map, int x, int y)
 static bool	detect_door(t_display *display, t_map *map, t_camera *camera,
 	int coords[2])
 {
-	const int	map_x = camera->pos.x;
-	const int	map_y = camera->pos.y;
+	const int	map_x = camera->map_x;
+	const int	map_y = camera->map_y;
 	char		map_char;
 	bool		door_found;
 
