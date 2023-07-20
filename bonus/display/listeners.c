@@ -2,8 +2,6 @@
 
 int	on_keypress(int keycode, t_vars *vars)
 {
-	static int increment = 0;
-
 	if (keycode == XK_Escape)
 		return (clean_memory(vars), exit(EXIT_SUCCESS), 1);
 	if (keycode == XK_w)

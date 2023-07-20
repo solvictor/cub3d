@@ -23,9 +23,9 @@ static bool	assign_to_map_aux(char *id, char *value, t_map *map)
 	const char	**colors = (const char **)ft_split(value, ',');
 
 	if (!colors)
-		return (perror("malloc"), false);
+		return (perror("malloc"), free(value), false);
 	if (!check_rgb(colors))
-		return (false);
+		return (free(value), ft_free_strs((char **)colors), false);
 	else if (!ft_strncmp(id, "F", 1))
 	{
 		map->floor_color = ft_atoi(colors[0]) * 65536;

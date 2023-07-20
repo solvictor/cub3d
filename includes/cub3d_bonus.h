@@ -27,6 +27,7 @@
 # define COLLIDE "12"
 # define MAP_CHARS "0NSEW123"
 # define WALL_TYPES "0123"
+# define DOOR "23"
 
 # define ON_KEYPRESS 2
 # define ON_KEYRELEASE 3
@@ -49,6 +50,7 @@
 # define TILE_SIZE 10
 # define PLAYER_RADIUS 3
 # define INTERACTION_MESSAGE "Press E to interact with the door"
+# define PARAMETER_NUMBER 9
 
 enum e_directions
 {
@@ -79,6 +81,9 @@ typedef struct s_sprite
 		x-coordinate(float),y-coordinate(float) (no \n, but line too long)
 */
 
+/*
+	TODO Deprecated
+*/
 typedef struct s_door
 {
 	int				x;
@@ -125,8 +130,9 @@ typedef struct s_map
 	char			*path_south;
 	char			*path_east;
 	char			*path_west;
+	char			*path_door_closed;
 	int				total_parameters;
-	int				param_lines[6];
+	int				param_lines[PARAMETER_NUMBER];
 	int				height;
 	int				width;
 	int				first_line_map;
@@ -134,7 +140,8 @@ typedef struct s_map
 	char			start_direction;
 	int				islands;
 	char			**map;
-	t_texture		textures[4];
+	t_texture		textures[5];
+	t_texture		*sprite_textures;
 	t_sprite		*sprites;
 	t_door			*doors;
 }					t_map;
@@ -151,7 +158,7 @@ typedef struct s_display
 	int				size_line;
 	int				endian;
 	bool			refresh;
-	unsigned int	minimap_colors[3];
+	unsigned int	minimap_colors[4];
 }					t_display;
 
 typedef struct s_camera
@@ -175,6 +182,8 @@ typedef struct s_camera
 	bool			a;
 	bool			s;
 	bool			d;
+	int				hit;
+	float			angle;
 }					t_camera;
 
 typedef struct s_vars
@@ -198,6 +207,9 @@ bool			create_map(t_vars *vars, t_map *map);
 void			format_map(t_map *map);
 bool			do_textures_exist(t_map *map);
 bool			find_extra_parameter(t_map *map, t_vars *vars);
+void			parse_sprite_positions(char *value);
+void			parse_sprite_textures(char *value);
+
 
 /******************************************************************************/
 /*                                                                            */
@@ -229,13 +241,25 @@ int				on_mouserelease(int button, int x, int y, t_vars *vars);
 void			caster(t_display *display, t_map *map, t_camera *camera);
 bool			get_textures(t_display *display, t_map *map);
 unsigned int	get_color(t_map *map, int id, int texture_x, int texture_y);
-int				select_texture(t_camera *camera);
+int				select_texture_wall(t_camera *camera);
 void			draw_3d_walls(t_display *display, t_map *map, t_camera *camera,
 					int x);
 void			movement_selector(t_display *display, t_camera *camera,
 					t_map *map);
 void			mlx_spp(t_display *display, int x, int y, int color);
 bool			door(t_display *display, t_map *map, t_camera *camera);
+void			door_action(t_display *display, t_map *map, t_camera *camera);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                   Init                                     */
+/*                                                                            */
+/******************************************************************************/
+void			init_position(t_camera *camera, char start_dir);
+void			set_to_zero_camera(t_vars *vars, t_camera *camera);
+bool			init_display(t_display *display);
+void			set_to_zero_display(t_vars *vars, t_display *display);
+void			set_to_zero_map(t_vars *vars, t_map *map);
 
 /******************************************************************************/
 /*                                                                            */

@@ -17,7 +17,7 @@ static void	initialize_column(t_display *display, t_column *column,
 	column->draw_end = line_height / 2 + display->height / 2;
 	if (column->draw_end >= display->height)
 		column->draw_end = display->height - 1;
-	column->texture_number = select_texture(camera);
+	column->texture_number = select_texture_wall(camera);
 	if (camera->side == 0)
 		column->wall_x = camera->pos.y + camera->perp_wall_dist
 			* camera->ray_dir.y;

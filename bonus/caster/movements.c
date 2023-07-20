@@ -58,6 +58,10 @@ static void	basic_left(t_display *display, t_camera *camera)
 		- camera->plane.y * sin(-camera->rot_speed);
 	camera->plane.y = old_plane_x * sin(-camera->rot_speed)
 		+ camera->plane.y * cos(-camera->rot_speed);
+	camera->angle += camera->rot_speed;
+	if (camera->angle > 2 * PI)
+		camera->angle = 0;
+
 }
 
 static void	basic_right(t_display *display, t_camera *camera)
@@ -74,6 +78,9 @@ static void	basic_right(t_display *display, t_camera *camera)
 		- camera->plane.y * sin(camera->rot_speed);
 	camera->plane.y = old_plane_x * sin(camera->rot_speed)
 		+ camera->plane.y * cos(camera->rot_speed);
+	camera->angle -= camera->rot_speed;
+	if (camera->angle < 0)
+		camera->angle = 2 * PI;
 }
 
 void	movement_selector(t_display *display, t_camera *camera, t_map *map)

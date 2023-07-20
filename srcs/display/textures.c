@@ -10,17 +10,17 @@ static bool	get_addresses(t_map *map)
 	map->textures[1].addr = mlx_get_data_addr(map->textures[1].img,
 			&(map->textures[1].bpp), &(map->textures[1].size_line),
 			&(map->textures[1].endian));
-	if (!map->textures[0].addr)
+	if (!map->textures[1].addr)
 		return (false);
 	map->textures[2].addr = mlx_get_data_addr(map->textures[2].img,
 			&(map->textures[2].bpp), &(map->textures[2].size_line),
 			&(map->textures[2].endian));
-	if (!map->textures[0].addr)
+	if (!map->textures[2].addr)
 		return (false);
 	map->textures[3].addr = mlx_get_data_addr(map->textures[3].img,
 			&(map->textures[3].bpp), &(map->textures[3].size_line),
 			&(map->textures[3].endian));
-	if (!map->textures[0].addr)
+	if (!map->textures[3].addr)
 		return (false);
 	return (true);
 }

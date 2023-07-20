@@ -24,14 +24,13 @@ static void	destroy_window(t_display *display)
 
 void	destroy_images(t_display *display, t_map *map, const int ind)
 {
+	int	i;
+
+	i = 1;
 	mlx_destroy_image(display->mlx, map->textures[0].img);
 	map->textures[0].img = NULL;
-	if (ind >= 1)
-		mlx_destroy_image(display->mlx, map->textures[1].img);
-	if (ind >= 2)
-		mlx_destroy_image(display->mlx, map->textures[2].img);
-	if (ind >= 3)
-		mlx_destroy_image(display->mlx, map->textures[3].img);
+	while (i <= ind)
+		mlx_destroy_image(display->mlx, map->textures[i++].img);
 }
 
 void	clean_memory(t_vars *vars)

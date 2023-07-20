@@ -2,7 +2,8 @@
 
 static bool	check_parameters(t_vars *vars)
 {
-	const char	ids[6][3] = {"NO", "SO", "WE", "EA", "F", "C"};
+	const char	ids[PARAMETER_NUMBER][3] = {"NO", "SO", "WE", "EA", "F", "C",
+		"DC", "SP", "ST"};
 	int			i;
 	int			j;
 
@@ -12,8 +13,8 @@ static bool	check_parameters(t_vars *vars)
 	{
 		if (!is_line_empty(vars->file_content[i]))
 		{
-			if (j < 6 && ft_strncmp(vars->file_content[i], (char *)ids[j],
-					ft_strlen(ids[j])))
+			if (j < PARAMETER_NUMBER && ft_strncmp(vars->file_content[i],
+					(char *)ids[j], ft_strlen(ids[j])))
 				return (error_str("Wrong parameter in file"), false);
 			++j;
 		}

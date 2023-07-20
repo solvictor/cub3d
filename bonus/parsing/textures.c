@@ -47,5 +47,9 @@ bool	do_textures_exist(t_map *map)
 	if (tmp == -1)
 		return (error_str("Problem with east texture"), false);
 	close(tmp);
+	tmp = open(map->path_door_closed, R_OK);
+	if (tmp == -1)
+		return (error_str("Problem with door texture"), false);
+	close(tmp);
 	return (true);
 }

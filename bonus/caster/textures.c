@@ -6,10 +6,12 @@ unsigned int	get_color(t_map *map, int id, int texture_x, int texture_y)
 		[TEXTURE_WIDTH * texture_y + texture_x]);
 }
 
-int	select_texture(t_camera *camera)
+int	select_texture_wall(t_camera *camera)
 {
 	int	wall_face;
 
+	if (camera->hit == 2)
+		return (4);
 	if (camera->side == 0)
 	{
 		if (camera->step_x > 0)

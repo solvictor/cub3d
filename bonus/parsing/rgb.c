@@ -23,9 +23,9 @@ static bool	assign_to_map_aux(char *id, char *value, t_map *map)
 	const char	**colors = (const char **)ft_split(value, ',');
 
 	if (!colors)
-		return (perror("malloc"), false);
+		return (perror("malloc"), free(value), false);
 	if (!check_rgb(colors))
-		return (false);
+		return (free(value), ft_free_strs((char **)colors), false);
 	else if (!ft_strncmp(id, "F", 1))
 	{
 		map->floor_color = ft_atoi(colors[0]) * 65536;
@@ -43,7 +43,7 @@ static bool	assign_to_map_aux(char *id, char *value, t_map *map)
 
 /*
 	Assign To map
-	Could be protected by checking if the value that is about tot be modified
+	TODO Could be protected by checking if the value that is about tot be modified
 	isn't NULL. Permits verification that each parameter is only entered once,
 	and that all parameters have been given
 
@@ -58,6 +58,12 @@ static bool	assign_to_map(char *id, char *value, t_map *map)
 		map->path_east = value;
 	else if (!ft_strncmp(id, "WE", 2))
 		map->path_west = value;
+	else if (!ft_strncmp(id, "DC", 2))
+		map->path_door_closed = value;
+	else if (!ft_strncmp(id, "SP", 2))
+		parse_sprite_positions(value);
+	else if (!ft_strncmp(id, "ST", 2))
+		parse_sprite_textures(value);	
 	else
 		return (assign_to_map_aux(id, value, map));
 	return (true);
@@ -95,7 +101,8 @@ static char	*find_id(char *id, char *line, int line_nb, t_map *map)
 bool	get_textures_info(t_vars *vars, t_map *map)
 {
 	const char	**content = (const char **)vars->file_content;
-	const char	ids[6][4] = {"NO ", "SO ", "EA ", "WE ", "F ", "C "};
+	const char	ids[PARAMETER_NUMBER][3] = {"NO", "SO", "WE", "EA", "F", "C",
+		"DC", "SP", "ST"};
 	int			i;
 	int			j;
 	char		*tmp;
@@ -105,7 +112,7 @@ bool	get_textures_info(t_vars *vars, t_map *map)
 	while (content[i])
 	{
 		j = 0;
-		while (j < 6)
+		while (j < PARAMETER_NUMBER)
 		{
 			tmp = find_id((char *)ids[j], (char *)content[i], i, map);
 			if (tmp && !assign_to_map((char *)ids[j], tmp, map))
@@ -114,7 +121,7 @@ bool	get_textures_info(t_vars *vars, t_map *map)
 		}
 		++i;
 	}
-	if (map->total_parameters < 6)
-		return (error_str("Not enough parameters for textures"), false);
+	if (map->total_parameters < PARAMETER_NUMBER)
+		return (error_str("Not enough parameters"), false);
 	return (true);
 }
