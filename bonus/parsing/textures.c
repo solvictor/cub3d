@@ -27,6 +27,13 @@ bool	find_extra_parameter(t_map *map, t_vars *vars)
 	return (true);
 }
 
+
+/*
+	Access would have been better than open here. Access allows to test things
+	on a file without having to open it. However, it is not allowed in cub3d.
+
+	This part is litteraly "decorative".
+*/
 bool	do_textures_exist(t_map *map)
 {
 	int			tmp;

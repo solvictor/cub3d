@@ -11,7 +11,7 @@ int	put_image(t_vars *vars)
 	caster(display, vars->map, vars->camera);
 	minimap(display, vars->map, vars->camera);
 	mlx_put_image_to_window(display->mlx, display->win, display->img, 0, 0);
-	if (door(display, vars->map, vars->camera))
+	if (door(vars->map, vars->camera))
 		mlx_string_put(display->mlx, display->win, display->width / 2.14,
 			display->height / 3, 0xFFFFFF, INTERACTION_MESSAGE);
 	vars->display->refresh = false;

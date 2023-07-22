@@ -40,7 +40,8 @@ BONUS			= $(addsuffix .c,				\
 						map_correct				\
 						map_creation			\
 						map_formater			\
-						sprites					\
+						sprite_positions		\
+						sprite_textures			\
 					)							\
 					$(addprefix bonus/cleaning/,\
 						errors					\
@@ -63,6 +64,7 @@ BONUS			= $(addsuffix .c,				\
 					$(addprefix bonus/utils/,	\
 						line_functions			\
 						vectors					\
+						ft_atof_bool			\
 					)							\
 					$(addprefix bonus/init/,	\
 						display					\

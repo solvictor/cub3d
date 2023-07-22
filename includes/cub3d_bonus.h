@@ -142,8 +142,11 @@ typedef struct s_map
 	char			**map;
 	t_texture		textures[5];
 	t_texture		*sprite_textures;
+	char			**str_sprite_textures;
+	int				total_sprite_textures;
 	t_sprite		*sprites;
-	t_door			*doors;
+	int				total_sprites;
+	t_door			*doors; //TODO DEPRECATED
 }					t_map;
 
 typedef struct s_display
@@ -207,9 +210,8 @@ bool			create_map(t_vars *vars, t_map *map);
 void			format_map(t_map *map);
 bool			do_textures_exist(t_map *map);
 bool			find_extra_parameter(t_map *map, t_vars *vars);
-void			parse_sprite_positions(char *value);
-void			parse_sprite_textures(char *value);
-
+bool			parse_sprite_positions(t_map *map, char *value);
+bool			parse_sprite_textures(t_map *map, char *value);
 
 /******************************************************************************/
 /*                                                                            */
@@ -247,7 +249,7 @@ void			draw_3d_walls(t_display *display, t_map *map, t_camera *camera,
 void			movement_selector(t_display *display, t_camera *camera,
 					t_map *map);
 void			mlx_spp(t_display *display, int x, int y, int color);
-bool			door(t_display *display, t_map *map, t_camera *camera);
+bool			door(t_map *map, t_camera *camera);
 void			door_action(t_display *display, t_map *map, t_camera *camera);
 
 /******************************************************************************/
@@ -269,5 +271,7 @@ void			set_to_zero_map(t_vars *vars, t_map *map);
 void			set_vector(t_vector *vector, double x, double y);
 bool			is_line_empty(const char *line);
 void			sort_sprites(int *order, double *dist, int amount);
+double			ft_atof(const char *str, bool *success);
+
 
 #endif

@@ -15,8 +15,7 @@ static void	set_coords(int x, int y, int coords[2])
 	Good but only supports one door ; way to fix this would be to check the
 	direction of the player (plane)
 */
-static bool	detect_door(t_display *display, t_map *map, t_camera *camera,
-	int coords[2])
+static bool	detect_door(t_map *map, t_camera *camera, int coords[2])
 {
 	const int	map_x = camera->pos.x;
 	const int	map_y = camera->pos.y;
@@ -41,11 +40,11 @@ static bool	detect_door(t_display *display, t_map *map, t_camera *camera,
 	return (false);
 }
 
-bool	door(t_display *display, t_map *map, t_camera *camera)
+bool	door(t_map *map, t_camera *camera)
 {
 	int	coords[2];
 
-	if (detect_door(display, map, camera, coords) == false)
+	if (detect_door(map, camera, coords) == false)
 		return (false);
 	return (true);
 }
@@ -54,7 +53,7 @@ void	door_action(t_display *display, t_map *map, t_camera *camera)
 {
 	int	coords[2];
 
-	if (detect_door(display, map, camera, coords))
+	if (detect_door(map, camera, coords))
 	{
 		if (map->map[coords[1]][coords[0]] == '2')
 			map->map[coords[1]][coords[0]] = '3';

@@ -7,8 +7,8 @@ F 0,0,0
 C 0,0,0
 
 DC ./textures/dungeon_door-closed.xpm
-SP	1.0:1.0
-ST	./textures/dun
+SP	27.0:11.0:1;27.0:1:2
+ST	./textures/altar.xpm;./textures/pillar.xpm
 
         1111111111111111111111111
         1000000000110000000000001
