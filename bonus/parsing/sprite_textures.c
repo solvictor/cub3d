@@ -50,8 +50,7 @@ bool	parse_sprite_textures(t_map *map, char *value) //TODO get the textures firs
 		return (perror("malloc"), ft_free_strs((char **)textures), false);
 	map->total_sprite_textures = i;
 	if (!valid_textures(textures))
-		return (error_str("Bad sprite texture"),
-			ft_free_strs((char **)textures), false); //TODO determine where to free the map-> variable
+		return (ft_free_strs((char **)textures), false); //TODO determine where to free the map-> variable
 	map->str_sprite_textures = ft_calloc(sizeof(char *), i + 1);
 	if (!map->str_sprite_textures)
 		return (perror("malloc"), ft_free_strs((char **)textures), false);

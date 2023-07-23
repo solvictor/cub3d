@@ -3,7 +3,7 @@
 static bool	check_parameters(t_vars *vars)
 {
 	const char	ids[PARAMETER_NUMBER][3] = {"NO", "SO", "WE", "EA", "F", "C",
-		"DC", "SP", "ST"};
+		"DC", "ST", "SP"};
 	int			i;
 	int			j;
 
@@ -76,6 +76,8 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 	if (create_map(vars, map) == false)
 		return (false);
 	if (map_correct(map) == false)
+		return (false);
+	if (check_sprite_position(map) == false)
 		return (false);
 	format_map(map);
 	set_vector(&vars->camera->pos, map->start_coords[0] + 0.5,

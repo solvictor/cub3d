@@ -29,8 +29,8 @@ bool	find_extra_parameter(t_map *map, t_vars *vars)
 
 
 /*
-	Access would have been better than open here. Access allows to test things
-	on a file without having to open it. However, it is not allowed in cub3d.
+	access() would have been better than open() here. access() allows to test
+	things on a file without having to open it. However, it is forbidden.
 
 	This part is litteraly "decorative".
 */

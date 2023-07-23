@@ -34,7 +34,6 @@ static double	convert_to_double(const char **str, double scale)
 	while (ft_isdigit(**str))
 	{
 		res = res * 10.0 + (**str - '0');
-		scale *= 10.0;
 		(*str)++;
 	}
 	return (res / scale);

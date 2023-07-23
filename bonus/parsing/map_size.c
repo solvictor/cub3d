@@ -26,7 +26,7 @@ static bool	bad_line(char *line, int line_nb, t_map *map)
 		if (!ft_c_in_str(line[i], SPACES) && !ft_c_in_str(line[i], WALL_TYPES))
 		{
 			if (!ft_c_in_str(line[i], PLAYER))
-				return (ft_printf("%s", line), error_str("Bad char in map"), true);
+				return (error_str("Bad char in map"), true);
 			else if (map->start_coords[0] != -1)
 				return (error_str("Too many players in map"), true);
 			map->start_coords[0] = i;

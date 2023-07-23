@@ -1,5 +1,11 @@
 #include "cub3d_bonus.h"
 
+static void	aux(t_map *map)
+{
+	map->total_sprite_textures = -1;
+	map->total_sprites = -1;
+}
+
 void	set_to_zero_map(t_vars *vars, t_map *map)
 {
 	int	i;
@@ -12,16 +18,19 @@ void	set_to_zero_map(t_vars *vars, t_map *map)
 	map->path_east = NULL;
 	map->path_west = NULL;
 	map->path_door_closed = NULL;
-	map->floor_color = 0;
-	map->ceiling_color = 0;
+	map->floor_color = -1;
+	map->ceiling_color = -1;
 	map->total_parameters = 0;
-	map->height = 0;
-	map->width = 0;
+	map->height = -1;
+	map->width = -1;
 	map->start_coords[0] = -1;
 	map->start_coords[1] = -1;
 	map->start_direction = '\0';
 	map->map = NULL;
 	map->first_line_map = -1;
 	map->textures[0].img = NULL;
+	map->sprite_textures = NULL;
+	map->sprites = NULL;
+	aux(map);
 	vars->map = map;
 }

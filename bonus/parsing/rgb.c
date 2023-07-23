@@ -61,9 +61,9 @@ static bool	assign_to_map(char *id, char *value, t_map *map)
 	else if (!ft_strncmp(id, "DC", 2))
 		map->path_door_closed = value;
 	else if (!ft_strncmp(id, "SP", 2))
-		parse_sprite_positions(map, value);
+		return (parse_sprite_positions(map, value));
 	else if (!ft_strncmp(id, "ST", 2))
-		parse_sprite_textures(map, value);	
+		return (parse_sprite_textures(map, value));
 	else
 		return (assign_to_map_aux(id, value, map));
 	return (true);
@@ -102,7 +102,7 @@ bool	get_textures_info(t_vars *vars, t_map *map)
 {
 	const char	**content = (const char **)vars->file_content;
 	const char	ids[PARAMETER_NUMBER][3] = {"NO", "SO", "WE", "EA", "F", "C",
-		"DC", "SP", "ST"};
+		"DC", "ST", "SP"};
 	int			i;
 	int			j;
 	char		*tmp;

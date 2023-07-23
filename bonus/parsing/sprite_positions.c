@@ -1,5 +1,20 @@
 #include "cub3d_bonus.h"
 
+bool	check_sprite_position(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->total_sprites)
+	{
+		printf("Sprite[%d].x = %f : Sprite[%d].y = %f\n", i, map->sprites[i].x, i, map->sprites[i].y);
+		if (map->sprites[i].x > map->width || map->sprites[i].y > map->height)
+			return (error_str("Bad sprite coordinate"), false);
+		++i;
+	}
+	return (true);
+}
+
 static bool	check_sprite_texture(t_map *map, const char *str_nb_texture,
 	t_sprite *sprite)
 {
@@ -11,8 +26,11 @@ static bool	check_sprite_texture(t_map *map, const char *str_nb_texture,
 	return (true);
 }
 
-static bool	check_sprite_coordinates(t_map *map, const char *str_x,
-	const char *str_y, t_sprite *sprite)
+/*
+	We don't know map->width and map->height yet
+*/
+static bool	check_sprite_coordinates(const char *str_x, const char *str_y,
+	t_sprite *sprite)
 {
 	double	x;
 	double	y;
@@ -25,8 +43,8 @@ static bool	check_sprite_coordinates(t_map *map, const char *str_x,
 	y = ft_atof(str_y, &atof_status);
 	if (!atof_status)
 		return (error_str("Bad sprite coordinate"), false);
-	if ((x < 0 || x > map->width) || (y < 0 || y > map->height))
-		return (false);
+	if (x < 0 || y < 0)
+		return (error_str("Bad sprite coordinate"), false);
 	sprite->x = x;
 	sprite->y = y;
 	return (true);
@@ -44,10 +62,10 @@ static bool	set_sprite(t_map *map, t_sprite *sprite, const char *raw_sprite)
 		++i;
 	if (i < 2)
 		return (error_str("Too few parameters for sprite"), false);
-	if (!check_sprite_coordinates(map, data[0], data[1], sprite)
+	if (!check_sprite_coordinates(data[0], data[1], sprite)
 		|| !check_sprite_texture(map, data[2], sprite))
 		return (ft_free_strs((char **)data), false);
-	return (true);
+	return (ft_free_strs((char **)data), true);
 }
 
 bool	parse_sprite_positions(t_map *map, char *value)
@@ -55,6 +73,7 @@ bool	parse_sprite_positions(t_map *map, char *value)
 	const char	**positions = (const char **)ft_split(value, ';');
 	int			i;
 
+	free(value);
 	if (!positions)
 		return (perror("malloc"), free(value), false);
 	i = 0;
@@ -62,16 +81,15 @@ bool	parse_sprite_positions(t_map *map, char *value)
 		++i;
 	map->sprites = ft_calloc(sizeof(t_sprite), i);
 	if (!map->sprites)
-		return (perror("malloc"), ft_free_strs((char **)positions), free(value),
-			false);
+		return (perror("malloc"), ft_free_strs((char **)positions), false);
 	map->total_sprites = i;
 	i = 0;
 	while (i < map->total_sprites)
 	{
 		if (!set_sprite(map, (t_sprite *)(map->sprites + i), positions[i]))
-			return (ft_free_strs((char **)positions), free(value), false); //TODO check how to free map->sprites, mayybe init it to NULL and free it if != NULL
+			return (ft_free_strs((char **)positions), false); //TODO check how to free map->sprites, mayybe init it to NULL and free it if != NULL
 		++i; //TODO IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! to clear properly, free until NULL or the ind == map->total_sprites
 	}
-	return (true);
+	return (ft_free_strs((char **)positions), true);
 }
 
