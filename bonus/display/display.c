@@ -30,7 +30,10 @@ bool	start_display(t_display *display, t_vars *vars)
 	mlx_hook(display->win, ON_MOUSERELEASE, MOUSERELEASE_MASK, on_mouserelease,
 		vars);
 	mlx_loop_hook(display->mlx, &put_image, vars);
-	get_textures(display, vars->map);
+	if (!get_textures_walls(display, vars->map))
+		return (false);
+	if (!get_textures_sprites(display, vars->map))
+		return (false);
 	vars->display->refresh = true;
 	put_image(vars);
 	mlx_loop(display->mlx);

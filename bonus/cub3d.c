@@ -1,9 +1,5 @@
 #include "cub3d_bonus.h"
 
-/*
-	TODO Check if textures are XPM files
-*/
-
 int	main(int ac, char **av)
 {
 	t_vars		vars;

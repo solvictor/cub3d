@@ -43,7 +43,6 @@ bool	find_extra_parameter(t_map *map, t_vars *vars)
 	return (true);
 }
 
-
 /*
 	access() would have been better than open() here. access() allows to test
 	things on a file without having to open it. However, it is forbidden.

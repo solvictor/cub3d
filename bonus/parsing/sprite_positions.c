@@ -7,7 +7,6 @@ bool	check_sprite_position(t_map *map)
 	i = 0;
 	while (i < map->total_sprites)
 	{
-		printf("Sprite[%d].x = %f : Sprite[%d].y = %f\n", i, map->sprites[i].x, i, map->sprites[i].y);
 		if (map->sprites[i].x > map->width || map->sprites[i].y > map->height)
 			return (error_str("Bad sprite coordinate"), false);
 		++i;
@@ -20,7 +19,7 @@ static bool	check_sprite_texture(t_map *map, const char *str_nb_texture,
 {
 	const int	nb_texture = ft_atoi(str_nb_texture);
 
-	if (nb_texture < 1 || nb_texture > map->total_sprite_textures)
+	if (nb_texture < 0 || nb_texture >= map->total_sprite_textures)
 		return (error_str("Bad sprite texture number"), false);
 	sprite->nb_texture = nb_texture;
 	return (true);
@@ -89,4 +88,3 @@ bool	parse_sprite_positions(t_map *map, char *value)
 	}
 	return (ft_free_strs((char **)positions), true);
 }
-

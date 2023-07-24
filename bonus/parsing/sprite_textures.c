@@ -37,7 +37,7 @@ static bool	texture_copying(t_map *map, const char **textures)
 	return (ft_free_strs((char **)textures), true);
 }
 
-bool	parse_sprite_textures(t_map *map, char *value) //TODO get the textures first
+bool	parse_sprite_textures(t_map *map, char *value)
 {
 	const char	**textures = (const char **)ft_split(value, ';');
 	int			i;
@@ -51,6 +51,7 @@ bool	parse_sprite_textures(t_map *map, char *value) //TODO get the textures firs
 	map->sprite_textures = malloc(sizeof(t_texture) * i);
 	if (!map->sprite_textures)
 		return (perror("malloc"), ft_free_strs((char **)textures), false);
+
 	map->total_sprite_textures = i;
 	if (!valid_textures(textures))
 		return (ft_free_strs((char **)textures), false);

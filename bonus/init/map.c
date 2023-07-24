@@ -31,6 +31,7 @@ void	set_to_zero_map(t_vars *vars, t_map *map)
 	map->first_line_map = -1;
 	map->textures[0].img = NULL;
 	map->sprite_textures = NULL;
+	map->sprite_textures = NULL;
 	map->sprites = NULL;
 	aux(map);
 	vars->map = map;

@@ -12,8 +12,6 @@ static void	clean_map(t_map *map)
 		free(map->path_west);
 	if (map->map)
 		ft_free_strs(map->map);
-	if (map->sprite_textures)
-		free(map->sprite_textures);
 	if (map->sprites)
 		free(map->sprites);
 	if (map->str_sprite_textures)
@@ -30,7 +28,7 @@ static void	destroy_window(t_display *display)
 	free(display->mlx);
 }
 
-void	destroy_images(t_display *display, t_map *map, const int ind)
+void	destroy_wall_images(t_display *display, t_map *map, const int ind)
 {
 	int	i;
 
@@ -41,11 +39,28 @@ void	destroy_images(t_display *display, t_map *map, const int ind)
 		mlx_destroy_image(display->mlx, map->textures[i++].img);
 }
 
+void	destroy_sprite_images(t_display *display, t_map *map, const int ind)
+{
+	int	i;
+
+	i = 0;
+	while (i < ind)
+	{
+		mlx_destroy_image(display->mlx, map->sprite_textures[i].img);
+		++i;
+	}
+	free(map->sprite_textures);
+	map->sprite_textures = NULL;	
+}
+
 void	clean_memory(t_vars *vars)
 {
 	clean_map(vars->map);
 	if (vars->map->textures[0].img != NULL)
-		destroy_images(vars->display, vars->map, 4);
+		destroy_wall_images(vars->display, vars->map, 4);
+	if (vars->map->sprite_textures)
+		destroy_sprite_images(vars->display, vars->map,
+			vars->map->total_sprite_textures);
 	if (vars->display->img)
 		destroy_window(vars->display);
 	ft_free_strs(vars->file_content);

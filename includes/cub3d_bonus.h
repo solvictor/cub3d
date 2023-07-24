@@ -215,8 +215,6 @@ bool			parse_sprite_textures(t_map *map, char *value);
 bool			check_sprite_position(t_map *map);
 bool			check_file_format(t_map *map);
 
-
-
 /******************************************************************************/
 /*                                                                            */
 /*                                 Cleaning                                   */
@@ -224,7 +222,11 @@ bool			check_file_format(t_map *map);
 /******************************************************************************/
 void			error_str(char *str);
 void			clean_memory(t_vars *vars);
-void			destroy_images(t_display *display, t_map *map, const int ind);
+void			destroy_wall_images(t_display *display, t_map *map,
+					const int ind);
+void			destroy_sprite_images(t_display *display, t_map *map,
+					const int ind);
+
 
 /******************************************************************************/
 /*                                                                            */
@@ -232,6 +234,8 @@ void			destroy_images(t_display *display, t_map *map, const int ind);
 /*                                                                            */
 /******************************************************************************/
 bool			start_display(t_display *display, t_vars *vars);
+bool			get_textures_walls(t_display *display, t_map *map);
+bool			get_textures_sprites(t_display *display, t_map *map);
 void			minimap(t_display *display, t_map *map, t_camera *camera);
 int				on_destroy(t_vars *vars);
 int				on_keypress(int keycode, t_vars *vars);
@@ -245,7 +249,6 @@ int				on_mouserelease(int button, int x, int y, t_vars *vars);
 /*                                                                            */
 /******************************************************************************/
 void			caster(t_display *display, t_map *map, t_camera *camera);
-bool			get_textures(t_display *display, t_map *map);
 unsigned int	get_color(t_map *map, int id, int texture_x, int texture_y);
 int				select_texture_wall(t_camera *camera);
 void			draw_3d_walls(t_display *display, t_map *map, t_camera *camera,

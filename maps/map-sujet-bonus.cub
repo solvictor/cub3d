@@ -8,7 +8,7 @@ C 0,0,0
 
 DC ./textures/dungeon_door-closed.xpm
 ST	./textures/altar.xpm;./textures/pillar.xpm;
-SP	27.0:0.0:1;27.0:1:2
+SP	27.0:0.0:0;27.0:1:1
 
         1111111111111111111111111
         1000000000110000000000001
