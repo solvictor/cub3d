@@ -4,6 +4,7 @@ static void	aux(t_map *map)
 {
 	map->total_sprite_textures = -1;
 	map->total_sprites = -1;
+	map->str_sprite_textures = NULL;
 }
 
 void	set_to_zero_map(t_vars *vars, t_map *map)

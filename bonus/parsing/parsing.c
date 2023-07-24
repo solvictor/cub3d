@@ -60,12 +60,12 @@ bool	file_opener(char *file_name, t_vars *vars)
 bool	parsing(char *file_name, t_vars *vars, t_map *map)
 {
 	if (ft_strncmp(".cub", file_name + ft_strlen(file_name) - 4, 4) != 0)
-		return (error_str("Wrong file format"), false);
+		return (error_str("Wrong map file format"), false);
 	if (file_opener(file_name, vars) == false)
 		return (false);
 	if (check_parameters(vars) == false)
 		return (false);
-	if (get_textures_info(vars, map) == false)
+	if (get_textures_info(vars, map) == false || !check_file_format(map))
 		return (false);
 	if (do_textures_exist(map) == false)
 		return (false);

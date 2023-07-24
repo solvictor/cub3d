@@ -1,5 +1,21 @@
 #include "cub3d_bonus.h"
 
+bool	check_file_format(t_map *map)
+{
+	if (ft_strncmp(".xpm", map->path_north + ft_strlen(map->path_north) - 4, 4))
+		return (error_str("Wrong north file format"), false);
+	if (ft_strncmp(".xpm", map->path_south + ft_strlen(map->path_south) - 4, 4))
+		return (error_str("Wrong south file format"), false);
+	if (ft_strncmp(".xpm", map->path_east + ft_strlen(map->path_east) - 4, 4))
+		return (error_str("Wrong east file format"), false);
+	if (ft_strncmp(".xpm", map->path_west + ft_strlen(map->path_west) - 4, 4))
+		return (error_str("Wrong west file format"), false);
+	if (ft_strncmp(".xpm", map->path_door_closed
+			+ ft_strlen(map->path_door_closed) - 4, 4))
+		return (error_str("Wrong closed door file format"), false);
+	return (true);
+}
+
 bool	find_extra_parameter(t_map *map, t_vars *vars)
 {
 	int	i;

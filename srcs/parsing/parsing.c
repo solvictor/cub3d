@@ -1,5 +1,18 @@
 #include "cub3d.h"
 
+static bool	check_file_format(t_map *map)
+{
+	if (ft_strncmp(".xpm", map->path_north + ft_strlen(map->path_north) - 4, 4))
+		return (error_str("Wrong north file format"), false);
+	if (ft_strncmp(".xpm", map->path_south + ft_strlen(map->path_south) - 4, 4))
+		return (error_str("Wrong south file format"), false);
+	if (ft_strncmp(".xpm", map->path_east + ft_strlen(map->path_east) - 4, 4))
+		return (error_str("Wrong east file format"), false);
+	if (ft_strncmp(".xpm", map->path_west + ft_strlen(map->path_west) - 4, 4))
+		return (error_str("Wrong west file format"), false);
+	return (true);
+}
+
 static bool	check_parameters(t_vars *vars)
 {
 	const char	ids[6][3] = {"NO", "SO", "WE", "EA", "F", "C"};
@@ -64,7 +77,7 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 		return (false);
 	if (check_parameters(vars) == false)
 		return (false);
-	if (get_textures_info(vars, map) == false)
+	if (get_textures_info(vars, map) == false || !check_file_format(map))
 		return (false);
 	if (do_textures_exist(map) == false)
 		return (false);

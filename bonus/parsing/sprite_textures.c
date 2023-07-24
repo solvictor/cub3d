@@ -6,6 +6,9 @@ static bool	valid_textures(const char **textures)
 
 	while (*textures)
 	{
+		if (ft_strncmp(".xpm", (char *)(*textures + ft_strlen(*textures) - 4),
+			4) != 0)
+			return (error_str("Wrong sprite texture file format"), false);
 		fd = open(*textures, F_OK);
 		if (fd == -1)
 			return (error_str("Sprite textures doesn't exist"), false);
@@ -28,7 +31,7 @@ static bool	texture_copying(t_map *map, const char **textures)
 	{
 		map->str_sprite_textures[i] = ft_strdup(textures[i]);
 		if (!map->str_sprite_textures[i])
-			return (perror("malloc"), ft_free_strs((char **)textures), false); //TODO free map component
+			return (perror("malloc"), ft_free_strs((char **)textures), false);
 		++i;
 	}
 	return (ft_free_strs((char **)textures), true);
@@ -50,7 +53,7 @@ bool	parse_sprite_textures(t_map *map, char *value) //TODO get the textures firs
 		return (perror("malloc"), ft_free_strs((char **)textures), false);
 	map->total_sprite_textures = i;
 	if (!valid_textures(textures))
-		return (ft_free_strs((char **)textures), false); //TODO determine where to free the map-> variable
+		return (ft_free_strs((char **)textures), false);
 	map->str_sprite_textures = ft_calloc(sizeof(char *), i + 1);
 	if (!map->str_sprite_textures)
 		return (perror("malloc"), ft_free_strs((char **)textures), false);

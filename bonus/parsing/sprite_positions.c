@@ -26,9 +26,6 @@ static bool	check_sprite_texture(t_map *map, const char *str_nb_texture,
 	return (true);
 }
 
-/*
-	We don't know map->width and map->height yet
-*/
 static bool	check_sprite_coordinates(const char *str_x, const char *str_y,
 	t_sprite *sprite)
 {
@@ -87,8 +84,8 @@ bool	parse_sprite_positions(t_map *map, char *value)
 	while (i < map->total_sprites)
 	{
 		if (!set_sprite(map, (t_sprite *)(map->sprites + i), positions[i]))
-			return (ft_free_strs((char **)positions), false); //TODO check how to free map->sprites, mayybe init it to NULL and free it if != NULL
-		++i; //TODO IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! to clear properly, free until NULL or the ind == map->total_sprites
+			return (ft_free_strs((char **)positions), false);
+		++i;
 	}
 	return (ft_free_strs((char **)positions), true);
 }

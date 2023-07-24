@@ -213,6 +213,8 @@ bool			find_extra_parameter(t_map *map, t_vars *vars);
 bool			parse_sprite_positions(t_map *map, char *value);
 bool			parse_sprite_textures(t_map *map, char *value);
 bool			check_sprite_position(t_map *map);
+bool			check_file_format(t_map *map);
+
 
 
 /******************************************************************************/

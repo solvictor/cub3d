@@ -14,14 +14,10 @@ void	basic_up(t_display *display, t_camera *camera, t_map *map)
 	index_y = camera->pos.y + camera->dir.y * camera->move_speed;
 	if (map->map[(int)camera->pos.y][index_x] == '0'
 		|| map->map[(int)camera->pos.y][index_x] == '3')
-	{
 		camera->pos.x += camera->dir.x * camera->move_speed;
-	}
 	if (map->map[index_y][(int)camera->pos.x] == '0'
 		|| map->map[index_y][(int)camera->pos.x] == '3')
-	{
 		camera->pos.y += camera->dir.y * camera->move_speed;
-	}
 }
 
 void	basic_down(t_display *display, t_camera *camera, t_map *map)
@@ -34,14 +30,10 @@ void	basic_down(t_display *display, t_camera *camera, t_map *map)
 	index_y = camera->pos.y - camera->dir.y * camera->move_speed;
 	if (map->map[(int)camera->pos.y][index_x] == '0'
 		|| map->map[(int)camera->pos.y][index_x] == '3')
-	{
 		camera->pos.x -= camera->dir.x * camera->move_speed;
-	}
 	if (map->map[index_y][(int)camera->pos.x] == '0'
 		|| map->map[index_y][(int)camera->pos.x] == '3')
-	{
 		camera->pos.y -= camera->dir.y * camera->move_speed;
-	}
 }
 
 static void	basic_left(t_display *display, t_camera *camera)
@@ -61,7 +53,6 @@ static void	basic_left(t_display *display, t_camera *camera)
 	camera->angle += camera->rot_speed;
 	if (camera->angle > 2 * PI)
 		camera->angle = 0;
-
 }
 
 static void	basic_right(t_display *display, t_camera *camera)
