@@ -51,6 +51,7 @@
 # define PLAYER_RADIUS 3
 # define INTERACTION_MESSAGE "Press E to interact with the door"
 # define PARAMETER_NUMBER 9
+# define TOTAL_WALL_TEXTURES 5
 
 enum e_directions
 {
@@ -146,7 +147,6 @@ typedef struct s_map
 	int				total_sprite_textures;
 	t_sprite		*sprites;
 	int				total_sprites;
-	t_door			*doors; //TODO DEPRECATED
 }					t_map;
 
 typedef struct s_display

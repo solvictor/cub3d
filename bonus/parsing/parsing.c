@@ -82,6 +82,5 @@ bool	parsing(char *file_name, t_vars *vars, t_map *map)
 	format_map(map);
 	set_vector(&vars->camera->pos, map->start_coords[0] + 0.5,
 		map->start_coords[1] + 0.5);
-	ft_printf("Start coords: %d:%d\n", map->start_coords[0], map->start_coords[1]);
 	return (true);
 }

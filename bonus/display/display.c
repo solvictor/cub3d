@@ -23,7 +23,6 @@ bool	start_display(t_display *display, t_vars *vars)
 	if (init_display(display) == false)
 		return (false);
 	init_position(vars->camera, vars->map->start_direction);
-	mlx_mouse_hide(display->mlx, display->win);
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
 	mlx_hook(display->win, ON_KEYPRESS, KEYPRESS_MASK, on_keypress, vars);
 	mlx_hook(display->win, ON_KEYRELEASE, KEYRELEASE_MASK, on_keyrelease, vars);

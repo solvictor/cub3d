@@ -18,11 +18,11 @@ void	set_to_zero_map(t_vars *vars, t_map *map)
 	map->path_east = NULL;
 	map->path_west = NULL;
 	map->path_door_closed = NULL;
-	map->floor_color = -1;
-	map->ceiling_color = -1;
+	map->floor_color = 0;
+	map->ceiling_color = 0;
 	map->total_parameters = 0;
-	map->height = -1;
-	map->width = -1;
+	map->height = 0;
+	map->width = 0;
 	map->start_coords[0] = -1;
 	map->start_coords[1] = -1;
 	map->start_direction = '\0';

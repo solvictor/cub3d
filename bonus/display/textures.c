@@ -2,31 +2,18 @@
 
 static bool	get_addresses(t_map *map)
 {
-	map->textures[0].addr = mlx_get_data_addr(map->textures[0].img,
-			&(map->textures[0].bpp), &(map->textures[0].size_line),
-			&(map->textures[0].endian));
-	if (!map->textures[0].addr)
-		return (false);
-	map->textures[1].addr = mlx_get_data_addr(map->textures[1].img,
-			&(map->textures[1].bpp), &(map->textures[1].size_line),
-			&(map->textures[1].endian));
-	if (!map->textures[1].addr)
-		return (false);
-	map->textures[2].addr = mlx_get_data_addr(map->textures[2].img,
-			&(map->textures[2].bpp), &(map->textures[2].size_line),
-			&(map->textures[2].endian));
-	if (!map->textures[2].addr)
-		return (false);
-	map->textures[3].addr = mlx_get_data_addr(map->textures[3].img,
-			&(map->textures[3].bpp), &(map->textures[3].size_line),
-			&(map->textures[3].endian));
-	if (!map->textures[3].addr)
-		return (false);
-	map->textures[4].addr = mlx_get_data_addr(map->textures[4].img,
-			&(map->textures[4].bpp), &(map->textures[4].size_line),
-			&(map->textures[4].endian));
-	if (!map->textures[4].addr)
-		return (false);
+	int	i;
+
+	i = 0;
+	while (i < TOTAL_WALL_TEXTURES)
+	{
+		map->textures[i].addr = mlx_get_data_addr(map->textures[i].img,
+				&(map->textures[i].bpp), &(map->textures[i].size_line),
+				&(map->textures[i].endian));
+		if (!map->textures[i].addr)
+			return (false);
+		++i;
+	}
 	return (true);
 }
 
@@ -51,9 +38,7 @@ bool	get_textures(t_display *display, t_map *map)
 	map->textures[4].img = mlx_xpm_file_to_image(display->mlx,
 			map->path_door_closed, &(map->textures[4].width),
 			&(map->textures[4].height));
-	if (!map->textures[4].img)
-		return (destroy_images(display, map, 4), false);
-	if (!get_addresses(map))
+	if (!map->textures[4].img || !get_addresses(map))
 		return (destroy_images(display, map, 4), false);
 	return (true);
 }
