@@ -187,6 +187,9 @@ typedef struct s_camera
 	bool			d;
 	int				hit;
 	float			angle;
+	double			*z_buffer;
+	int				*sprite_order;
+	double			*sprite_distance;
 }					t_camera;
 
 typedef struct s_vars
