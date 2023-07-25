@@ -52,6 +52,9 @@
 # define INTERACTION_MESSAGE "Press E to interact with the door"
 # define PARAMETER_NUMBER 9
 # define TOTAL_WALL_TEXTURES 5
+# define UDIV 1
+# define VDIV 1
+# define VMOVE 0.0
 
 enum e_directions
 {
@@ -82,16 +85,6 @@ typedef struct s_sprite
 		x-coordinate(float),y-coordinate(float) (no \n, but line too long)
 */
 
-/*
-	TODO Deprecated
-*/
-typedef struct s_door
-{
-	int				x;
-	int				y;
-	int				nb_texture;
-}					t_door;
-
 typedef struct s_column
 {
 	int				draw_start;
@@ -109,6 +102,23 @@ typedef struct s_vector
 	double			x;
 	double			y;
 }					t_vector;
+
+typedef struct s_sprite_vars
+{
+	t_vector	sprite_coords;
+	double		inv_det;
+	t_vector	transform;
+	int			sprite_screen_x;
+	int			v_move_screen;
+	int			sprite_height;
+	int			sprite_width;
+	int			draw_start_x;
+	int			draw_end_x;
+	int			draw_start_y;
+	int			draw_end_y;
+	int			tex_x;
+	int			tex_y;
+}				t_sprite_vars;
 
 typedef struct s_texture
 {
@@ -229,7 +239,9 @@ void			destroy_wall_images(t_display *display, t_map *map,
 					const int ind);
 void			destroy_sprite_images(t_display *display, t_map *map,
 					const int ind);
-
+void			destroy_window(t_display *display);
+void			clean_map_variables(t_map *map);
+void			clean_camera_variables(t_camera *camera);
 
 /******************************************************************************/
 /*                                                                            */
@@ -261,6 +273,8 @@ void			movement_selector(t_display *display, t_camera *camera,
 void			mlx_spp(t_display *display, int x, int y, int color);
 bool			door(t_map *map, t_camera *camera);
 void			door_action(t_display *display, t_map *map, t_camera *camera);
+void			sprite_casting(t_display *display, t_map *map, t_camera *camera,
+					int x);
 
 /******************************************************************************/
 /*                                                                            */
@@ -269,6 +283,8 @@ void			door_action(t_display *display, t_map *map, t_camera *camera);
 /******************************************************************************/
 void			init_position(t_camera *camera, char start_dir);
 void			set_to_zero_camera(t_vars *vars, t_camera *camera);
+bool			init_sprites_requirements(t_camera *camera, t_map *map,
+					t_display *display);
 bool			init_display(t_display *display);
 void			set_to_zero_display(t_vars *vars, t_display *display);
 void			set_to_zero_map(t_vars *vars, t_map *map);
@@ -282,6 +298,5 @@ void			set_vector(t_vector *vector, double x, double y);
 bool			is_line_empty(const char *line);
 void			sort_sprites(int *order, double *dist, int amount);
 double			ft_atof(const char *str, bool *success);
-
 
 #endif

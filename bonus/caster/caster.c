@@ -92,6 +92,8 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 		if (camera->perp_wall_dist == 0)
 			camera->perp_wall_dist = 1;
 		draw_3d_walls(display, map, camera, x);
+		camera->z_buffer[x] = camera->perp_wall_dist;
+		sprite_casting(display, map, camera, x);
 		++x;
 	}
 }

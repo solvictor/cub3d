@@ -46,6 +46,9 @@ BONUS			= $(addsuffix .c,				\
 					$(addprefix bonus/cleaning/,\
 						errors					\
 						clean_memory			\
+						map						\
+						mlx						\
+						camera					\
 					)							\
 					$(addprefix bonus/display/,	\
 						display					\
@@ -60,11 +63,13 @@ BONUS			= $(addsuffix .c,				\
 						textures				\
 						walls					\
 						doors					\
+						sprites					\
 					)							\
 					$(addprefix bonus/utils/,	\
 						line_functions			\
 						vectors					\
 						ft_atof_bool			\
+						sort_sprites			\
 					)							\
 					$(addprefix bonus/init/,	\
 						display					\

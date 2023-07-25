@@ -22,6 +22,12 @@ bool	start_display(t_display *display, t_vars *vars)
 {
 	if (init_display(display) == false)
 		return (false);
+	if (!get_textures_walls(display, vars->map))
+		return (false);
+	if (!get_textures_sprites(display, vars->map))
+		return (false);
+	if (!init_sprites_requirements(vars->camera, vars->map, display))
+		return (false);
 	init_position(vars->camera, vars->map->start_direction);
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);
 	mlx_hook(display->win, ON_KEYPRESS, KEYPRESS_MASK, on_keypress, vars);
@@ -30,10 +36,6 @@ bool	start_display(t_display *display, t_vars *vars)
 	mlx_hook(display->win, ON_MOUSERELEASE, MOUSERELEASE_MASK, on_mouserelease,
 		vars);
 	mlx_loop_hook(display->mlx, &put_image, vars);
-	if (!get_textures_walls(display, vars->map))
-		return (false);
-	if (!get_textures_sprites(display, vars->map))
-		return (false);
 	vars->display->refresh = true;
 	put_image(vars);
 	mlx_loop(display->mlx);
