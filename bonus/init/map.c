@@ -1,11 +1,16 @@
-#include "cub3d_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:25:04 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:25:05 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void	aux(t_map *map)
-{
-	map->total_sprite_textures = -1;
-	map->total_sprites = -1;
-	map->str_sprite_textures = NULL;
-}
+#include "cub3d_bonus.h"
 
 void	set_to_zero_map(t_vars *vars, t_map *map)
 {
@@ -30,9 +35,5 @@ void	set_to_zero_map(t_vars *vars, t_map *map)
 	map->map = NULL;
 	map->first_line_map = -1;
 	map->textures[0].img = NULL;
-	map->sprite_textures = NULL;
-	map->sprite_textures = NULL;
-	map->sprites = NULL;
-	aux(map);
 	vars->map = map;
 }

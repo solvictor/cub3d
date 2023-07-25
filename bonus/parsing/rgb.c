@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rgb.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:24:49 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:24:50 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 static bool	check_rgb(const char **colors)
@@ -41,13 +53,6 @@ static bool	assign_to_map_aux(char *id, char *value, t_map *map)
 	return (free(value), ft_free_strs((char **)colors), true);
 }
 
-/*
-	Assign To map
-	TODO Could be protected by checking if the value that is about tot be modified
-	isn't NULL. Permits verification that each parameter is only entered once,
-	and that all parameters have been given
-
-*/
 static bool	assign_to_map(char *id, char *value, t_map *map)
 {
 	if (!ft_strncmp(id, "NO", 2))
@@ -60,10 +65,6 @@ static bool	assign_to_map(char *id, char *value, t_map *map)
 		map->path_west = value;
 	else if (!ft_strncmp(id, "DC", 2))
 		map->path_door_closed = value;
-	else if (!ft_strncmp(id, "SP", 2))
-		return (parse_sprite_positions(map, value));
-	else if (!ft_strncmp(id, "ST", 2))
-		return (parse_sprite_textures(map, value));
 	else
 		return (assign_to_map_aux(id, value, map));
 	return (true);
@@ -102,7 +103,7 @@ bool	get_textures_info(t_vars *vars, t_map *map)
 {
 	const char	**content = (const char **)vars->file_content;
 	const char	ids[PARAMETER_NUMBER][3] = {"NO", "SO", "WE", "EA", "F", "C",
-		"DC", "ST", "SP"};
+		"DC"};
 	int			i;
 	int			j;
 	char		*tmp;

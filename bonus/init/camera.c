@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:25:08 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:25:09 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 static void	start_angle(t_camera *camera, char start_dir)
@@ -37,21 +49,6 @@ void	init_position(t_camera *camera, char start_dir)
 	start_angle(camera, start_dir);
 }
 
-bool	init_sprites_requirements(t_camera *camera, t_map *map,
-	t_display *display)
-{
-	camera->z_buffer = ft_calloc(sizeof(double), display->width);
-	if (!camera->z_buffer)
-		return (perror("malloc"), false);
-	camera->sprite_order = ft_calloc(sizeof(int), map->total_sprites);
-	if (!camera->sprite_order)
-		return (perror("malloc"), false);
-	camera->sprite_distance = ft_calloc(sizeof(double), map->total_sprites);
-	if (!camera->sprite_distance)
-		return (perror("malloc"), false);
-	return (true);
-}
-
 void	set_to_zero_camera(t_vars *vars, t_camera *camera)
 {
 	set_vector(&camera->pos, 0, 0);
@@ -64,8 +61,5 @@ void	set_to_zero_camera(t_vars *vars, t_camera *camera)
 	camera->s = false;
 	camera->d = false;
 	camera->angle = 0.0;
-	camera->z_buffer = NULL;
-	camera->sprite_order = NULL;
-	camera->sprite_distance = NULL;
 	vars->camera = camera;
 }

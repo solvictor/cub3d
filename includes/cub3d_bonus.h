@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:23:59 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:24:22 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 # include "../libft/libft.h"
@@ -39,7 +51,6 @@
 # define KEYRELEASE_MASK 2L
 # define MOUSEPRESS_MASK 4L
 # define MOUSERELEASE_MASK 8L
-# define CURSOR_RADIUS 10
 
 # define PI 3.14159265359
 
@@ -50,11 +61,8 @@
 # define TILE_SIZE 10
 # define PLAYER_RADIUS 3
 # define INTERACTION_MESSAGE "Press E to interact with the door"
-# define PARAMETER_NUMBER 9
+# define PARAMETER_NUMBER 7
 # define TOTAL_WALL_TEXTURES 5
-# define UDIV 1
-# define VDIV 1
-# define VMOVE 0.0
 
 enum e_directions
 {
@@ -71,13 +79,6 @@ enum e_cardinals
 	WEST,
 	EAST
 };
-
-typedef struct s_sprite
-{
-	double			x;
-	double			y;
-	int				nb_texture;
-}					t_sprite;
 
 /*
 	Format for spites in file:
@@ -102,23 +103,6 @@ typedef struct s_vector
 	double			x;
 	double			y;
 }					t_vector;
-
-typedef struct s_sprite_vars
-{
-	t_vector	sprite_coords;
-	double		inv_det;
-	t_vector	transform;
-	int			sprite_screen_x;
-	int			v_move_screen;
-	int			sprite_height;
-	int			sprite_width;
-	int			draw_start_x;
-	int			draw_end_x;
-	int			draw_start_y;
-	int			draw_end_y;
-	int			tex_x;
-	int			tex_y;
-}				t_sprite_vars;
 
 typedef struct s_texture
 {
@@ -152,11 +136,6 @@ typedef struct s_map
 	int				islands;
 	char			**map;
 	t_texture		textures[5];
-	t_texture		*sprite_textures;
-	char			**str_sprite_textures;
-	int				total_sprite_textures;
-	t_sprite		*sprites;
-	int				total_sprites;
 }					t_map;
 
 typedef struct s_display
@@ -197,9 +176,6 @@ typedef struct s_camera
 	bool			d;
 	int				hit;
 	float			angle;
-	double			*z_buffer;
-	int				*sprite_order;
-	double			*sprite_distance;
 }					t_camera;
 
 typedef struct s_vars
@@ -296,7 +272,6 @@ void			set_to_zero_map(t_vars *vars, t_map *map);
 /******************************************************************************/
 void			set_vector(t_vector *vector, double x, double y);
 bool			is_line_empty(const char *line);
-void			sort_sprites(int *order, double *dist, int amount);
 double			ft_atof(const char *str, bool *success);
 
 #endif

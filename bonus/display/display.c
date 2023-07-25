@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:25:20 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:25:21 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 int	put_image(t_vars *vars)
@@ -23,10 +35,6 @@ bool	start_display(t_display *display, t_vars *vars)
 	if (init_display(display) == false)
 		return (false);
 	if (!get_textures_walls(display, vars->map))
-		return (false);
-	if (!get_textures_sprites(display, vars->map))
-		return (false);
-	if (!init_sprites_requirements(vars->camera, vars->map, display))
 		return (false);
 	init_position(vars->camera, vars->map->start_direction);
 	mlx_hook(display->win, ON_DESTROY, NO_MASK, on_destroy, vars);

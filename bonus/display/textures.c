@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:25:12 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:25:13 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 static bool	get_addresses_walls(t_map *map)
@@ -40,27 +52,5 @@ bool	get_textures_walls(t_display *display, t_map *map)
 			&(map->textures[4].height));
 	if (!map->textures[4].img || !get_addresses_walls(map))
 		return (destroy_wall_images(display, map, 4), false);
-	return (true);
-}
-
-bool	get_textures_sprites(t_display *display, t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->total_sprite_textures)
-	{
-		map->sprite_textures[i].img = mlx_xpm_file_to_image(display->mlx,
-				map->str_sprite_textures[i], &(map->sprite_textures[i].width),
-				&(map->sprite_textures[i].height));
-		if (!map->sprite_textures[i].img)
-			return (destroy_sprite_images(display, map, i), false);
-		map->textures[i].addr = mlx_get_data_addr(map->textures[i].img,
-				&(map->textures[i].bpp), &(map->textures[i].size_line),
-				&(map->textures[i].endian));
-		if (!map->textures[i].addr)
-			return (destroy_sprite_images(display, map, i), false);
-		++i;
-	}
 	return (true);
 }

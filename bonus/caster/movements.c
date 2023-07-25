@@ -1,8 +1,16 @@
-#include "cub3d_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movements.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:25:39 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:25:40 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-	TODO clean using strchr
-*/
+#include "cub3d_bonus.h"
 
 void	basic_up(t_display *display, t_camera *camera, t_map *map)
 {

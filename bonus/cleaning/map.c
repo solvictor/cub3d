@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:25:27 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:25:28 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 void	clean_map_variables(t_map *map)
@@ -12,10 +24,6 @@ void	clean_map_variables(t_map *map)
 		free(map->path_west);
 	if (map->map)
 		ft_free_strs(map->map);
-	if (map->sprites)
-		free(map->sprites);
-	if (map->str_sprite_textures)
-		ft_free_strs(map->str_sprite_textures);
 	if (map->path_door_closed)
 		free(map->path_door_closed);
 }

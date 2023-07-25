@@ -31,6 +31,7 @@ SRCS 			=	$(addsuffix .c,				\
 					)							\
 						srcs/cub3d				\
 					)
+DEPS_SRCS		= $(SRCS:.c=.d)
 BONUS			= $(addsuffix .c,				\
 					$(addprefix bonus/parsing/,	\
 						parsing					\
@@ -40,15 +41,12 @@ BONUS			= $(addsuffix .c,				\
 						map_correct				\
 						map_creation			\
 						map_formater			\
-						sprite_positions		\
-						sprite_textures			\
 					)							\
 					$(addprefix bonus/cleaning/,\
 						errors					\
 						clean_memory			\
 						map						\
 						mlx						\
-						camera					\
 					)							\
 					$(addprefix bonus/display/,	\
 						display					\
@@ -63,13 +61,11 @@ BONUS			= $(addsuffix .c,				\
 						textures				\
 						walls					\
 						doors					\
-						sprites					\
 					)							\
 					$(addprefix bonus/utils/,	\
 						line_functions			\
 						vectors					\
 						ft_atof_bool			\
-						sort_sprites			\
 					)							\
 					$(addprefix bonus/init/,	\
 						display					\
@@ -78,6 +74,7 @@ BONUS			= $(addsuffix .c,				\
 					)							\
 						bonus/cub3d				\
 					)
+DEPS_BONUS		= $(BONUS:.c=.d)
 BONUSOBJS		= ${BONUS:.c=.o}
 PATH_INCLUDES	= includes
 HEADER			= ${PATH_INCLUDES}
@@ -87,8 +84,7 @@ CC				= cc
 MLXDIR			= minilibx-linux
 MLXLIB			= -lmlx
 XLIBS			= -lX11 -lXext
-FLAGS			= -Wall -Wextra 
-#=====================================TODO ADD WERROR
+FLAGS			= -Wall -Wextra -Werror
 OBJS			= ${SRCS:.c=.o}
 RM				= rm -rf
 RED				= \033[1;31m
@@ -96,11 +92,13 @@ NC				= \033[0m
 LGREEN			= \033[1;32m
 CYAN			= \033[1;36m
 
+-include $(DEPS_SRCS) $(DEPS_BONUS)
+
 %.o: %.c
 	@echo "\033[1A                                                          "
 	@echo -n "\033[1A"
 	@echo "${CYAN}Compiling $< ${NC}"
-	@${CC} ${FLAGS} -o $@ -c $^ -I${HEADER}
+	@${CC} ${FLAGS} -MMD -o $@ -c $^ -I${HEADER}
 
 all: ${NAME}
 	@echo "${LGREEN}Successfully created${NC}${CYAN} ${NAME}${NC}${LGREEN}!${NC}"
@@ -130,7 +128,7 @@ norm:
 
 clean:
 	@echo "${CYAN}Cleaned ${NAME}${NC}"
-	@${RM} ${OBJS}
+	@${RM} ${OBJS} $(DEPS_SRCS)
 fclean:		clean
 	@echo "${CYAN}FCleaned ${NAME}${NC}"
 	@${RM} ${NAME}
@@ -138,10 +136,10 @@ fclean:		clean
 re: fclean all
 
 bonus_clean:
-	@${RM} ${BONUSOBJS}
+	@${RM} ${BONUSOBJS} $(DEPS_BONUS)
 
 bonus_fclean: bonus_clean
-	@${RM} checker
+	@${RM} cub3d_bonus
 
 bonus_re: bonus_fclean bonus
 

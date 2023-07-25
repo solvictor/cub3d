@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   caster.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 12:25:44 by tgernez           #+#    #+#             */
+/*   Updated: 2023/07/25 12:25:45 by tgernez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d_bonus.h"
 
 static void	init_caster(t_display *display, t_camera *camera, int x)
@@ -92,8 +104,6 @@ void	caster(t_display *display, t_map *map, t_camera *camera)
 		if (camera->perp_wall_dist == 0)
 			camera->perp_wall_dist = 1;
 		draw_3d_walls(display, map, camera, x);
-		camera->z_buffer[x] = camera->perp_wall_dist;
-		sprite_casting(display, map, camera, x);
 		++x;
 	}
 }

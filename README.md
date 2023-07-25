@@ -3,8 +3,6 @@
 
 Made by tgernez x vegret
 
-ekip ekip sale dog
-
 **Score** : 
 <br>
 ![vegret's 42 cub3d Score]()
