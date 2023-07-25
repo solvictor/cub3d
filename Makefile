@@ -98,7 +98,7 @@ CYAN			= \033[1;36m
 	@echo "\033[1A                                                          "
 	@echo -n "\033[1A"
 	@echo "${CYAN}Compiling $< ${NC}"
-	@${CC} ${FLAGS} -MMD -o $@ -c $^ -I${HEADER}
+	@${CC} ${FLAGS} -MMD -o $@ -c $< -I${HEADER}
 
 all: ${NAME}
 	@echo "${LGREEN}Successfully created${NC}${CYAN} ${NAME}${NC}${LGREEN}!${NC}"
@@ -175,9 +175,5 @@ mlx_all:
 all_clean: clean libft_clean bonus_clean mlx_clean
 
 all_fclean: fclean libft_fclean bonus_fclean mlx_clean
-
-all_re: libft_re mlx_re re
-	@echo "${CYAN}Re-ed ${NAME}${NC}"
-
 
 .PHONY: all clean fclean re libft_re libft_all libft_fclean libft_clean all_clean all_fclean bonus bonus_clean bonus_fclean bonus_re
