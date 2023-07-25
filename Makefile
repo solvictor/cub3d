@@ -86,6 +86,8 @@ MLXLIB			= -lmlx
 XLIBS			= -lX11 -lXext
 FLAGS			= -Wall -Wextra -Werror
 OBJS			= ${SRCS:.c=.o}
+MLXDIR			= minilibx-linux
+MLXGIT			= https://github.com/42Paris/minilibx-linux.git
 RM				= rm -rf
 RED				= \033[1;31m
 NC				= \033[0m
@@ -103,7 +105,7 @@ CYAN			= \033[1;36m
 all: ${NAME}
 	@echo "${LGREEN}Successfully created${NC}${CYAN} ${NAME}${NC}${LGREEN}!${NC}"
 
-${NAME}: ${OBJS} ${LIBFTDIR}/libft.a ${MLXDIR}/libmlx.a
+${NAME}: ${MLXDIR}/libmlx.a ${OBJS} ${LIBFTDIR}/libft.a
 	@${CC} ${FLAGS} ${OBJS} -I${HEADER} ${XLIBS} -L${MLXDIR} ${MLXLIB} -L${LIBFTDIR} ${LIBFTLIB} -lm -o $@ -g3
 
 sanitize: ${OBJS} ${LIBFTDIR}/libft.a
@@ -112,10 +114,7 @@ sanitize: ${OBJS} ${LIBFTDIR}/libft.a
 ${LIBFTDIR}/libft.a:
 	@make -C ${LIBFTDIR}
 
-${MLXDIR}/libmlx.a:
-	@make -C ${MLXDIR}
-
-bonus: ${BONUSOBJS} ${LIBFTDIR}/libft.a ${MLXDIR}/libmlx.a
+bonus: ${MLXDIR}/libmlx.a ${BONUSOBJS} ${LIBFTDIR}/libft.a 
 	@${CC} ${FLAGS} ${BONUSOBJS} -I${HEADER} ${XLIBS} -L${MLXDIR} ${MLXLIB} -L${LIBFTDIR} ${LIBFTLIB} -lm -o cub3d_bonus -g3
 	@echo "${LGREEN}Successfully created${NC}${CYAN} cub3d_bonus${NC}${LGREEN}!${NC}"
 
@@ -123,6 +122,13 @@ norm:
 	norminette srcs
 	norminette includes
 	norminette libft
+
+${MLXDIR}/libmlx.a:
+	@if [ ! -d "${MLXDIR}" ] ; then \
+		echo "${CYAN}MLX not found. Cloning repository...${NC}"; \
+		git clone ${MLXGIT} ${MLXDIR}; \
+	fi
+	@make -C ${MLXDIR}
 
 #----------------------------CUB3D
 

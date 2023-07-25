@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:23:53 by tgernez           #+#    #+#             */
-/*   Updated: 2023/07/25 12:23:54 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/07/25 13:14:53 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <math.h>
-# include "../minilibx-linux/mlx.h"
-# include "../minilibx-linux/mlx_int.h"
+# include "mlx.h"
+# include "mlx_int.h"
 
 # define RESET "\033[0m"
 # define BOLD "\033[1m"
