@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:23:53 by tgernez           #+#    #+#             */
-/*   Updated: 2023/07/25 13:14:53 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:25:13 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ typedef struct s_camera
 	bool		a;
 	bool		s;
 	bool		d;
+	bool		l_key;
+	bool		r_key;
 }				t_camera;
 
 typedef struct s_vars
@@ -215,6 +217,8 @@ void			draw_3d_walls(t_display *display, t_map *map, t_camera *camera,
 					int x);
 void			movement_selector(t_display *display, t_camera *camera,
 					t_map *map);
+void			r_key(t_display *display, t_camera *camera);
+void			l_key(t_display *display, t_camera *camera);
 
 /******************************************************************************/
 /*                                                                            */

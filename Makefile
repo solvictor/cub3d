@@ -24,6 +24,7 @@ SRCS 			=	$(addsuffix .c,				\
 						movements				\
 						textures				\
 						walls					\
+						arrows					\
 					)							\
 					$(addprefix srcs/utils/,	\
 						line_functions			\
@@ -61,6 +62,7 @@ BONUS			= $(addsuffix .c,				\
 						textures				\
 						walls					\
 						doors					\
+						arrows					\
 					)							\
 					$(addprefix bonus/utils/,	\
 						line_functions			\

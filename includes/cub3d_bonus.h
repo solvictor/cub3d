@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:23:59 by tgernez           #+#    #+#             */
-/*   Updated: 2023/07/25 13:15:04 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/08/02 18:09:48 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,8 @@ typedef struct s_camera
 	bool			a;
 	bool			s;
 	bool			d;
+	bool			l_key;
+	bool			r_key;
 	int				hit;
 	float			angle;
 }					t_camera;
@@ -249,8 +251,8 @@ void			movement_selector(t_display *display, t_camera *camera,
 void			mlx_spp(t_display *display, int x, int y, int color);
 bool			door(t_map *map, t_camera *camera);
 void			door_action(t_display *display, t_map *map, t_camera *camera);
-void			sprite_casting(t_display *display, t_map *map, t_camera *camera,
-					int x);
+void			r_key(t_display *display, t_camera *camera);
+void			l_key(t_display *display, t_camera *camera);
 
 /******************************************************************************/
 /*                                                                            */

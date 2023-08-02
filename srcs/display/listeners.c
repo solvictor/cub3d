@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:22:57 by tgernez           #+#    #+#             */
-/*   Updated: 2023/07/25 12:22:58 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:26:36 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int	on_keypress(int keycode, t_vars *vars)
 		vars->camera->s = true;
 	if (keycode == XK_d)
 		vars->camera->d = true;
+	if (keycode == XK_Left)
+		vars->camera->l_key = true;
+	if (keycode == XK_Right)
+		vars->camera->r_key = true;
 	return (1);
 }
 
@@ -39,5 +43,9 @@ int	on_keyrelease(int keycode, t_vars *vars)
 		vars->camera->s = false;
 	if (keycode == XK_d)
 		vars->camera->d = false;
+	if (keycode == XK_Left)
+		vars->camera->l_key = false;
+	if (keycode == XK_Right)
+		vars->camera->r_key = false;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:22:40 by tgernez           #+#    #+#             */
-/*   Updated: 2023/07/25 12:22:41 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:55:40 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,32 @@ static void	basic_down(t_display *display, t_camera *camera, t_map *map)
 		camera->pos.y -= camera->dir.y * camera->move_speed;
 }
 
-static void	basic_left(t_display *display, t_camera *camera)
+static void	basic_left(t_display *display, t_camera *camera, t_map *map)
 {
-	const double	old_dir_x = camera->dir.x;
-	const double	old_plane_x = camera->plane.x;
+	double		new_x;
+	double		new_y;
 
 	display->refresh = true;
-	camera->dir.x = old_dir_x * cos(-camera->rot_speed)
-		- camera->dir.y * sin(-camera->rot_speed);
-	camera->dir.y = old_dir_x * sin(-camera->rot_speed)
-		+ camera->dir.y * cos(-camera->rot_speed);
-	camera->plane.x = old_plane_x * cos(-camera->rot_speed)
-		- camera->plane.y * sin(-camera->rot_speed);
-	camera->plane.y = old_plane_x * sin(-camera->rot_speed)
-		+ camera->plane.y * cos(-camera->rot_speed);
+	new_x = camera->pos.x + camera->dir.y * camera->move_speed;
+	new_y = camera->pos.y - camera->dir.x * camera->move_speed;
+	if (new_y > 1 && new_y <= map->height - 1)
+		camera->pos.y = new_y;
+	if (new_x > 1 && new_x <= map->width - 1)
+		camera->pos.x = new_x;
 }
 
-static void	basic_right(t_display *display, t_camera *camera)
+static void	basic_right(t_display *display, t_camera *camera, t_map *map)
 {
-	const double	old_dir_x = camera->dir.x;
-	const double	old_plane_x = camera->plane.x;
+	double		new_x;
+	double		new_y;
 
 	display->refresh = true;
-	camera->dir.x = old_dir_x * cos(camera->rot_speed)
-		- camera->dir.y * sin(camera->rot_speed);
-	camera->dir.y = old_dir_x * sin(camera->rot_speed)
-		+ camera->dir.y * cos(camera->rot_speed);
-	camera->plane.x = old_plane_x * cos(camera->rot_speed)
-		- camera->plane.y * sin(camera->rot_speed);
-	camera->plane.y = old_plane_x * sin(camera->rot_speed)
-		+ camera->plane.y * cos(camera->rot_speed);
+	new_x = camera->pos.x - camera->dir.y * camera->move_speed;
+	new_y = camera->pos.y + camera->dir.x * camera->move_speed;
+	if (new_y > 1 && new_y <= map->height - 1)
+		camera->pos.y = new_y;
+	if (new_x > 1 && new_x <= map->width - 1)
+		camera->pos.x = new_x;
 }
 
 void	movement_selector(t_display *display, t_camera *camera, t_map *map)
@@ -85,9 +81,13 @@ void	movement_selector(t_display *display, t_camera *camera, t_map *map)
 	if (camera->w == true)
 		basic_up(display, camera, map);
 	if (camera->a == true)
-		basic_left(display, camera);
+		basic_left(display, camera, map);
 	if (camera->s == true)
 		basic_down(display, camera, map);
 	if (camera->d == true)
-		basic_right(display, camera);
+		basic_right(display, camera, map);
+	if (camera->r_key == true)
+		r_key(display, camera);
+	if (camera->l_key == true)
+		l_key(display, camera);
 }

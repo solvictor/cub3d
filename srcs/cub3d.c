@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:23:21 by tgernez           #+#    #+#             */
-/*   Updated: 2023/07/25 12:23:22 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:31:18 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	init_camera(t_vars *vars, t_camera *camera)
 	camera->a = false;
 	camera->s = false;
 	camera->d = false;
+	camera->l_key = false;
+	camera->r_key = false;
 	vars->camera = camera;
 }
 
