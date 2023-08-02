@@ -6,7 +6,7 @@
 /*   By: tgernez <tgernez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 12:23:59 by tgernez           #+#    #+#             */
-/*   Updated: 2023/08/02 18:09:48 by tgernez          ###   ########.fr       */
+/*   Updated: 2023/08/02 18:13:40 by tgernez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,9 +201,6 @@ bool			create_map(t_vars *vars, t_map *map);
 void			format_map(t_map *map);
 bool			do_textures_exist(t_map *map);
 bool			find_extra_parameter(t_map *map, t_vars *vars);
-bool			parse_sprite_positions(t_map *map, char *value);
-bool			parse_sprite_textures(t_map *map, char *value);
-bool			check_sprite_position(t_map *map);
 bool			check_file_format(t_map *map);
 
 /******************************************************************************/
@@ -219,7 +216,6 @@ void			destroy_sprite_images(t_display *display, t_map *map,
 					const int ind);
 void			destroy_window(t_display *display);
 void			clean_map_variables(t_map *map);
-void			clean_camera_variables(t_camera *camera);
 
 /******************************************************************************/
 /*                                                                            */
@@ -261,8 +257,6 @@ void			l_key(t_display *display, t_camera *camera);
 /******************************************************************************/
 void			init_position(t_camera *camera, char start_dir);
 void			set_to_zero_camera(t_vars *vars, t_camera *camera);
-bool			init_sprites_requirements(t_camera *camera, t_map *map,
-					t_display *display);
 bool			init_display(t_display *display);
 void			set_to_zero_display(t_vars *vars, t_display *display);
 void			set_to_zero_map(t_vars *vars, t_map *map);
